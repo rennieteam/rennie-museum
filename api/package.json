@@ -1,0 +1,27 @@
+{
+  "name": "booking-system",
+  "version": "1.0.0",
+  "description": "Back-end booking system",
+  "main": "index.js",
+  "scripts": {
+    "start:dev": "nodemon .",
+    "dev": "index.js",
+    "test": "text.js"
+  },
+  "author": "",
+  "license": "GPL-3.0-or-later",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "pg": "^7.7.1",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^4.41.2",
+    "sequelize-cli": "^5.4.0"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "lodash.random": "^3.2.0",
+    "lodash.times": "^4.3.2",
+    "nodemon": "^1.18.8"
+  }
+}
