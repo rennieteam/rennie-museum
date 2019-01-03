@@ -1,14 +1,33 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://josh@localhost:5432/booking_system_development');
+const sequelize = new Sequelize('postgres://Paul@localhost:5432/booking_system_development');
 
 // Models
 const evnt = require('./../../db/models/event');
 const Events = evnt(sequelize, Sequelize)
 
+const attd = require('./../../db/models/attendee');
+const Attendee = attd(sequelize, Sequelize);
+
 const eventRouter = function (app) {
 
   app.get('/api/events', (req, res) => {
     Events.findAll().then(evt => res.json(evt));
+  });
+
+  app.get('/api/events/test', (req, res) => {
+    Events.findOne({
+      where: {
+        id: 1
+      },
+      include: [{
+        model: Attendee,
+        as: 'attendees'
+      }]
+    }).then(evt =>
+      {console.log(evt);
+      res.json(evt.attendees);
+      }
+    )
   });
 
   app.post('/api/events', (req, res) => {

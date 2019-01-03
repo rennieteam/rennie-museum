@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://josh@localhost:5432/booking_system_development');
+const sequelize = new Sequelize('postgres://Paul@localhost:5432/booking_system_development');
 
 // Models
 const att = require('./../../db/models/attendee');
@@ -11,7 +11,7 @@ const attendeeRouter = function (app) {
   });
 
   app.post('/api/attendees', (req, res) => {
-    Attendee.create(req.query).then( (result) => {
+    Attendee.create(req.body).then( (result) => {
       res.json(result);
     });
   });

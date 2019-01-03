@@ -1,20 +1,20 @@
 {
   "development": {
-    "username": "josh",
+    "username": "Paul",
     "password": null,
     "database": "booking_system_development",
     "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
-    "username": "josh",
+    "username": "Paul",
     "password": null,
     "database": "booking_system_test",
     "host": "localhost",
     "dialect": "postgres"
   },
   "production": {
-    "username": "josh",
+    "username": "Paul",
     "password": null,
     "database": "booking_system_production",
     "host": "localhost",

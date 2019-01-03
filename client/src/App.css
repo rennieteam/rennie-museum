@@ -1,0 +1,15 @@
+.event {
+  width: max-content;
+  height: max-content;
+  border: 1px black solid;
+  display: flex;
+}
+
+.event-date {
+  padding: 10px;
+  background: lightgrey;
+  border-radius: 2px;
+  height: max-content;
+  width: max-content;
+  margin: 20px;
+}
