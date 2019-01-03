@@ -2,11 +2,16 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize('postgres://Paul@localhost:5432/booking_system_development');
 
 // Models
-const evnt = require('./../../db/models/event');
-const Events = evnt(sequelize, Sequelize)
 
-const attd = require('./../../db/models/attendee');
-const Attendee = attd(sequelize, Sequelize);
+const db = require('./../../db/models/index');
+const Events = db.Event;
+const Attendee = db.Attendee;
+
+// const evnt = require('./../../db/models/event');
+// const Events = evnt(sequelize, Sequelize)
+
+// const attd = require('./../../db/models/attendee');
+// const Attendee = attd(sequelize, Sequelize);
 
 const eventRouter = function (app) {
 
@@ -25,7 +30,7 @@ const eventRouter = function (app) {
       }]
     }).then(evt =>
       {console.log(evt);
-      res.json(evt.attendees);
+      res.json(evt);
       }
     )
   });

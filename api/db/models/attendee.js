@@ -1,22 +1,20 @@
 'use strict';
-// const Event = require('./event');
 
 module.exports = (sequelize, DataTypes) => {
 
   const Attendee = sequelize.define('Attendee', {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
-    guests: DataTypes.JSON
-  }, {});
+    guests: DataTypes.JSON,
+    EventId: DataTypes.INTEGER
+  });
 
-
-  // Attendee.associate = function(models) {
-  //   Attendee.belongsTo(models.Event, {
-  //     foreignKey: 'event_id'
-  //   });
-  // };
-
-  // Attendee.belongsTo(Event, { foreignKey: 'event_id' });
+  Attendee.associate = (models) => {
+    Attendee.belongsTo(models.Event, {
+      onDelete: "CASCADE",
+      foreignKey: 'EventId'
+    });
+  };
 
   return Attendee;
 };

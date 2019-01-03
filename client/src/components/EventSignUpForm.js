@@ -8,7 +8,7 @@ class EventSignUpForm extends Component {
     this.state = {
       name: '',
       email: '',
-      event_id: this.props.event.id,
+      EventId: this.props.event.id,
       guests: [],
       remainingSpots: config.EVENT_MAX - this.props.event.numberOfAttendees
     };
