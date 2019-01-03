@@ -1,0 +1,24 @@
+{
+  "name": "booking-system",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "express-php-fpm": "^2.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev:setup": "node setup.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rennieteam/rennie-museum.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rennieteam/rennie-museum/issues"
+  },
+  "homepage": "https://github.com/rennieteam/rennie-museum#readme"
+}
