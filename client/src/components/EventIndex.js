@@ -10,7 +10,8 @@ class EventIndex extends Component {
     super(props);
     this.state = {
       events: [],
-      selectedEvent: null
+      selectedEvent: null,
+      submitMessage: false
     };
   }
 
@@ -38,6 +39,10 @@ class EventIndex extends Component {
     )
   };
 
+  submitMessageToggle = (value) => {
+    this.setState({ submitMessage: value })
+  };
+
   render() {
     return(
       <div className="event">
@@ -48,7 +53,10 @@ class EventIndex extends Component {
           )
         })}
         {
-          this.state.selectedEvent ? <EventSignUpForm event={this.state.selectedEvent} closeForm={this.closeForm}/> : ''
+          this.state.selectedEvent ? <EventSignUpForm event={this.state.selectedEvent} closeForm={this.closeForm} submitMessageToggle={this.submitMessageToggle} /> : ''
+        }
+        {
+          this.state.submitMessage ? <p> Thank You For Booking </p> : ''
         }
       </div>
     )

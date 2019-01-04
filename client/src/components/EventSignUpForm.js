@@ -10,7 +10,8 @@ class EventSignUpForm extends Component {
       email: '',
       EventId: this.props.event.id,
       guests: [],
-      remainingSpots: config.EVENT_MAX - this.props.event.numberOfAttendees
+      remainingSpots: config.EVENT_MAX - this.props.event.numberOfAttendees,
+      error: false
     };
   };
 
@@ -23,10 +24,22 @@ class EventSignUpForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`${config.API_URL}/api/attendees`, this.state)
-      .then((result) => {
-        
-      })
+    if(this.state.name && this.state.email && this.state.guests.every(this.checkEmptyGuest)){
+      axios.post(`${config.API_URL}/api/attendees`, this.state)
+        .then((result) => {
+          this.props.submitMessageToggle(true);
+          this.props.closeForm();
+        })
+        .catch((error) => {
+          this.setState({error: true});
+        })
+    } else {
+      this.setState({error: true});
+    };
+  };
+
+  checkEmptyGuest = (guest) => {
+    return guest.name;
   };
 
   addGuest = (event) => {
@@ -54,15 +67,15 @@ class EventSignUpForm extends Component {
     )
   };
 
-  render() {
-    return (
+  signUpForm = () => {
+    return(
       <form className="event-signup-form">
         <h2> Tour: {this.props.event.id} </h2>
         <label> Name: </label>
         <input name="name" value={this.state.name} onChange={this.handleChange} />
         <label> Email: </label>
         <input name="email" value={this.state.email} onChange={this.handleChange} />
-        <button onClick={this.addGuest}> Add Guest </button>
+        <button onClick={this.addGuest} disabled={this.state.guests.length >= this.state.remainingSpots - 1}> Add Guest </button>
         {
           this.state.guests.map((guest, index) => {
             return(
@@ -72,7 +85,16 @@ class EventSignUpForm extends Component {
         }
         <button onClick={this.handleSubmit}> Submit </button>
         <button onClick={this.props.closeForm}> Cancel </button>
+        {
+          this.state.error ? <p> ERROR </p> : ''
+        }
       </form>
+    )
+  }
+
+  render() {
+    return (
+      this.signUpForm()
     )
   };
 

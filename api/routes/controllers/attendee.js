@@ -12,24 +12,17 @@ const attendeeRouter = function (app) {
   });
 
   app.post('/api/attendees', (req, res) => {
-    // Event.update(
-    //   { numberOfAttendees: sequelize.literal(`numberOfAttendees + 1 + ${req.body.guests.length}`) },
-    //   { where: { id: req.body.EventId } }
-    // ).then((result) => {
-
-    // });
+    let count = req.body.guests.length + 1;
 
     Event.find({ where: { id: req.body.EventId } })
+      .then((event) => {
+        if(event) {
+          return event.increment({ "numberOfAttendees" : count })
+        }
+      });
 
     Attendee.create(req.body)
       .then( (result) => {
-        // Event.findOne({
-        //   where: {
-        //     id: req.body.EventId
-        //   }
-        // }).then((result) => {
-        //   result.numberOfAttendees + req.body.guests.length + 1;
-        // });
         res.json(result);
       })
       .catch(error => console.log(error))
