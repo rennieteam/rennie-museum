@@ -1,9 +1,6 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://josh@localhost:5432/booking_system_development');
-
-// Models
-const att = require('./../../db/models/attendee');
-const Attendee = att(sequelize, Sequelize)
+const db = require('./../../db/models/index');
+const Event = db.Event;
+const Attendee = db.Attendee;
 
 const attendeeRouter = function (app) {
   app.get('/api/attendees', (req, res) => {
@@ -11,9 +8,20 @@ const attendeeRouter = function (app) {
   });
 
   app.post('/api/attendees', (req, res) => {
-    Attendee.create(req.query).then( (result) => {
-      res.json(result);
-    });
+    let count = req.body.guests.length + 1;
+
+    Event.find({ where: { id: req.body.EventId } })
+      .then((event) => {
+        if(event) {
+          return event.increment({ "numberOfAttendees" : count })
+        }
+      });
+
+    Attendee.create(req.body)
+      .then( (result) => {
+        res.json(result);
+      })
+      .catch(error => console.log(error))
   });
 
   app.get('/api/attendee/:attendeeId', (req, res) => {
