@@ -1,7 +1,3 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://Paul@localhost:5432/booking_system_development');
-
-// Models
 const db = require('./../../db/models/index');
 const Event = db.Event;
 const Attendee = db.Attendee;
