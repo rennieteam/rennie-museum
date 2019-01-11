@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import config from '../config.js';
+import validator from 'email-validator';
 
 class EventSignUpForm extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class EventSignUpForm extends Component {
       EventId: this.props.event.id,
       guests: [],
       remainingSpots: config.EVENT_MAX - this.props.event.numberOfAttendees,
-      error: false
+      error: false,
+      subscribe: false
     };
   };
 
@@ -24,7 +26,7 @@ class EventSignUpForm extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    if(this.state.name && this.state.email && this.state.guests.every(this.checkEmptyGuest)){
+    if (this.state.name && validator.validate(this.state.email) && this.state.guests.every(this.checkEmptyGuest)) {
       axios.post(`${config.API_URL}/api/attendees`, this.state)
         .then((result) => {
           this.props.submitMessageToggle(true);
@@ -67,6 +69,12 @@ class EventSignUpForm extends Component {
     )
   };
 
+  mailSubscribe = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    this.setState({subscribe: value})
+  };
+
   signUpForm = () => {
     return(
       <form className="event-signup-form">
@@ -83,6 +91,8 @@ class EventSignUpForm extends Component {
             )
           })
         }
+        <label> Subscribe </label>
+        <input type="checkbox" value={this.state.subscribe} onChange={this.mailSubscribe}/>
         <button onClick={this.handleSubmit}> Submit </button>
         <button onClick={this.props.closeForm}> Cancel </button>
         {
