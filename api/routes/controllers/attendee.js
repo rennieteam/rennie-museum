@@ -64,7 +64,7 @@ const attendeeRouter = function (app) {
           from: config.mandrill.fromAddress,
           to: req.body.email,
           subject: config.mandrill.subject,
-          html: `Thank you for booking! <a href="${config.cancelLink}/${hash}">Cancel</a>`
+          html: `Thank you for booking! <a href="${config.cancelLink}/${hash}">Edit/Cancel Booking</a>`
         }, function(error, info){
           if(error){
             console.log(error);

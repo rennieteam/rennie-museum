@@ -1,13 +1,13 @@
 {
   "development": {
-    "username": "Paul",
+    "username": "paul",
     "password": null,
     "database": "booking_system_development",
     "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
-    "username": "Paul",
+    "username": "paul",
     "password": null,
     "database": "booking_system_test",
     "host": "localhost",

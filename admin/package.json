@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "human-date": "^1.4.0",
+    "query-string": "^6.2.0",
     "react": "^16.7.0",
     "react-datetime-picker": "^2.1.1",
     "react-dom": "^16.7.0",

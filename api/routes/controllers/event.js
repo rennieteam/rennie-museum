@@ -18,13 +18,21 @@ const corsOptions = {
 const eventRouter = function (app) {
 
   app.get('/api/events', (req, res) => {
-    Events.findAll().then(evt => res.json(evt));
+    Events.findAll(
+      {
+        order: [
+          ['date', 'ASC']
+        ]
+      }
+    )
+    .then(evt => res.json(evt));
   });
 
   app.post('/api/events', (req, res) => {
     Events.create(req.body).then((result) => {
       res.json(result);
     });
+    res.json({})
   });
 
   app.get('/api/event/:eventId', (req, res) => {
@@ -42,13 +50,29 @@ const eventRouter = function (app) {
   });
 
   app.put('/api/event/:eventId', (req, res) => {
-    Events.update(req.query, {
-      where: {
-        id: parseInt(req.params['EventId'])
-      }
-    }).then((result) => {
-      res.json(result);
-    });
+    let options = {};
+    if(req.body.newDate){
+      options.date = req.body.newDate;
+    };
+
+    if(req.body.attendeesRemoval.length){
+      Attendee.destroy({
+        where: {
+          id: req.body.attendeesRemoval
+        }
+      });
+    };
+
+    Events.update(
+      options,
+      {returning: true, where: { id: req.body.event.id }}
+    )
+    .then(([result, [updatedEvent]]) => {
+      res.json(updatedEvent);
+    })
+    .catch((error) => {
+      res.json(error);
+    })
   });
 
   // this line needed to enable CORS pre-flight for delete method
