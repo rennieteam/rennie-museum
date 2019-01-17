@@ -11,11 +11,13 @@ let transport = nodemailer.createTransport(mandrillTransport({
 
 module.exports = (data = null, subscribe = false, forCancel = false) => {
   let temp = forCancel ? 'your tour has been cancelled' : 'thank you for booking a tour';
+  let link = forCancel ? config.homeLink : config.cancelLink;
+  let linkText = forCancel ? 'Rebook' : 'Edit/Cancel Booking'
   transport.sendMail({
     from: config.mandrill.fromAddress,
     to: data.email,
     subject: 'Test',
-    html: `Hi ${data.name}, ${temp}`
+    html: `<p> Hi ${data.name}, ${temp}. <a href="${link}${data.hash}"> ${linkText} </a> </p>`
   }, function(error, info){
     if(error){
       console.log(error);

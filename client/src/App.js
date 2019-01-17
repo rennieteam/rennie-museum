@@ -25,9 +25,14 @@ class App extends Component {
   };
 
   render() {
+    let q = qs.parse(this.props.location.hash);
     return (
       <div className="App">
-        {this.renderComponents()}
+        <Route path="/" render={(props) => <BookingForm {...props}/>} />
+        {
+          q.cancel ? <Route path="/" render={(props) => <CancelForm {...props} /> } /> : '' 
+        }
+        {/* {this.renderComponents()} */}
         {/* <Route exact path="/events" component={EventIndex} />
         <Route exact path="/event/cancel/:hash" component={CancelForm} /> */}
       </div>

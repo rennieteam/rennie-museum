@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import qs from 'query-string';
 // import Moment from 'react-moment';
 
 import config from '../config.js';
@@ -16,7 +17,8 @@ class CancelForm extends Component {
   }
 
   componentDidMount = () => {
-    axios.get(`${config.API_URL}/api/attendee/${this.props.match.params.hash}`)
+    let q = qs.parse(this.props.location.hash);
+    axios.get(`${config.API_URL}/api/attendee/${q.cancel}`)
       .then((result) => {
         this.setState({attendee: result.data, guests: result.data.guests});
       })

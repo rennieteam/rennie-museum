@@ -296,7 +296,6 @@ class BookingForm extends Component {
               </div>
 
               <button onClick={this.showState}> State </button>
-              <a href="#register"> Reg </a>
             </div>
           </div>
         </div>
