@@ -25,6 +25,13 @@ class EventIndex extends Component {
     })
   };
 
+  testF = () => {
+    axios.get(`${config[process.env.NODE_ENV]}/api/test`)
+      .then((result) => {
+        console.log(result)
+      })
+  };
+
   render() {
     return (
       <div className="">
@@ -34,6 +41,7 @@ class EventIndex extends Component {
               <div key={event.id}>
                 { hdate.prettyPrint(new Date(Date.parse(event.date)), {showTime: true}) }
                 <span onClick={() => this.setEditParams(event.id)}> Edit </span>
+                <h1 onClick={this.testF}> Test </h1>
               </div>
             )
           })

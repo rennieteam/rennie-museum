@@ -10,14 +10,15 @@ class CancelForm extends Component {
     this.state = {
       attendee: {},
       cancelSuccess: false,
-      errorMessage: false
+      errorMessage: false,
+      guests: []
     };
   }
 
   componentDidMount = () => {
     axios.get(`${config.API_URL}/api/attendee/${this.props.match.params.hash}`)
       .then((result) => {
-        this.setState({attendee: result.data});
+        this.setState({attendee: result.data, guests: result.data.guests});
       })
       .catch((error) => {
 
@@ -35,11 +36,26 @@ class CancelForm extends Component {
   };
 
   renderPrompt = () => {
+    console.log(this.state.attendee)
     if(!this.state.cancelSuccess){
       return(
         <div>
           <h2> Hello {this.state.attendee.name}! </h2>
+          {
+            this.state.attendee.length ? <h3> Guests </h3> : ''
+          }
+          {
+            this.state.guests.map((guest) => {
+              return(
+                <div>
+                  {guest.name}
+                </div>
+              )
+            })
+          }
+          <button> Add Guest </button>
           <button onClick={this.cancelBooking}> Cancel Booking </button>
+          <button> Update Booking </button>
           {
             this.state.errorMessage ? <p> Error </p> : ''
           }

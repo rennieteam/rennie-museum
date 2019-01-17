@@ -2,6 +2,7 @@ const db = require('./../../db/models/index');
 const Events = db.Event;
 const Attendee = db.Attendee;
 const cors = require('cors');
+const mailerHelper = require('../../helpers/mailerHelper');
 
 const config = require('../../config');
 
@@ -22,7 +23,11 @@ const eventRouter = function (app) {
       {
         order: [
           ['date', 'ASC']
-        ]
+        ],
+        include: [{
+          model: Attendee,
+          as: 'attendees'
+        }]
       }
     )
     .then(evt => res.json(evt));
@@ -79,13 +84,23 @@ const eventRouter = function (app) {
   app.options('/api/event/:eventId', cors(corsOptions));
 
   app.delete('/api/event/:eventId', cors(corsOptions), (req, res) => {
+    Attendee.findAll({
+      where: {
+        EventId: parseInt(req.params['eventId'])
+      }
+    }).then((result) => {
+      result.forEach((attendee) => {
+        mailerHelper(attendee.dataValues, false, true)
+      })
+    }).catch(err => console.log(err));
+
     Events.destroy({
       where: {
         id: parseInt(req.params['eventId'])
       }
     }).then((result) => {
       res.json(result);
-    });
+    }).catch(err => console.log(err))
   });
 }
 

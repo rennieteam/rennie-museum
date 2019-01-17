@@ -1,3 +1,7 @@
+* {
+  color: black;
+}
+
 .event {
   width: max-content;
   height: max-content;
@@ -12,4 +16,98 @@
   height: max-content;
   width: max-content;
   margin: 20px;
+}
+
+.booking-form-cta {
+  margin-left: auto;
+  padding: 10px 10px 0 10px;
+  width: max-content;
+  height: 60px;
+  display: flex;
+  background: black;
+  color: white;
+  position: relative;
+  z-index: 2;
+}
+
+.hidden {
+  display: none;
+}
+
+.booking-form-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  height: 400px;
+  width: 400px;
+  box-shadow: 0 0 36px rgba(0,0,0,0.04);
+}
+
+.booking-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  height: 70px;
+  color: black;
+  border-bottom: thin black solid;
+}
+
+.form-body {
+  width: calc(100% - 40px);
+  height: calc(100% - 70px - 40px);
+  padding: 20px;
+}
+
+.form-body > h2 {
+  color: black;
+  margin: 0;
+}
+
+.date-time-select {
+  display: flex;
+  width: 100%;
+}
+
+.date-select, .time-select {
+  width: calc(100% / 3);
+}
+
+.time-select {
+  margin: 0 10px;
+}
+
+.availability {
+  width: calc(100% / 3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: thin red solid;
+}
+
+.submit-prompt-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.guests-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.guests-container > .guest-inputs {
+  display: flex;
+  width: 100%;
+}
+
+.guests-container > .guest-inputs > input {
+  width: calc(50% - 10px);
 }
