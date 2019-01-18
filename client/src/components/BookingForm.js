@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-// import Moment from 'react-moment';
 import hdate from 'human-date';
 import validator from 'email-validator';
 import config from '../config.js';
@@ -60,7 +59,7 @@ class BookingForm extends Component {
   };
 
   selectDate = (selectedDate) => {
-    this.setState({ selectedDate });
+    this.setState({ selectedDate, selectedTime: null, EventId: null });
     let filteredEvents = this.state.events.filter((event) => {
       let d = new Date(event.date)
       return d.setHours(0,0,0,0) === selectedDate.value && this.calculateCount(event) < event.numberOfAttendees;
@@ -94,7 +93,7 @@ class BookingForm extends Component {
     };
   };
 
-  showForm = () => {
+  showForm = (e) => {
     let form = document.getElementsByClassName('booking-form-container')[0];
     let classList = form.classList;
     if(classList.contains('hidden')){
@@ -106,10 +105,6 @@ class BookingForm extends Component {
 
   stopProp = (e) => {
     e.stopPropagation();
-  };
-
-  showState = () => {
-    console.log(this.state);
   };
 
   handleAttendeeInfo = (event) => {
@@ -149,18 +144,22 @@ class BookingForm extends Component {
             )
           })
         }
-        <div onClick={() => this.removeGuest(index)}> X </div>
+        <i className="fas fa-times remove-guest" onClick={() => this.removeGuest(index)} />
       </div>
     )
   };
 
   addGuest = () => {
     if(this.state.EventId){
-      let guests = Object.assign([], this.state.guests);
-      guests.push({name: '', email: ''});
-      this.setState({ guests });
+      if(this.state.selectedEvent.numberOfAttendees - this.state.eventCount - this.state.guests.length - 1 > 0){
+        let guests = Object.assign([], this.state.guests);
+        guests.push({name: '', email: ''});
+        this.setState({ guests });
+      } else {
+        this.setMessage('Not enough spots.');
+      };
     } else {
-      this.setMessage('Please select a tour first');
+      this.setMessage('Please select a tour first.');
     };
   };
 
@@ -195,24 +194,24 @@ class BookingForm extends Component {
     const checkGuests = guest => guest.name;
     body.guests = guests;
     if(!this.state.EventId) {
-      this.setMessage('Please select a date and time');
+      this.setMessage('Please select a date and time.');
     } else if(!this.state.name) {
-      this.setMessage('Name is required');
+      this.setMessage('Name is required.');
     } else if(!validEmail){
-      let message = this.state.email.length ? 'Invalid email' : 'Email is required';
+      let message = this.state.email.length ? 'Invalid email.' : 'Email is required.';
       this.setMessage(message)
     } else if(!guests.every(checkGuests)) {
-      this.setMessage('Guest names are required')
+      this.setMessage('Guest names are required.')
     } else {
       bodyParams.forEach((param) => {
         body[param] = this.state[param];
       });
       axios.post(`${config.API_URL}/api/attendees`, body)
         .then((result) => {
-          this.setMessage('Thank you for booking');
+          this.setMessage('Thank you for booking.');
         })
         .catch((error) => {
-          this.setMessage('Sorry, could not book at this moment');
+          this.setMessage('Sorry, could not book at this moment.');
         })
     }
   };
@@ -220,29 +219,33 @@ class BookingForm extends Component {
   renderForm = () => {
     return(
       <div className="booking-form-cta" onClick={this.showForm}>
-        book a tour
-        <div className="booking-form-container">
+        <p className="cta-text"> tours </p>
+        <div className="booking-form-container hidden" >
           <div className="booking-form">
-            <div className="header"> Spring 2019 </div>
+            <div className="cta-header" onClick={this.stopProp}>
+              <p className="header-title"> Spring 2019: <br /> Collected Works </p>
+              <p className="sub-header"> Through May 25, 2019 </p>
+            </div>
             <div className="form-body" onClick={this.stopProp}>
+              <h2 className="form-header"> Your booking details </h2>
               <div className="date-time-select">
                 <Select
                   className="date-select"
-                  placeholder="Select a date"
+                  placeholder="Date"
                   value={this.state.selectedDate}
                   onChange={this.selectDate}
                   options={this.state.dateOptions}
                 />
                 <Select 
                   className="time-select"
-                  placeholder="Select a time"
+                  placeholder="Time"
                   value={this.state.selectedTime}
                   onChange={this.selectTime}
                   options={this.state.timeOptions}
                   isDisabled={!this.state.selectedDate}
                 />
                 {
-                  this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount}/{this.state.selectedEvent.numberOfAttendees} Available </div> : ''
+                  this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
                 }
               </div>
               <div className="attendee-info">
@@ -276,11 +279,12 @@ class BookingForm extends Component {
                     {
                       this.state.guests.map( (guest,index) => this.guestInput(guest,index) )
                     }
-                    <button 
-                      onClick={this.addGuest}
-                      disabled={this.state.selectedEvent.numberOfAttendees - this.state.eventCount - this.state.guests.length - 1 <= 0}
-                    > Add Guest 
-                    </button>
+                    <div className="add-guest" onClick={this.addGuest}>
+                      <i 
+                        className="fas fa-plus"
+                      />
+                      <span> Add Guest </span>
+                    </div>
                   </div>
                   :
                   ''
@@ -290,12 +294,10 @@ class BookingForm extends Component {
               }
               <div className="submit-prompt-container">
                 {
-                  this.guestCount() ? <span> You are booking {this.guestCount()} visitors to the museum. </span> : ''
+                  this.guestCount() ? <span className="guest-message"> You are booking {this.guestCount()} visitors to the museum. </span> : ''
                 }
-                <button onClick={this.handleSubmit}> Submit </button>
+                <button className="submit-button" onClick={this.handleSubmit}> Book now </button>
               </div>
-
-              <button onClick={this.showState}> State </button>
             </div>
           </div>
         </div>

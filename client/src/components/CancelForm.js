@@ -49,7 +49,7 @@ class CancelForm extends Component {
           {
             this.state.guests.map((guest) => {
               return(
-                <div>
+                <div key={guest.name + Math.random()}>
                   {guest.name}
                 </div>
               )
@@ -84,8 +84,9 @@ class CancelForm extends Component {
     return(
       <div className="">
         {
-          this.state.attendee ? this.renderPrompt() : this.renderNotFound()
+          this.state.attendee.id ? this.renderPrompt() : this.renderNotFound()
         }
+        <button onClick={() => console.log(this.state)}> State </button>
       </div>
     )
   };

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import qs from 'query-string';
 
-import EventIndex from './components/EventIndex';
+// import EventIndex from './components/EventIndex';
 import CancelForm from './components/CancelForm';
 import BookingForm from './components/BookingForm';
 import './App.css';
