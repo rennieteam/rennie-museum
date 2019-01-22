@@ -33,6 +33,19 @@ const attendeeRouter = function (app) {
       res.json(attendees);
     })
   });
+
+  app.post('/api/attendee/register', (req, res) => {
+    const mailChimp = new Mailchimp(config.mailchimp.key);
+    mailChimp.post(`lists/${config.mailchimp.listId}`, {
+      members: [{email_address: req.body.email, status: "subscribed"}]
+    })
+    .then((result) => {
+      res.json(result);
+    })
+    .catch((error) => {
+      res.sendStatus(error.response.status);
+    })
+  });
   
   app.post('/api/attendees', (req, res) => {
     let date = new Date();
@@ -64,7 +77,7 @@ const attendeeRouter = function (app) {
                 console.log(result);
               })
               .catch((error) => {
-                console.log(result);
+                console.log(error);
               })
             };
           
