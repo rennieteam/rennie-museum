@@ -22,7 +22,6 @@ class CancelForm extends Component {
       selectedTime: null,
       selectedEvent: {},
       message: '',
-      dateOptions: [],
       timeOptions: [],
       EventId: null,
       eventCount: null,
