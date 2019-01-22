@@ -1,0 +1,69 @@
+/* Social menu */
+
+.social-navigation {
+	margin-top: calc(#{$size__spacing-unit} / 2 );
+	text-align: left;
+	display: flex;
+  align-items: center;
+  justify-content: center;
+
+	ul.social-links-menu {
+		@include clearfix;
+
+		margin: 0;
+		padding: 0;
+
+		li {
+			margin-right: 10px;
+			display: inline-block;
+			vertical-align: bottom;
+			vertical-align: -webkit-baseline-middle;
+			list-style: none;
+
+			&:last-of-type {
+				margin-right: 0;
+			}
+
+			a {
+				border-bottom: 1px solid transparent;
+				display: block;
+				color: $color__text-main;
+				margin-bottom: -1px;
+				transition: opacity $link_transition ease-in-out;
+
+				&:hover,
+				&:active {
+					color: $color__text-main;
+					opacity: 1;
+				}
+
+				&:focus {
+					color: $color__text-main;
+					opacity: 1;
+					border-bottom: 1px solid $color__text-main;
+				}
+
+				svg {
+					display: block;
+					width: 14px;
+					height: 14px;
+
+					// Prevent icons from jumping in Safari using hardware acceleration.
+					transform: translateZ(0);
+
+					&#ui-icon-link {
+						transform: rotate(-45deg);
+					}
+				}
+			}
+		}
+	}
+}
+
+.site-title + .social-navigation,
+.site-description + .social-navigation {
+
+	@include media(tablet) {
+		margin-top: calc(#{$size__spacing-unit} / 5 );
+	}
+}
