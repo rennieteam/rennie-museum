@@ -35,46 +35,61 @@ const attendeeRouter = function (app) {
   });
   
   app.post('/api/attendees', (req, res) => {
-    // let count = req.body.guests.length + 1;
     let date = new Date();
     let hash = crypto.createHmac('sha256', secret).update(`${date}${req.body.email}`).digest('hex');
     let options = req.body;
     options.hash = hash;
 
-    Attendee.create(options)
-      .then((result) => {
+    Attendee.findOne({
+      where: {
+        email: options.email,
+        EventId: options.EventId
+      }
+    })
+    .then((result) => {
+      if(result){
+        res.sendStatus(403);
+      } else {
+        Attendee.create(options)
+          .then((result) => {
+    
+            mailerHelper(result.dataValues, req.body.subscribe);
+    
+            if(req.body.subscribe){
+              const mailChimp = new Mailchimp(config.mailchimp.key);
+              mailChimp.post(`lists/${config.mailchimp.listId}`, {
+                members: [{email_address: req.body.email, status: "subscribed"}]
+              })
+              .then((result) => {
+                console.log(result);
+              })
+              .catch((error) => {
+                console.log(result);
+              })
+            };
+          
+            transport.sendMail({
+              from: config.mandrill.fromAddress,
+              to: req.body.email,
+              subject: config.mandrill.subject,
+              html: `Thank you for booking! <a href="${config.cancelLink}${hash}">Edit/Cancel Booking</a>`
+            }, function(error, info){
+              if(error){
+                console.log(error);
+              } else {
+                console.log(info);
+              }
+            });
+    
+            res.json(result);
+          })
+          .catch(error => res.send(error))
+      }
+    })
+    .catch((error) => {
+      res.send(error);
+    })
 
-        mailerHelper(result.dataValues, req.body.subscribe);
-
-        // if(req.body.subscribe){
-        //   const mailChimp = new Mailchimp(config.mailchimp.key);
-        //   mailChimp.post(`lists/${config.mailchimp.listId}`, {
-        //     members: [{email_address: req.body.email, status: "subscribed"}]
-        //   })
-        //   .then((result) => {
-        //     console.log(result);
-        //   })
-        //   .catch((error) => {
-        //     console.log(result);
-        //   })
-        // };
-      
-        // transport.sendMail({
-        //   from: config.mandrill.fromAddress,
-        //   to: req.body.email,
-        //   subject: config.mandrill.subject,
-        //   html: `Thank you for booking! <a href="${config.cancelLink}${hash}">Edit/Cancel Booking</a>`
-        // }, function(error, info){
-        //   if(error){
-        //     console.log(error);
-        //   } else {
-        //     console.log(info);
-        //   }
-        // });
-
-        res.json(result);
-      })
-      .catch(error => res.send(error))
   });
 
   app.get('/api/attendee/:attendeeHash', (req, res) => {
@@ -97,13 +112,21 @@ const attendeeRouter = function (app) {
   });
 
   app.put('/api/attendee/:attendeeId', (req, res) => {
-    Attendee.update(req.query, {
-      where: {
-        id: parseInt(req.params['attendeeId'])
-      }
-    }).then( (result) => {
-      res.json(result);
-    });
+    let options = {};
+    options.guests = req.body.guests;
+    options.EventId = req.body.EventId;
+
+    Attendee.update(
+      options,
+      { returning: true, where: {id: req.params['attendeeId']} }
+    )
+    .then(([result, [updatedAttendee]]) => {
+      mailerHelper(updatedAttendee.dataValues);
+      res.send(200);
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   });
 
   app.options('/api/attendee/:attendeeId', cors(corsOptions));

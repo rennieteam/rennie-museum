@@ -54,6 +54,42 @@ select {
   &:hover {
     cursor: pointer;
   }
+}
+
+.cancel-message-container,
+.update-message-container {
+  width: 400px;
+  height: max-content;
+  border: thin $black solid;
+  padding: $pad;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+
+  .cancel-message,
+  .update-message {
+    font-size: $medium;
+    color: $primary;
+  }
+}
+
+.cancel-edit-modal {
+  border-radius: 2px;
+  
+  .form-greeting {
+    font-size: $medium;
+    font-weight: 400;
+  }
+
+  #cancel-submit-prompt-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.booking-form-cta,
+.cancel-edit-container {
   
   .cta-text {
     font-size: $large;
@@ -68,6 +104,10 @@ select {
     z-index: 1;
     width: 470px;
     box-shadow: 0 0 36px rgba(0,0,0,0.04);
+  }
+
+  .booking-form-container,
+  .cancel-edit-modal {
 
     .booking-form {
       width: 100%;
@@ -121,6 +161,10 @@ select {
             font-size: $small;
             color: $primary;
             border-radius: 2px;
+          }
+
+          .time-select {
+            margin: 0 10px;
           }
 
           .date-select,
@@ -317,12 +361,24 @@ select {
 
 
 
-.form-body > h2 {
-  color: black;
-  margin: 0;
-}
+// .form-body > h2 {
+//   color: black;
+//   margin: 0;
+// }
 
-.time-select {
-  margin: 0 10px;
+.cancel-edit-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cancel-edit-modal {
+    border: thin black solid;
+    width: max-content;
+  }
 }
 

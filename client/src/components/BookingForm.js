@@ -28,48 +28,57 @@ class BookingForm extends Component {
     };
   };
 
-  componentDidMount = () => {
-    axios.get(`${config.API_URL}/api/events`)
-      .then((results) => {
-        this.setState({ events: results.data });
-        let dupCheck = [];
-        let dateOptions = [];
-        results.data.forEach((result) => {
-          let dateWithTime = new Date(result.date);
-          let dateWithZeroedTime = dateWithTime.setHours(0,0,0,0);
-          if(!dupCheck.includes(dateWithZeroedTime)){
-            dateOptions.push({ value: dateWithZeroedTime, label: hdate.prettyPrint(new Date(Date.parse(result.date))) })
-            dupCheck.push(dateWithZeroedTime);
-          };
-        });
-        this.setState({ dateOptions });
-      })
-  };
-
-  calculateCount = (event = {}) => {
-    let eventCount = event.attendees.length;
-    if(eventCount >= event.numberOfAttendees){
-      return eventCount;
-    } else {
-      event.attendees.forEach((attendee) => {
-        eventCount += attendee.guests.length;
-      });
+  componentDidUpdate = (prevProps) => {
+    if(this.props.events !== prevProps.events){
+      this.setState({ events: this.props.events })
     };
-    return eventCount;
-  };
+    if(this.props.dateOptions !== prevProps.dateOptions){
+      this.setState({ dateOptions: this.props.dateOptions });
+    };
+  }
+
+  // componentDidMount = () => {
+  //   axios.get(`${config.API_URL}/api/events`)
+  //     .then((results) => {
+  //       this.setState({ events: results.data });
+  //       let dupCheck = [];
+  //       let dateOptions = [];
+  //       results.data.forEach((result) => {
+  //         let dateWithTime = new Date(result.date);
+  //         let dateWithZeroedTime = dateWithTime.setHours(0,0,0,0);
+  //         if(!dupCheck.includes(dateWithZeroedTime)){
+  //           dateOptions.push({ value: dateWithZeroedTime, label: hdate.prettyPrint(new Date(Date.parse(result.date))) })
+  //           dupCheck.push(dateWithZeroedTime);
+  //         };
+  //       });
+  //       this.setState({ dateOptions });
+  //     })
+  // };
+
+  // calculateCount = (event = {}) => {
+  //   let eventCount = event.attendees.length;
+  //   if(eventCount >= event.numberOfAttendees){
+  //     return eventCount;
+  //   } else {
+  //     event.attendees.forEach((attendee) => {
+  //       eventCount += attendee.guests.length;
+  //     });
+  //   };
+  //   return eventCount;
+  // };
 
   selectDate = (selectedDate) => {
     this.setState({ selectedDate, selectedTime: null, EventId: null });
     let filteredEvents = this.state.events.filter((event) => {
       let d = new Date(event.date)
-      return d.setHours(0,0,0,0) === selectedDate.value && this.calculateCount(event) < event.numberOfAttendees;
+      return d.setHours(0,0,0,0) === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
     });
     let timeOptions = [];
     filteredEvents.forEach((event) => {
       let d = hdate.prettyPrint(new Date(Date.parse(event.date)), {showTime: true});
       let splitDate = d.split(' ');
       let index = splitDate.indexOf('at') + 1;
-      let remainingSpots = `${event.numberOfAttendees - this.calculateCount(event)} spots remaining`;
+      let remainingSpots = `${event.numberOfAttendees - this.props.calculateCount(event)} spots remaining`;
       timeOptions.push({ value: event, label: splitDate.splice(index).join(' ') + ` - ${remainingSpots}` });
     });
     this.setState({ timeOptions })
@@ -77,7 +86,7 @@ class BookingForm extends Component {
 
   selectTime = (selectedTime) => {
     let selectedEvent = selectedTime.value;
-    let eventCount = this.calculateCount(selectedEvent);
+    let eventCount = this.props.calculateCount(selectedEvent);
     let disableAddGuest = selectedEvent.numberOfAttendees - eventCount - 1 === 0;
     this.setState({ 
       selectedTime, 
@@ -211,7 +220,11 @@ class BookingForm extends Component {
           this.setMessage('Thank you for booking.');
         })
         .catch((error) => {
-          this.setMessage('Sorry, could not book at this moment.');
+          if(error.response.status === 403){
+            this.setMessage('This email has already been registered with this tour.');
+          } else {
+            this.setMessage('Sorry, could not book at this moment.');
+          }
         })
     }
   };

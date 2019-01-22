@@ -35,232 +35,574 @@ select:focus {
   z-index: 1; }
   .booking-form-cta:hover {
     cursor: pointer; }
-  .booking-form-cta .cta-text {
-    font-size: 24px;
-    color: #FFFFFF;
-    margin-bottom: 30px; }
-  .booking-form-cta .booking-form-container {
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 1;
-    width: 470px;
-    box-shadow: 0 0 36px rgba(0, 0, 0, 0.04); }
-    .booking-form-cta .booking-form-container .booking-form {
-      width: 100%;
-      height: 100%;
+
+.cancel-message-container,
+.update-message-container {
+  width: 400px;
+  height: max-content;
+  border: thin #000000 solid;
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px; }
+  .cancel-message-container .cancel-message,
+  .cancel-message-container .update-message,
+  .update-message-container .cancel-message,
+  .update-message-container .update-message {
+    font-size: 20px;
+    color: #DA291C; }
+
+.cancel-edit-modal {
+  border-radius: 2px; }
+  .cancel-edit-modal .form-greeting {
+    font-size: 20px;
+    font-weight: 400; }
+  .cancel-edit-modal #cancel-submit-prompt-container {
+    flex-direction: row;
+    justify-content: space-between; }
+
+.booking-form-cta .cta-text,
+.cancel-edit-container .cta-text {
+  font-size: 24px;
+  color: #FFFFFF;
+  margin-bottom: 30px; }
+
+.booking-form-cta .booking-form-container,
+.cancel-edit-container .booking-form-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  width: 470px;
+  box-shadow: 0 0 36px rgba(0, 0, 0, 0.04); }
+
+.booking-form-cta .booking-form-container .booking-form,
+.booking-form-cta .cancel-edit-modal .booking-form,
+.cancel-edit-container .booking-form-container .booking-form,
+.cancel-edit-container .cancel-edit-modal .booking-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column; }
+  .booking-form-cta .booking-form-container .booking-form .cta-header,
+  .booking-form-cta .cancel-edit-modal .booking-form .cta-header,
+  .cancel-edit-container .booking-form-container .booking-form .cta-header,
+  .cancel-edit-container .cancel-edit-modal .booking-form .cta-header {
+    height: 120px;
+    padding: 30px 0 0 30px;
+    width: calc(100% - 120px); }
+    .booking-form-cta .booking-form-container .booking-form .cta-header .header-title,
+    .booking-form-cta .cancel-edit-modal .booking-form .cta-header .header-title,
+    .cancel-edit-container .booking-form-container .booking-form .cta-header .header-title,
+    .cancel-edit-container .cancel-edit-modal .booking-form .cta-header .header-title {
+      color: black;
+      margin: 0;
+      font-size: 20px; }
+    .booking-form-cta .booking-form-container .booking-form .cta-header .sub-header,
+    .booking-form-cta .cancel-edit-modal .booking-form .cta-header .sub-header,
+    .cancel-edit-container .booking-form-container .booking-form .cta-header .sub-header,
+    .cancel-edit-container .cancel-edit-modal .booking-form .cta-header .sub-header {
+      margin: 0;
+      color: #A4A6A8;
+      font-size: 14px;
+      font-style: italic; }
+  .booking-form-cta .booking-form-container .booking-form .form-body,
+  .booking-form-cta .cancel-edit-modal .booking-form .form-body,
+  .cancel-edit-container .booking-form-container .booking-form .form-body,
+  .cancel-edit-container .cancel-edit-modal .booking-form .form-body {
+    width: 100%;
+    height: calc(100% - 120px);
+    padding: 30px; }
+    .booking-form-cta .booking-form-container .booking-form .form-body .form-header,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .form-header,
+    .cancel-edit-container .booking-form-container .booking-form .form-body .form-header,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .form-header {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      color: #A4A6A8;
+      text-transform: capitalize; }
+    .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select,
+    .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select {
       display: flex;
-      flex-direction: column; }
-      .booking-form-cta .booking-form-container .booking-form .cta-header {
-        height: 120px;
-        padding: 30px 0 0 30px;
-        width: calc(100% - 120px); }
-        .booking-form-cta .booking-form-container .booking-form .cta-header .header-title {
-          color: black;
-          margin: 0;
-          font-size: 20px; }
-        .booking-form-cta .booking-form-container .booking-form .cta-header .sub-header {
-          margin: 0;
-          color: #A4A6A8;
-          font-size: 14px;
-          font-style: italic; }
-      .booking-form-cta .booking-form-container .booking-form .form-body {
+      width: 100%;
+      margin-bottom: 30px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability {
+        width: calc(100% / 3);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: thin #DA291C solid;
+        font-size: 14px;
+        color: #DA291C;
+        border-radius: 2px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select {
+        margin: 0 10px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select,
+      .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select,
+      .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder {
+        width: calc(100% /3); }
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-d8oujb,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-ln5n5c,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-d8oujb,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-ln5n5c,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-d8oujb,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-ln5n5c,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-d8oujb,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-ln5n5c,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-d8oujb,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-ln5n5c,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-d8oujb,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-ln5n5c,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-d8oujb,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-ln5n5c,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-d8oujb,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-ln5n5c,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-d8oujb,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-ln5n5c,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-d8oujb,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-ln5n5c,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-d8oujb,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-ln5n5c,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-d8oujb,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-ln5n5c {
+          display: none; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-15k3avv,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-15k3avv,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-15k3avv,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-15k3avv,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-15k3avv,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-15k3avv,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-15k3avv,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-15k3avv,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-15k3avv,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-15k3avv,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-15k3avv,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-15k3avv {
+          width: max-content; }
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-15k3avv .css-11unzgr div,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-15k3avv .css-11unzgr div,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-15k3avv .css-11unzgr div,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-15k3avv .css-11unzgr div,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-15k3avv .css-11unzgr div,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-15k3avv .css-11unzgr div,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-15k3avv .css-11unzgr div,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-15k3avv .css-11unzgr div,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-15k3avv .css-11unzgr div,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-15k3avv .css-11unzgr div,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-15k3avv .css-11unzgr div,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-15k3avv .css-11unzgr div {
+            font-size: 14px; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-bl6clz,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-bl6clz,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-bl6clz,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-bl6clz,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-bl6clz,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-bl6clz,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-bl6clz,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-bl6clz,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-bl6clz,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-bl6clz,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-bl6clz,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-bl6clz {
+          display: none !important; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 {
+          height: 30px !important;
+          min-height: initial !important;
+          border-radius: 2 !important;
+          border: 1px solid #A4A6A8 !important; }
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1492t68,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1492t68,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1492t68,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1492t68,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1492t68,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1492t68,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1492t68,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1492t68,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-xp4uvy,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1492t68,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-xp4uvy,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1492t68,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-xp4uvy,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1492t68,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-xp4uvy,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1492t68 {
+            font-size: 14px; }
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1uq0kb5,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1uq0kb5,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1uq0kb5,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1uq0kb5,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1uq0kb5,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1uq0kb5,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1uq0kb5,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1uq0kb5,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1ep9fjw,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1uq0kb5,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1ep9fjw,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1uq0kb5,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1ep9fjw,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1uq0kb5,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1ep9fjw,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1uq0kb5 {
+            padding: 8px 3px 8px 8px; }
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z svg,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw svg,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 svg,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z svg,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw svg,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 svg,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z svg,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw svg,
+          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw svg,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw svg,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-vj8t7z svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-2o5izw svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-162g8z5 svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-vj8t7z svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-2o5izw svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-162g8z5 svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw svg,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 svg {
+            height: 10px !important;
+            width: 10px !important;
+            fill: #A4A6A8; }
+    .booking-form-cta .booking-form-container .booking-form .form-body .attendee-info,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .attendee-info,
+    .cancel-edit-container .booking-form-container .booking-form .form-body .attendee-info,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .attendee-info {
+      display: flex;
+      justify-content: space-between;
+      height: 30px;
+      margin-bottom: 10px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .attendee-info .attendee-name-input,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .attendee-info .attendee-name-input,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .attendee-info .attendee-name-input,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .attendee-info .attendee-name-input {
+        margin-right: 10px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .attendee-info input,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .attendee-info input,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .attendee-info input,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .attendee-info input {
+        width: calc(100% / 2);
+        height: 100%;
+        padding-left: 8px;
+        font-size: 14px;
+        border-radius: 2px;
+        border: 1px solid #A4A6A8; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .attendee-info input:focus,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .attendee-info input:focus,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .attendee-info input:focus,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .attendee-info input:focus {
+          outline: none; }
+    .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container,
+    .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container input,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container input,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container input,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container input {
+        margin: 0;
+        width: 15px;
+        height: 15px;
+        border-radius: 0;
+        margin-right: 5px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container .subscribe-label,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container .subscribe-label,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container .subscribe-label,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container .subscribe-label {
+        font-style: italic;
+        font-size: 12px; }
+    .booking-form-cta .booking-form-container .booking-form .form-body .guests-container,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container,
+    .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      margin-bottom: 30px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .guest-inputs,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs {
+        display: flex;
         width: 100%;
-        height: calc(100% - 120px);
-        padding: 30px; }
-        .booking-form-cta .booking-form-container .booking-form .form-body .form-header {
-          margin: 0 0 10px 0;
-          font-size: 20px;
-          color: #A4A6A8;
-          text-transform: capitalize; }
-        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select {
-          display: flex;
-          width: 100%;
-          margin-bottom: 30px; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability {
-            width: calc(100% / 3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: thin #DA291C solid;
-            font-size: 14px;
-            color: #DA291C;
-            border-radius: 2px; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select,
-          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select,
-          .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder {
-            width: calc(100% /3); }
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-d8oujb,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-ln5n5c,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-d8oujb,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-ln5n5c,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-d8oujb,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-ln5n5c {
-              display: none; }
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-15k3avv,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-15k3avv,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-15k3avv {
-              width: max-content; }
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-15k3avv .css-11unzgr div,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-15k3avv .css-11unzgr div,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-15k3avv .css-11unzgr div {
-                font-size: 14px; }
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-bl6clz,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-bl6clz,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-bl6clz {
-              display: none !important; }
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw,
-            .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 {
-              height: 30px !important;
-              min-height: initial !important;
-              border-radius: 2 !important;
-              border: 1px solid #A4A6A8 !important; }
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1492t68,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1492t68,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1492t68,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1492t68,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1492t68,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1492t68,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1492t68,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1492t68,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-xp4uvy,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1492t68 {
-                font-size: 14px; }
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1uq0kb5,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1uq0kb5,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 .css-1uq0kb5,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z .css-1uq0kb5,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw .css-1uq0kb5,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 .css-1uq0kb5,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z .css-1uq0kb5,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1uq0kb5,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1ep9fjw,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1uq0kb5 {
-                padding: 8px 3px 8px 8px; }
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z svg,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw svg,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-162g8z5 svg,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-vj8t7z svg,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-2o5izw svg,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-162g8z5 svg,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-vj8t7z svg,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-2o5izw svg,
-              .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 svg {
-                height: 10px !important;
-                width: 10px !important;
-                fill: #A4A6A8; }
-        .booking-form-cta .booking-form-container .booking-form .form-body .attendee-info {
-          display: flex;
-          justify-content: space-between;
+        align-items: center;
+        height: max-content;
+        margin-bottom: 10px; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs .fas,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs .fas,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .guest-inputs .fas,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs .fas {
+          font-size: 10px; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs input,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs input,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .guest-inputs input,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs input {
+          width: calc(50% - 10px);
+          margin-right: 10px;
           height: 30px;
-          margin-bottom: 10px; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .attendee-info .attendee-name-input {
-            margin-right: 10px; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .attendee-info input {
-            width: calc(100% / 2);
-            height: 100%;
-            padding-left: 8px;
-            font-size: 14px;
-            border-radius: 2px;
-            border: 1px solid #A4A6A8; }
-            .booking-form-cta .booking-form-container .booking-form .form-body .attendee-info input:focus {
-              outline: none; }
-        .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container {
-          display: flex;
-          align-items: center;
-          margin-bottom: 20px; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container input {
-            margin: 0;
-            width: 15px;
-            height: 15px;
-            border-radius: 0;
-            margin-right: 5px; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container .subscribe-label {
-            font-style: italic;
-            font-size: 12px; }
-        .booking-form-cta .booking-form-container .booking-form .form-body .guests-container {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-          margin-bottom: 30px; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs {
-            display: flex;
-            width: 100%;
-            align-items: center;
-            height: max-content;
-            margin-bottom: 10px; }
-            .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs .fas {
-              font-size: 10px; }
-            .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs input {
-              width: calc(50% - 10px);
-              margin-right: 10px;
-              height: 30px;
-              padding-left: 8px;
-              font-size: 14px;
-              border-radius: 2px;
-              border: 1px solid #A4A6A8; }
-              .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs input::placeholder {
-                text-transform: capitalize; }
-              .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs input:focus {
-                outline: none; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .add-guest {
-            width: 100%;
-            display: flex;
-            align-items: center; }
-            .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .add-guest .fas {
-              font-size: 10px; }
-            .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .add-guest span {
-              font-size: 12px;
-              margin-left: 5px; }
-        .booking-form-cta .booking-form-container .booking-form .form-body .message-container {
-          color: #DA291C;
+          padding-left: 8px;
           font-size: 14px;
-          margin-bottom: 10px; }
-        .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container .guest-message {
-            font-size: 14px;
-            color: #DA291C;
-            margin-bottom: 10px; }
-          .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container .submit-button {
-            color: #FFFFFF;
-            font-size: 12px;
-            padding: 10px;
-            background: #DA291C;
-            border: none; }
+          border-radius: 2px;
+          border: 1px solid #A4A6A8; }
+          .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs input::placeholder,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs input::placeholder,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .guest-inputs input::placeholder,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs input::placeholder {
+            text-transform: capitalize; }
+          .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .guest-inputs input:focus,
+          .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs input:focus,
+          .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .guest-inputs input:focus,
+          .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .guest-inputs input:focus {
+            outline: none; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .add-guest,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container .add-guest,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .add-guest,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .add-guest {
+        width: 100%;
+        display: flex;
+        align-items: center; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .add-guest .fas,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container .add-guest .fas,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .add-guest .fas,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .add-guest .fas {
+          font-size: 10px; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .guests-container .add-guest span,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container .add-guest span,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .add-guest span,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .add-guest span {
+          font-size: 12px;
+          margin-left: 5px; }
+    .booking-form-cta .booking-form-container .booking-form .form-body .message-container,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .message-container,
+    .cancel-edit-container .booking-form-container .booking-form .form-body .message-container,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .message-container {
+      color: #DA291C;
+      font-size: 14px;
+      margin-bottom: 10px; }
+    .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .submit-prompt-container,
+    .cancel-edit-container .booking-form-container .booking-form .form-body .submit-prompt-container,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .submit-prompt-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container .guest-message,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .submit-prompt-container .guest-message,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .submit-prompt-container .guest-message,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .submit-prompt-container .guest-message {
+        font-size: 14px;
+        color: #DA291C;
+        margin-bottom: 10px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container .submit-button,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .submit-prompt-container .submit-button,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .submit-prompt-container .submit-button,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .submit-prompt-container .submit-button {
+        color: #FFFFFF;
+        font-size: 12px;
+        padding: 10px;
+        background: #DA291C;
+        border: none; }
 
 .hidden {
   display: none; }
 
-.form-body > h2 {
-  color: black;
-  margin: 0; }
-
-.time-select {
-  margin: 0 10px; }
+.cancel-edit-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .cancel-edit-container .cancel-edit-modal {
+    border: thin black solid;
+    width: max-content; }
