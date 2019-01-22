@@ -52,5 +52,5 @@ const options = {
 }
 
 const app = express()
-app.use("/", epf(options))
+app.use("/", epf(options));
 app.listen(8080)

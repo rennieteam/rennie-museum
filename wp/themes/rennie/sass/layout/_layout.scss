@@ -1,0 +1,32 @@
+
+/** === Layout === */
+
+#page {
+	width: 100%;
+}
+
+.site-content {
+	overflow: hidden;
+	max-width: 1380px;
+	margin: 0 auto;
+}
+
+.blog {
+	.site-main {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-gap: 60px;
+		grid-auto-rows: 30px;
+		grid-auto-flow: dense;
+
+		@include media(tablet) {
+			.entry .post-thumbnail,
+			.entry-content > *.alignfull,
+			.entry-summary > *.alignfull {
+				margin: 0;
+				width:100%;
+				left: initial;
+			}
+		}
+	}
+}
