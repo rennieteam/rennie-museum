@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 import config from './../config';
+import qs from 'query-string';
 
 class CreateEventForm extends Component {
   constructor(props) {
@@ -25,15 +26,24 @@ class CreateEventForm extends Component {
     this.setState({date: date});
   };
 
+  resetQuery = () => {
+    this.props.history.push({
+      search: ""
+    });
+  };
+
   handleSubmit = () => {
     axios.post(`${config[process.env.NODE_ENV]}/api/events`, this.state)
       .then((result) => {
+        this.props.setMessage('Event Successfully Created');
+        this.resetQuery();
+      })
+      .catch((error) => {
 
       })
   };
 
   render() {
-    console.log(config);
     return (
       <div className="create-event-form">
         <h2> Create New Event </h2>
@@ -45,6 +55,7 @@ class CreateEventForm extends Component {
         <label> Select Number of Spots </label>
         <input onChange={this.handleChange} name="numberOfAttendees" value={this.state.numberOfAttendees}/>
         <button onClick={this.handleSubmit}> Create Event </button>
+        <button onClick={this.resetQuery} > Cancel </button>
       </div>
     );
   }
