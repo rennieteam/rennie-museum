@@ -5,6 +5,7 @@ import qs from 'query-string';
 // import EventIndex from './components/EventIndex';
 import CancelForm from './components/CancelForm';
 import BookingForm from './components/BookingForm';
+import RegisterForm from './components/RegisterForm';
 import config from './config';
 import hdate from 'human-date';
 import axios from 'axios';
@@ -70,6 +71,9 @@ class App extends Component {
           render={(props) => <BookingForm {...props} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions} />} />
         {
           q.cancel ? <Route path="/" render={(props) => <CancelForm {...props} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions}  /> } /> : '' 
+        }
+        {
+          q.register ? <Route path="/" component={RegisterForm} /> : ''
         }
         {/* {this.renderComponents()} */}
         {/* <Route exact path="/events" component={EventIndex} />
