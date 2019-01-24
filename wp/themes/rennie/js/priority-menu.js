@@ -226,14 +226,23 @@
   }
 
   function resizeAllGridItems(){
-    const elms = document.getElementsByClassName("entry")
+    const elms = document.getElementsByClassName("entry");
     for(x = 0; x < elms.length; x++){
       resizeGridItem(elms[x]);
     }
   }
 
+  function resizeInstance(instance){
+    resizeGridItem(instance.elements[0]);
+  }
+
   window.onload = resizeAllGridItems();
   window.addEventListener("resize", resizeAllGridItems);
+
+  const allItems = document.getElementsByClassName("entry")
+  for(x = 0; x < allItems.length; x++){
+    imagesLoaded( allItems[x], resizeInstance);
+  }
 
 })();
 

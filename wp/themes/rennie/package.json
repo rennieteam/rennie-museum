@@ -40,5 +40,8 @@
     "build:print": "node-sass print.scss print.css --output-style expanded && postcss -r print.css",
     "build": "run-p \"build:*\"",
     "watch": "chokidar \"**/*.scss\" -c \"npm run build\" --initial"
+  },
+  "dependencies": {
+    "imagesloaded": "^4.1.4"
   }
 }
