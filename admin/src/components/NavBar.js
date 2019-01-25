@@ -7,23 +7,12 @@ class NavBar extends Component {
     };
   };
 
-  setEventIndexView = () => {
-    this.props.history.push({
-      search: "?index=true"
-    })
-  }
-
-  setNewEventView = () => {
-    this.props.history.push({
-      search: '?newEvent=true'
-    });
-  }
 
   render() {
     return (
-      <div className="">
-        <span onClick={this.setEventIndexView}> Events </span>
-        <span onClick={this.setNewEventView}> New Event </span>
+      <div className="admin-nav">
+        <a className="admin-nav-item" href="#index=true"> Events </a>
+        <a className="admin-nav-item" href="#newEvent=true"> New Event </a>
       </div>
     );
   }

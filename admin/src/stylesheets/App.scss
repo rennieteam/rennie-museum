@@ -1,0 +1,242 @@
+$primary: #DA291C;
+$black: #000000;
+$grey: #A4A6A8;
+$gutter: 80px;
+$white: #FFFFFF;
+$large: 24px;
+$medium: 20px;
+$small: 14px;
+$smallest: 12px;
+$pad: 30px;
+$sans: national;
+$serif: Antwerp;
+$max-width: 1280px;
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+input {
+  &:focus {
+    outline: none;
+  }
+}
+
+.admin-nav {
+  width: 100vw;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-item {
+    text-decoration: none;
+    margin: 10px;
+    font-size: $large;
+    color: $black;
+  }
+}
+
+.events-index-container {
+  display: grid;
+  grid-column-gap: $pad;
+  grid-row-gap: $pad;
+  grid-template-columns: repeat(12, 1fr);
+  max-width: $max-width;
+  margin: 0 auto;
+  
+  .sorter-container {
+    padding-bottom: 5px;
+    grid-column: span 12;
+    border-bottom: 1px $grey solid;
+    display: flex;
+
+    .sort-label {
+      font-weight: 600;
+      margin-right: 15px;
+    }
+
+    .sort-item-label {
+      margin-right: 3px;
+    }
+
+    .sort-item {
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      min-width: 50px;
+
+      .fas {
+        font-weight: 900;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        height: 13px;
+      }
+    }
+  }
+
+  .admin-event {
+    grid-column: span 3;
+    display: flex;
+    flex-direction: column;
+    padding: $pad $pad  $pad*2 $pad;
+    border: 1px $grey solid;
+    border-radius: 2px;
+    position: relative;
+
+    .event-date,
+    .event-time,
+    .event-info {
+      margin: 0;
+    }
+
+    .event-date {
+      font-weight: 600;
+    }
+
+    .event-time {
+      font-style: italic;
+      margin-bottom: 10px;
+    }
+
+    .event-edit {
+      height: $pad;
+      width: max-content;
+      padding: 0 10px;
+      font-size: $small;
+      color: $white;
+      background: $primary;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 15px;
+      right: 15px;
+    }
+
+    .full-label {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: $primary;
+      font-weight: 600;
+    }
+  }
+}
+
+.admin-edit-container {
+  display: flex;
+  padding: $pad $pad $pad*2.5 $pad;
+  margin: 0 auto;
+  border: 1px solid $grey;
+  border-radius: 2px;
+  width: max-content;
+  max-width: $max-width/2;
+  position: relative;
+
+  .update-button,
+  .cancel-button {
+    width: max-content;
+    height: $pad;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: $primary;
+    color: $white;
+    position: absolute;
+    bottom: $pad;
+  }
+
+  .update-button {
+    left: $pad;
+  }
+
+  .cancel-button {
+    right: $pad;
+  }
+
+  .loading-container {
+    width: max-content;
+    font-size: $medium;
+    color: $primary;
+    margin: auto auto;
+  }
+
+  .edit-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .event-header {
+      font-size: $medium;
+      font-weight: normal;
+      margin: 0 auto 10px auto;
+      border-bottom: 1px solid $primary;
+      padding-bottom: 10px;
+    }
+
+    .event-info {
+      margin: 0;
+    }
+
+    .number-of-attendee-input {
+      height: 20px;
+      padding-left: 10px;
+      margin-left: 5px;
+      width: 50px;
+    }
+
+    .total-attending {
+      margin: 10px 0;
+    }
+
+    .attendees-header {
+      margin-bottom: 5px;
+    }
+
+    .attendee-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid $primary;
+      position: relative;
+
+      .attendee-remove {
+        position: absolute;
+        right: 15px;
+        top: 15px;
+      }
+
+      .name {
+        font-weight: 600;
+      }
+
+      .email {
+        font-size: $smallest;
+        font-style: italic;
+        color: $grey;
+        margin-bottom: 5px;
+      }
+
+      .guests-label {
+        font-size: $small;
+      }
+
+      .guest-container {
+        .guest-name {
+          font-size: $small;
+        }
+      }
+    }
+  }
+}
