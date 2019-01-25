@@ -140,6 +140,12 @@ input {
   max-width: $max-width/2;
   position: relative;
 
+  .state {
+    position: absolute;
+    bottom: -30px;
+    left: 0;
+  }
+
   .update-button,
   .cancel-button {
     width: max-content;

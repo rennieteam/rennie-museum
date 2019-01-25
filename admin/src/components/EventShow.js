@@ -18,7 +18,7 @@ class EventShow extends Component {
       newDate: null,
       isLoading: true,
       eventCount: null,
-      numberOfAttendees: null
+      numberOfAttendees: 0
     };
   };
 
@@ -57,6 +57,10 @@ class EventShow extends Component {
   //       this.setState({message: 'Could not cancel event'});
   //     })
   // };
+
+  changeNumberOfAttendee = (event) => {
+    this.setState({ numberOfAttendees: event.target.value });
+  };
 
   markAttendeeForRemoval = (id) => {
     let markForRemoval = this.state.attendeesRemoval.slice(0);
@@ -179,7 +183,12 @@ class EventShow extends Component {
         <div className="edit-form">
           <h2 className="event-header"> {hdate.prettyPrint(new Date(Date.parse(this.state.event.date)), {showTime: true})} </h2>
           <p className="event-info"> Max Capacity:
-            <input className="number-of-attendee-input" value={this.state.numberOfAttendees} placeholder={this.state.event.numberOfAttendees} /> 
+            <input 
+              className="number-of-attendee-input"
+              value={this.state.numberOfAttendees}
+              placeholder={this.state.event.numberOfAttendees}
+              onChange={this.changeNumberOfAttendee}  
+            /> 
           </p>
           <p className="event-info total-attending"> Total Attending: {this.state.eventCount} </p>
           <p className="event-info attendees-header"> Attendees: </p>
@@ -201,7 +210,7 @@ class EventShow extends Component {
         {this.renderForm()}
         <button className="update-button"> Update Tour </button>
         <button className="cancel-button"> Cancel Tour </button>
-        <button onClick={() => {console.log(this.state)}}> State </button>
+        <button className='state' onClick={() => {console.log(this.state)}}> State </button>
       </div>
     )
   }

@@ -94,6 +94,10 @@ input:focus {
   width: max-content;
   max-width: 640px;
   position: relative; }
+  .admin-edit-container .state {
+    position: absolute;
+    bottom: -30px;
+    left: 0; }
   .admin-edit-container .update-button,
   .admin-edit-container .cancel-button {
     width: max-content;
