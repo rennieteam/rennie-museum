@@ -93,12 +93,6 @@
 
 	.post-thumbnail {
 
-		margin: $size__spacing-unit;
-
-		@include media(tablet) {
-			margin: $size__spacing-unit $size__site-margins;
-		}
-
 		&:focus {
 			outline: none;
 		}

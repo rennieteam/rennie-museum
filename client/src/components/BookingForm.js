@@ -88,8 +88,8 @@ class BookingForm extends Component {
     let selectedEvent = selectedTime.value;
     let eventCount = this.props.calculateCount(selectedEvent);
     let disableAddGuest = selectedEvent.numberOfAttendees - eventCount - 1 === 0;
-    this.setState({ 
-      selectedTime, 
+    this.setState({
+      selectedTime,
       selectedEvent: selectedEvent,
       eventCount,
       EventId: selectedTime.value.id
@@ -105,6 +105,7 @@ class BookingForm extends Component {
   showForm = (e) => {
     let form = document.getElementsByClassName('booking-form-container')[0];
     let classList = form.classList;
+    console.log(form);
     if(classList.contains('hidden')){
       classList.remove('hidden');
     } else {
@@ -143,10 +144,10 @@ class BookingForm extends Component {
           params.map((param) => {
             let req = param.req ? '*' : '';
             return(
-              <input 
-                key={param.value} 
+              <input
+                key={param.value}
                 name={param.value}
-                placeholder={`Guest ${param.value}${req}`} 
+                placeholder={`Guest ${param.value}${req}`}
                 onChange={(event) => this.handleGuestChange(event, index)}
                 value={this.state.guests[index][param.value]}
               />
@@ -231,8 +232,10 @@ class BookingForm extends Component {
 
   renderForm = () => {
     return(
-      <div className="booking-form-cta" onClick={this.showForm}>
-        <p className="cta-text"> tours </p>
+      <div className="booking-form-cta" >
+        <div className="book-form-header">
+          <button onClick={this.showForm} className="cta-text"> tours </button>
+        </div>
         <div className="booking-form-container hidden" >
           <div className="booking-form">
             <div className="cta-header" onClick={this.stopProp}>
@@ -249,7 +252,7 @@ class BookingForm extends Component {
                   onChange={this.selectDate}
                   options={this.state.dateOptions}
                 />
-                <Select 
+                <Select
                   className="time-select"
                   placeholder="Time"
                   value={this.state.selectedTime}
@@ -262,14 +265,14 @@ class BookingForm extends Component {
                 }
               </div>
               <div className="attendee-info">
-                <input 
+                <input
                   className="attendee-name-input"
                   placeholder="Your Name*"
                   name="name"
                   value={this.state.name}
                   onChange={this.handleAttendeeInfo}
                 />
-                <input 
+                <input
                   className="attendee-email-input"
                   placeholder="Your Email*"
                   name="email"
@@ -287,13 +290,13 @@ class BookingForm extends Component {
                 <label className="subscribe-label" htmlFor="subscribe"> I want to receive to the rennie museum newsletter </label>
               </div>
               {
-                !this.state.disableAddGuest ? 
+                !this.state.disableAddGuest ?
                   <div className="guests-container">
                     {
                       this.state.guests.map( (guest,index) => this.guestInput(guest,index) )
                     }
                     <div className="add-guest" onClick={this.addGuest}>
-                      <i 
+                      <i
                         className="fas fa-plus"
                       />
                       <span> Add Guest </span>

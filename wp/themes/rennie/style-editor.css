@@ -202,7 +202,7 @@ body .wp-block[data-align="full"] {
   }
 }
 
-@media only screen and (min-width: 1168px) {
+@media only screen and (min-width: 961px) {
   .wp-block {
     width: calc(6 * (100vw / 12 ));
   }
@@ -489,7 +489,7 @@ figcaption,
   }
 }
 
-@media only screen and (min-width: 1168px) {
+@media only screen and (min-width: 961px) {
   .wp-block[data-type="core/cover"][data-align="wide"] h2,
   .wp-block[data-type="core/cover"][data-align="wide"] .wp-block-cover-text,
   .wp-block[data-type="core/cover"][data-align="full"] h2,
