@@ -47,7 +47,11 @@ class RegisterForm extends Component {
             this.state.message ? <p className="register-message"> {this.state.message} </p> : ''
           }
           <button className="register-button" onClick={this.handleSubmit}> Register </button>
-          <a className="fas fa-times close-register-button" href="#" />
+          <a href="#close" className="fas fa-times close-register-button">
+            <span className="hidden">
+              Close
+            </span>
+          </a>
         </div>
       </div>
     )

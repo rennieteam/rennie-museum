@@ -234,7 +234,9 @@ class BookingForm extends Component {
     return(
       <div className="booking-form-cta" >
         <div className="book-form-header">
-          <button onClick={this.showForm} className="cta-text"> tours </button>
+          <button onClick={this.showForm} className="cta-button">
+            <span className="cta-button-text">tours</span>
+          </button>
         </div>
         <div className="booking-form-container hidden" >
           <div className="booking-form">

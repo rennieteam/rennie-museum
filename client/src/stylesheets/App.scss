@@ -11,6 +11,12 @@ $pad: 30px;
 $sans: national;
 $serif: Antwerp;
 
+html,
+body {
+  margin: 0;
+  background: #A4A6A8;
+}
+
 input,
 button,
 select {
@@ -48,15 +54,8 @@ button,
 }
 
 .booking-form-cta {
-  margin-left: auto;
-  width: max-content;
-  height: $gutter * 1.5;
-  width: $gutter * 1.5;
-  display: flex;
-  flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: $black;
   position: relative;
   z-index: 1;
 
@@ -100,15 +99,30 @@ button,
 .booking-form-cta,
 .cancel-edit-container {
 
-  .cta-text {
+  .cta-button {
+    border: 0;
+    margin-left: auto;
+    width: max-content;
+    height: $gutter * 1.5;
+    width: $gutter * 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
     font-size: $large;
-    color: $white;
-    margin-bottom: $pad;
     position: relative;
     z-index: 1000;
+    background: $black;
+    border-radius: 0;
+
+    &-text {
+      color: $white;
+      margin-bottom: 30px;
+    }
   }
 
   .booking-form-container {
+    background: $white;
     position: absolute;
     top: 0;
     right: 0;

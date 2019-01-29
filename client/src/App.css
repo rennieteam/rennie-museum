@@ -1,3 +1,8 @@
+html,
+body {
+  margin: 0;
+  background: #A4A6A8; }
+
 input:focus,
 button:focus,
 select:focus {
@@ -26,15 +31,8 @@ button:hover,
   margin: 20px; }
 
 .booking-form-cta {
-  margin-left: auto;
-  width: max-content;
-  height: 120px;
-  width: 120px;
-  display: flex;
-  flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  background: #000000;
   position: relative;
   z-index: 1; }
   .booking-form-cta:hover {
@@ -66,14 +64,30 @@ button:hover,
     flex-direction: row;
     justify-content: space-between; }
 
-.booking-form-cta .cta-text,
-.cancel-edit-container .cta-text {
+.booking-form-cta .cta-button,
+.cancel-edit-container .cta-button {
+  border: 0;
+  margin-left: auto;
+  width: max-content;
+  height: 120px;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
   font-size: 24px;
-  color: #FFFFFF;
-  margin-bottom: 30px; }
+  position: relative;
+  z-index: 1000;
+  background: #000000;
+  border-radius: 0; }
+  .booking-form-cta .cta-button-text,
+  .cancel-edit-container .cta-button-text {
+    color: #FFFFFF;
+    margin-bottom: 30px; }
 
 .booking-form-cta .booking-form-container,
 .cancel-edit-container .booking-form-container {
+  background: #FFFFFF;
   position: absolute;
   top: 0;
   right: 0;
