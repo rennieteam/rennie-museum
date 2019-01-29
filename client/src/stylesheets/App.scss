@@ -85,7 +85,7 @@ button,
 
 .cancel-edit-modal {
   border-radius: 2px;
-  
+
   .form-greeting {
     font-size: $medium;
     font-weight: 400;
@@ -99,11 +99,13 @@ button,
 
 .booking-form-cta,
 .cancel-edit-container {
-  
+
   .cta-text {
     font-size: $large;
     color: $white;
     margin-bottom: $pad;
+    position: relative;
+    z-index: 1000;
   }
 
   .booking-form-container {
@@ -128,13 +130,13 @@ button,
         height: 120px;
         padding: $pad 0 0 $pad;
         width: calc(100% - 120px);
-        
+
         .header-title {
           color: black;
           margin: 0;
           font-size: $medium;
         }
-      
+
         .sub-header {
           margin: 0;
           color: $grey;
@@ -147,7 +149,7 @@ button,
         width: 100%;
         height: calc(100% - 120px);
         padding: $pad;
-      
+
         .form-header {
           margin: 0 0 10px 0;
           font-size: $medium;
@@ -202,7 +204,7 @@ button,
               display: none !important;
             }
 
-            .css-vj8t7z, 
+            .css-vj8t7z,
             .css-2o5izw,
             .css-162g8z5 {
               height: $pad !important;
@@ -353,7 +355,7 @@ button,
             border: none;
           }
         }
-        
+
       }
 
     }

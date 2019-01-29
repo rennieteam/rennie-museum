@@ -90,7 +90,15 @@
 
 // Index/archive navigation
 .pagination {
-	grid-column: span 3;
+	grid-column: span 1;
+
+	@include media(tablet) {
+		grid-column: span 2;
+	}
+
+	@include media(tablet) {
+		grid-column: span 3;
+	}
 
 	.nav-links {
 		display: flex;

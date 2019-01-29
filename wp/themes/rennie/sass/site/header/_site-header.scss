@@ -28,14 +28,20 @@
 
 // Site branding
 .site-branding {
-	margin: 60px auto 30px;
-	width: 100%;
+	margin: 0 30px 30px;
 	max-width: 1380px;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 
-	@include media(tablet) {}
+	@include media(desktop) {
+		margin: 0 60px 30px;
+	}
+
+	@include media(wide) {
+		margin: 0 auto 30px;
+		width: 100%;
+	}
 }
 
 // Site logo
