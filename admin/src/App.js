@@ -8,7 +8,6 @@ import CreateEventForm from './components/CreateEventForm';
 import EventIndex from './components/EventIndex';
 import EventShow from './components/EventShow';
 import NavBar from './components/NavBar';
-import MessageBox from './components/MessageBox';
 import axios from 'axios';
 
 class App extends Component {
@@ -30,8 +29,10 @@ class App extends Component {
       })
   };
 
+  updateEvents = events => this.setState({ events });
+
   calculateCount = (event = {}) => {
-    let eventCount = event.attendees.length;
+    let eventCount = event.attendees && event.attendees.length;
     if(eventCount >= event.numberOfAttendees){
       return eventCount;
     } else {
@@ -52,11 +53,11 @@ class App extends Component {
   renderComponents = () => {
     let hash = qs.parse(this.props.location.hash);
     if(hash.newEvent){
-      return(<Route path="/" render={(props) => <CreateEventForm {...props} setMessage={this.setMessage} /> } />)
+      return(<Route path="/" render={(props) => <CreateEventForm {...props} setMessage={this.setMessage} updateEvents={this.updateEvents} /> } />)
     } else if(hash.index){
       return (<Route path="/" render={(props) => <EventIndex {...props} events={this.state.events} calculateCount={this.calculateCount} />  } />);
     } else if(hash.edit){
-      return (<Route path="/" render={(props) => <EventShow {...props} setMessage={this.setMessage} calculateCount={this.calculateCount} events={this.state.events} /> } />) ;
+      return (<Route path="/" render={(props) => <EventShow {...props} setMessage={this.setMessage} updateEvents={this.updateEvents} calculateCount={this.calculateCount} events={this.state.events} /> } />) ;
     };
   };
 
@@ -65,7 +66,6 @@ class App extends Component {
     return (
       <div className="App">
         <Route path="/" component={NavBar} />
-        <MessageBox message={this.state.message} setMessage={this.setMessage} />
         {this.renderComponents()}
       </div>
     );

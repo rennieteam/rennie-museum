@@ -12,13 +12,15 @@ class EventShow extends Component {
       event: {},
       attendees: [],
       message: '',
-      attendeesRemoval: [],
+      attendeesRemoval: {},
       error: null,
       modifyDate: false,
-      newDate: null,
       isLoading: true,
       eventCount: null,
-      numberOfAttendees: 0
+      numberOfAttendees: 0,
+      date: null,
+      editDate: false,
+      emailList: ''
     };
   };
 
@@ -39,105 +41,64 @@ class EventShow extends Component {
     });
     if(events.length){
       let eventCount = this.props.calculateCount(events[0]);
-      this.setState({ event: events[0], attendees: events[0].attendees, isLoading: false, eventCount, numberOfAttendees: events[0].numberOfAttendees });
+      let attendeesRemoval = {};
+      for(let attendee of events[0].attendees){
+        attendeesRemoval[attendee.id] = false;
+      };
+      this.setState({ event: events[0], attendees: events[0].attendees, isLoading: false, eventCount, numberOfAttendees: events[0].numberOfAttendees, attendeesRemoval});
     } else {
       this.setState({ isLoading: false });
     };
   }
-
-  // deleteEvent = () => {
-  //   axios.delete(`${config[process.env.NODE_ENV]}/api/event/${this.state.event.id}`)
-  //     .then((result) => {
-  //       this.props.setMessage('Event Successfully Cancelled');
-  //       this.props.history.push({
-  //         search: ""
-  //       })
-  //     })
-  //     .catch((error) => {
-  //       this.setState({message: 'Could not cancel event'});
-  //     })
-  // };
 
   changeNumberOfAttendee = (event) => {
     this.setState({ numberOfAttendees: event.target.value });
   };
 
   markAttendeeForRemoval = (id) => {
-    let markForRemoval = this.state.attendeesRemoval.slice(0);
-    markForRemoval.push(id);
+    let markForRemoval = Object.assign({}, this.state.attendeesRemoval);
+    markForRemoval[id] = !this.state.attendeesRemoval[id];
     this.setState({attendeesRemoval: markForRemoval});
   };
 
-  // setDate = (date) => {
-  //   this.setState({newDate: date});
-  // };
+  updateEvent = () => {
+    let options = {
+      removal: []
+    };
 
-  // renderAttendees = () => {
-  //   return this.state.attendees.length ? (
-  //   <div>
-  //     <p> Attendees: </p>
-  //     {
-  //       this.state.attendees.map((a) => {
-  //       return(
-  //         <div className="attendee-container" key={a.id}>
-  //           {
-  //             a.name
-  //           }
-  //           { a.guests.length > 0 ? <p> Guests </p> : '' }
-  //           {
-  //             a.guests.map((guest, index) => {
-  //               return(
-  //                 <span key={index}> {guest.name} </span>
-  //                 )
-  //               })
-  //           }
-  //           <button onClick={() => this.markAttendeeForRemoval(a.id)} disabled={this.state.attendeesRemoval.includes(a.id)}> Remove Attendee </button>
-  //         </div>
-  //       )
-  //     })}
+    let checkDateDupe = this.props.events.find((event) => {
+      return Date.parse(event.date) === Date.parse(this.state.date);
+    });
 
-  //   </div>
-  //   ) : '';
-  // };
-
-  // showDatePicker = () => {
-  //   this.setState({modifyDate: true});
-  // };
-
-  // updateEvent = () => {
-  //   axios.put(`${config[process.env.NODE_ENV]}/api/event/${this.state.event.id}`, this.state)
-  //     .then((result) => {
-  //       let attendees = result.data.attendees ? result.data.attendees : [];
-  //       this.setState({event: result.data, attendees: attendees, newDate: null, modifyDate: false, attendeesRemoval: [], message: 'Event Updated', error: null})
-  //     })
-  //     .catch((error) => {
-  //       this.setState({message: 'Unable to update event'})
-  //     })
-  // };
-
-  // renderForm = () => {
-  //   if(this.state.error){
-  //     return(
-  //       <div> Event Does Not Exist </div>
-  //     )
-  //   } else {
-  //     return (
-  //       <div className="">
-  //         <h2> { hdate.prettyPrint(new Date(Date.parse(this.state.event.date)), {showTime: true}) } <span onClick={this.showDatePicker}> edit </span> </h2>
-  //         {
-  //           this.state.modifyDate ? <DateTimePicker onChange={this.setDate} value={this.state.newDate} /> : ''
-  //         }
-  //         <p> Number of Attendees: {this.state.event.numberOfAttendees} </p>
-  //         { this.renderAttendees() }
-  //         <button onClick={this.deleteEvent}> Cancel Event </button>
-  //         <button onClick={this.updateEvent}> Update Event </button>
-  //         {
-  //           this.state.message ? <p> {this.state.message} </p> : ''
-  //         }
-  //       </div>
-  //     );
-  //   };
-  // };
+    if(this.state.numberOfAttendees < this.state.eventCount){
+      this.setState({ message: 'Capacity too low.' })
+    } else if(checkDateDupe){
+      this.setState({ message: 'Date and time already exists.' })
+    } else {
+      let removal = this.state.attendeesRemoval;
+      for(let attendee in removal){
+        if(removal[attendee]){
+          options.removal.push(parseInt(attendee));
+        }
+      };
+      options.date = this.state.date;
+      axios.put(`${config[process.env.NODE_ENV]}/api/event/${this.state.event.id}`, options)
+        .then((result) => {
+          let replace = this.props.events.find(function(element){
+            return element.id === result.data.id;
+          });
+          let replaceIndex = this.props.events.indexOf(replace);
+          let events = Object.assign([], this.props.events);
+          events[replaceIndex] = result.data;
+          this.props.updateEvents(events);
+          let attendees = result.data.attendees;
+          this.setState({event: result.data, attendees: attendees, date: null, editDate: false, newDate: null, modifyDate: false, attendeesRemoval: [], message: 'Event Updated', error: null})
+        })
+        .catch((error) => {
+          this.setState({message: 'Unable to update event'})
+        })
+    }
+  };
 
   renderGuests = (guest, index) => {
     let email = '';
@@ -154,7 +115,7 @@ class EventShow extends Component {
   renderAttendee = (attendee, index) => {
     return(
       <div className="attendee-container" key={index}>
-        <span className="name"> {attendee.name} </span>
+        <span className={`name name-${this.state.attendeesRemoval[attendee.id]}`}> {attendee.name} </span>
         <span className="email"> {attendee.email} </span>
         {
           attendee.guests.length ? <span className="guests-label"> Guests: </span> : ''
@@ -164,11 +125,22 @@ class EventShow extends Component {
             return this.renderGuests(guest, index);
           })
         }
-        <i className="fas fa-times attendee-remove" onClick={() => this.markAttendeeForRemoval(attendee.id)}/>
+        {
+          this.state.attendeesRemoval[attendee.id] ? 
+            <span className="attendee-remove cancel-remove" onClick={() => this.markAttendeeForRemoval(attendee.id)}> Cancel Remove </span>
+            :
+            <i className="fas fa-times attendee-remove" onClick={() => this.markAttendeeForRemoval(attendee.id)}/>
+        }
       </div>
     )
   };
 
+  toggleDateEdit = () => {
+    this.setState({ editDate: !this.state.editDate, date: null });
+  };
+
+  changeDate = date => this.setState({ date });
+  
   renderForm = () => {
     if(this.state.isLoading){
       return(
@@ -182,12 +154,22 @@ class EventShow extends Component {
       return(
         <div className="edit-form">
           <h2 className="event-header"> {hdate.prettyPrint(new Date(Date.parse(this.state.event.date)), {showTime: true})} </h2>
+          {
+            this.state.editDate ? 
+              <DateTimePicker 
+                onChange={this.changeDate}
+                value={this.state.date}
+              /> 
+            : 
+              ''
+          }
+          <p className="edit-date" onClick={this.toggleDateEdit}> {this.state.editDate ? 'cancel' : 'edit date'} </p>
           <p className="event-info"> Max Capacity:
             <input 
               className="number-of-attendee-input"
               value={this.state.numberOfAttendees}
               placeholder={this.state.event.numberOfAttendees}
-              onChange={this.changeNumberOfAttendee}  
+              onChange={this.changeNumberOfAttendee}
             /> 
           </p>
           <p className="event-info total-attending"> Total Attending: {this.state.eventCount} </p>
@@ -204,12 +186,77 @@ class EventShow extends Component {
     }
   };
 
+  buildEmailList = () => {
+    let emails = [];
+    this.state.attendees.forEach((attendee) => {
+      emails.push(attendee.email);
+      if(attendee.guests.length){
+        attendee.guests.forEach((guest) => {
+          if(guest.email){
+            emails.push(guest.email);
+          };
+        });
+      };
+    });
+    let emailList = emails.join(', ');
+    this.setState({emailList});
+    this.copyEmailList();
+  };
+
+  copyEmailList = () => {
+    var copy = document.createElement('textarea');
+    let style = {
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '2em',
+      height: '2em',
+      padding: 0,
+      border: 'none',
+      outline: 'none',
+      boxShadow: 'none',
+      background: 'transparent'
+    };
+    copy.style = style;
+    copy.value = this.state.emailList;
+    document.body.appendChild(copy);
+    copy.focus();
+    copy.select();
+    document.execCommand('copy');
+    document.body.removeChild(copy);
+  };
+
+  toggleMenu = () => {
+    let menu = document.getElementById('edit-menu');
+    if(menu.classList.contains('hidden')){
+      menu.classList.remove('hidden');
+    } else {
+      menu.classList.add('hidden');
+    }
+  };
+
+  renderMenu = () => {
+    return(
+      <div className="menu hidden" id="edit-menu">
+        <i className="fas fa-times close-menu" onClick={this.toggleMenu}/>
+        <p className="menu-item print"> Print Waiver </p>
+        <p className="menu-item" onClick={this.buildEmailList}> Copy Emails </p>
+      </div>
+    )
+  }
+
   render() {
     return(
       <div className="admin-edit-container">
+        {/* <input className="email-list" id="email-list" value={this.state.emailList} readOnly={true}/> */}
+        <i className="menu-toggle fas fa-ellipsis-v" onClick={this.toggleMenu}/>
+        {this.renderMenu()}
         {this.renderForm()}
-        <button className="update-button"> Update Tour </button>
+        <button className="update-button" onClick={this.updateEvent}> Update Tour </button>
         <button className="cancel-button"> Cancel Tour </button>
+        {
+          this.state.message ? <p className="form-message"> {this.state.message} </p> : ''
+        }
         <button className='state' onClick={() => {console.log(this.state)}}> State </button>
       </div>
     )

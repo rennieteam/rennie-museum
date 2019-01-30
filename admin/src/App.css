@@ -4,7 +4,8 @@
 a {
   text-decoration: none; }
 
-input:focus {
+input:focus,
+button:focus {
   outline: none; }
 
 .admin-nav {
@@ -87,13 +88,58 @@ input:focus {
 
 .admin-edit-container {
   display: flex;
-  padding: 30px 30px 75px 30px;
+  padding: 60px 60px 90px 60px;
   margin: 0 auto;
   border: 1px solid #A4A6A8;
   border-radius: 2px;
   width: max-content;
   max-width: 640px;
   position: relative; }
+  .admin-edit-container .menu-toggle {
+    font-size: 24px;
+    position: absolute;
+    right: 30px;
+    top: 30px; }
+    .admin-edit-container .menu-toggle:hover {
+      cursor: pointer; }
+  .admin-edit-container .email-list {
+    visibility: hidden;
+    height: 0;
+    width: 0; }
+  .admin-edit-container .menu {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #FFFFFF;
+    box-shadow: 0 0 36px rgba(0, 0, 0, 0.04); }
+    .admin-edit-container .menu .close-menu {
+      margin-left: auto;
+      font-size: 12px;
+      margin-bottom: 15px; }
+      .admin-edit-container .menu .close-menu:hover {
+        cursor: pointer; }
+    .admin-edit-container .menu-item {
+      font-size: 14px;
+      margin: 0;
+      color: #000000;
+      transition: all 0.5s ease-in-out; }
+      .admin-edit-container .menu-item:hover {
+        cursor: pointer;
+        color: #DA291C; }
+    .admin-edit-container .menu .print {
+      margin-bottom: 10px; }
+  .admin-edit-container .hidden {
+    display: none; }
+  .admin-edit-container .form-message {
+    position: absolute;
+    bottom: 5px;
+    font-size: 12px;
+    color: #DA291C;
+    left: 30px; }
   .admin-edit-container .state {
     position: absolute;
     bottom: -30px;
@@ -110,11 +156,11 @@ input:focus {
     background: #DA291C;
     color: #FFFFFF;
     position: absolute;
-    bottom: 30px; }
+    bottom: 40px; }
   .admin-edit-container .update-button {
-    left: 30px; }
+    left: 60px; }
   .admin-edit-container .cancel-button {
-    right: 30px; }
+    right: 60px; }
   .admin-edit-container .loading-container {
     width: max-content;
     font-size: 20px;
@@ -132,6 +178,12 @@ input:focus {
       padding-bottom: 10px; }
     .admin-edit-container .edit-form .event-info {
       margin: 0; }
+    .admin-edit-container .edit-form .edit-date {
+      font-size: 12px;
+      color: #DA291C;
+      margin-left: auto; }
+    .admin-edit-container .edit-form .react-datetime-picker__wrapper {
+      width: 100%; }
     .admin-edit-container .edit-form .number-of-attendee-input {
       height: 20px;
       padding-left: 10px;
@@ -153,8 +205,18 @@ input:focus {
         position: absolute;
         right: 15px;
         top: 15px; }
+        .admin-edit-container .edit-form .attendee-container .attendee-remove:hover {
+          cursor: pointer; }
+      .admin-edit-container .edit-form .attendee-container .cancel-remove {
+        font-size: 12px;
+        color: #DA291C; }
+        .admin-edit-container .edit-form .attendee-container .cancel-remove:hover {
+          cursor: pointer; }
       .admin-edit-container .edit-form .attendee-container .name {
         font-weight: 600; }
+      .admin-edit-container .edit-form .attendee-container .name-true {
+        text-decoration: line-through;
+        text-decoration-color: #DA291C; }
       .admin-edit-container .edit-form .attendee-container .email {
         font-size: 12px;
         font-style: italic;
@@ -164,3 +226,49 @@ input:focus {
         font-size: 14px; }
       .admin-edit-container .edit-form .attendee-container .guest-container .guest-name {
         font-size: 14px; }
+
+.create-event-form {
+  padding: 30px 30px 60px 30px;
+  border: 1px #A4A6A8 solid;
+  width: max-content;
+  margin: 0 auto;
+  position: relative; }
+  .create-event-form .create-header {
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0 0 20px 0;
+    border-bottom: thin #DA291C solid;
+    padding-bottom: 10px; }
+  .create-event-form .react-datetime-picker {
+    margin-bottom: 10px; }
+    .create-event-form .react-datetime-picker__calendar {
+      bottom: inital;
+      top: 0; }
+    .create-event-form .react-datetime-picker__clock {
+      display: none; }
+  .create-event-form .spots-container {
+    margin-bottom: 10px;
+    height: 30px; }
+    .create-event-form .spots-container label {
+      font-size: 14px;
+      margin-right: 10px; }
+    .create-event-form .spots-container input {
+      height: 100%;
+      padding-left: 10px; }
+  .create-event-form .create-button,
+  .create-event-form .cancel-button {
+    padding: 0 10px;
+    border: none;
+    background: #DA291C;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    font-size: 12px;
+    position: absolute;
+    bottom: 30px; }
+  .create-event-form .create-button {
+    left: 30px; }
+  .create-event-form .cancel-button {
+    right: 30px; }
