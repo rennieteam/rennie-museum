@@ -1229,7 +1229,31 @@ body.page .main-navigation {
 }
 
 .main-navigation > div {
-  display: inline;
+  display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation > div {
+    position: relative;
+  }
+}
+
+.main-navigation > div #root {
+  margin-left: 30px;
+}
+
+.main-navigation #navToggle {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation #navToggle {
+    display: block;
+    background: none;
+    color: #000;
+    align-self: flex-end;
+    margin: 0 0 30px;
+  }
 }
 
 .main-navigation .main-menu {
@@ -1323,6 +1347,32 @@ body.page .main-navigation {
 .main-navigation .main-menu > li:last-child > a,
 .main-navigation .main-menu > li:last-child.menu-item-has-children .submenu-expand {
   margin-right: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation .main-menu {
+    visibility: hidden;
+    transform-origin: top;
+    transform: scaleY(0) translateY(0);
+    transition: transform 0.24s ease;
+    display: block;
+    position: absolute;
+    top: 100%;
+    right: 120px;
+    background: #fff;
+    left: auto;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+  }
+  .main-navigation .main-menu.is-open {
+    visibility: visible;
+    transform: scaleY(1) translateY(0);
+  }
+  .main-navigation .main-menu.is-open > li {
+    margin: 0 30px;
+  }
+  .main-navigation .main-menu.is-open > li:last-of-type {
+    margin: 0 30px;
+  }
 }
 
 .main-navigation .sub-menu {

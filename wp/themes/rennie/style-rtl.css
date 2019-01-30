@@ -1229,7 +1229,31 @@ body.page .main-navigation {
 }
 
 .main-navigation > div {
-  display: inline;
+  display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation > div {
+    position: relative;
+  }
+}
+
+.main-navigation > div #root {
+  margin-right: 30px;
+}
+
+.main-navigation #navToggle {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation #navToggle {
+    display: block;
+    background: none;
+    color: #000;
+    align-self: flex-end;
+    margin: 0 0 30px;
+  }
 }
 
 .main-navigation .main-menu {
@@ -1323,6 +1347,31 @@ body.page .main-navigation {
 .main-navigation .main-menu > li:last-child > a,
 .main-navigation .main-menu > li:last-child.menu-item-has-children .submenu-expand {
   margin-left: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation .main-menu {
+    visibility: hidden;
+    transform: scaleY(0) translateY(0);
+    transition: transform 0.24s ease;
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 120px;
+    background: #fff;
+    right: auto;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+  }
+  .main-navigation .main-menu.is-open {
+    visibility: visible;
+    transform: scaleY(1) translateY(0);
+  }
+  .main-navigation .main-menu.is-open > li {
+    margin: 0 30px;
+  }
+  .main-navigation .main-menu.is-open > li:last-of-type {
+    margin: 0 30px;
+  }
 }
 
 .main-navigation .sub-menu {
@@ -2269,7 +2318,7 @@ body.page .main-navigation {
   display: block;
   width: 100%;
   max-width: 200px;
-  margin: 0;
+  margin: 0 0 30px;
   color: #000;
   /* When there is no description set, make sure navigation appears below title. */
 }
