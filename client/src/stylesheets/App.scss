@@ -11,12 +11,6 @@ $pad: 30px;
 $sans: national;
 $serif: Antwerp;
 
-html,
-body {
-  margin: 0;
-  background: #A4A6A8;
-}
-
 input,
 button,
 select {
@@ -101,6 +95,7 @@ button,
 
   .cta-button {
     border: 0;
+    padding: 0;
     margin-left: auto;
     width: max-content;
     height: $gutter * 1.5;

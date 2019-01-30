@@ -31,7 +31,6 @@
 		clear: both;
 
 		@include media(tablet) {
-			margin-top: calc(2 * #{$size__spacing-unit});
 			margin-bottom: calc(2 * #{$size__spacing-unit});
 			width: calc( 100% + (1380px - 960px));
 			left: -210px;

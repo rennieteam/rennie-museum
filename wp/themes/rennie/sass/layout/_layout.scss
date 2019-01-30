@@ -11,19 +11,25 @@
 	margin: 0 30px;
 
 	@include media(desktop) {
-		margin: 0 auto;
+		margin: 0 60px 30px;
 	}
+
+
+	@include media(wide) {
+		margin: 0 auto 30px;
+	}
+
 }
 
 .singular {
 	.site-content {
-		padding-top: 125px;
+		padding-top: 120px;
 	}
 }
 
 .blog {
 	.site-content {
-		padding-top: 125px;
+		padding-top: 120px;
 	}
 
 	.site-main {

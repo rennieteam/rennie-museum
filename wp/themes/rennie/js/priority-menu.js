@@ -217,6 +217,16 @@
 
 
 (function() {
+  window.addEventListener('scroll', function(e) {
+    if (document.getElementById('masthead') && window.scrollY > 5) {
+      document.getElementById('masthead').classList.add('has-shadow');
+    } else if (document.getElementById('masthead')) {
+      document.getElementById('masthead').classList.remove('has-shadow'); //only remove the shadow and go back to full icon at large screen widths
+    }
+  });
+})();
+
+(function() {
   function resizeGridItem(item){
     grid = document.getElementById('main');
     rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
@@ -245,6 +255,5 @@
   for(x = 0; x < allItems.length; x++){
     imagesLoaded( allItems[x], resizeInstance);
   }
-
 })();
 
