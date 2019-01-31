@@ -9,7 +9,7 @@ let transport = nodemailer.createTransport(mandrillTransport({
   }
 }));
 
-module.exports = (data = null, subscribe = false, forCancel = false, forRemove = false) => {
+module.exports = (data = null, subscribe = false, forCancel = false, forRemove = false, forUpdate = false) => {
   let message, link, linkText;
   if(forCancel){
     message = 'your tour has been cancelled';
@@ -19,6 +19,10 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     message = 'you have been removed from your tour';
     link = config.homeLink;
     linkText = 'Rebook';
+  } else if(forUpdate) {
+    message = 'your tour has been updated';
+    link = config.cancelLink;
+    linkText = 'Check event details';
   } else {
     message = 'thank you for booking a tour';
     link = config.cancelLink;

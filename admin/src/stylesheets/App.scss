@@ -1,6 +1,7 @@
 $primary: #DA291C;
 $black: #000000;
 $grey: #A4A6A8;
+$dark-grey: #333333;
 $gutter: 80px;
 $white: #FFFFFF;
 $large: 24px;
@@ -27,6 +28,7 @@ button {
   }
 }
 
+
 .admin-nav {
   width: 100vw;
   height: 60px;
@@ -40,6 +42,10 @@ button {
     font-size: $large;
     color: $black;
   }
+}
+
+.hidden {
+  display: none;
 }
 
 .events-index-container {
@@ -131,7 +137,143 @@ button {
   }
 }
 
-.admin-edit-container {
+@page {
+  size: auto;
+  // margin: 0mm;
+}
+
+@media print {
+
+  @page {
+    margin: 5mm;
+  }
+
+}
+
+.waiver-container {
+  background: $white;
+  pointer-events: none;
+  width: 100vw;
+  height: max-content;
+  // position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: $pad*2;
+}
+
+.print-waiver {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  padding: $pad;
+
+  .bold {
+    font-weight: 600;
+  }
+
+  .list-header {
+    margin-bottom: 15px;
+  }
+
+  ul {
+    margin-top: 0;
+    padding-left: 15px;
+  }
+
+  .bold,
+  .regular,
+  li {
+    font-size: 10px;
+    font-family: $sans;
+  }
+
+  .release {
+    margin-bottom: 30px;
+  }
+
+  .header-fields {
+    border-bottom: 1px solid $grey;
+    border-top: 1px solid $grey;
+    padding: 15px 0;
+  }
+
+  .form-fields {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    margin-bottom: 8px;
+
+    .bold {
+      font-size: $small;
+      font-family: $sans;
+    }
+
+    p {
+      grid-column: span 1;
+      height: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-family: $sans;
+      color: $dark-grey;
+    }
+
+    .form-fill {
+      border-bottom: 1px $grey solid;
+      padding-bottom: 10px;
+    }
+  }
+
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px $grey solid;
+    border-top: 1px $grey solid;
+    margin-bottom: 15px;
+
+    .exhibit-name {
+      font-family: $serif;
+      font-size: $small;
+      color: $black;
+      margin: 0;
+    }
+
+    .date {
+      font-family: $serif;
+      font-size: $smallest;
+      color: $dark-grey;
+      margin: 0;
+    }
+  }
+
+  .waiver-header-container {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: center;
+
+    svg {
+      height: 11px;
+      width: auto;
+    }
+
+    .header-text {
+      font-size: 18px;
+      margin: 0;
+    }
+  }
+
+}
+
+.form-outer-container {
   display: flex;
   padding: $pad*2 $pad*2 $pad*3 $pad*2;
   margin: 0 auto;
@@ -140,7 +282,12 @@ button {
   width: max-content;
   max-width: $max-width/2;
   position: relative;
+}
 
+.admin-edit-container {
+  width: 100vw;
+  height: 100vh;
+  
   .menu-toggle {
     font-size: $large;
     position: absolute;
@@ -205,7 +352,7 @@ button {
     bottom: 5px;
     font-size: $smallest;
     color: $primary;
-    left: $pad;
+    left: $pad*2;
   }
 
   .state {
@@ -248,6 +395,21 @@ button {
     width: 100%;
     display: flex;
     flex-direction: column;
+
+    .notify-select {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+
+      &-label {
+        font-size: $smallest;
+        font-style: italic;
+      }
+
+      input {
+        margin-right: 10px;
+      }
+    }
 
     .event-header {
       font-size: $medium;

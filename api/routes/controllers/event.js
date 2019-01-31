@@ -83,11 +83,11 @@ const eventRouter = function (app) {
         id: req.body.removal
       }
     }).then((results) => {
-      if(results.length){
+      if(req.body.notify && results.length){
         results.forEach((attendee) => {
           let a = attendee.dataValues;
           mailerHelper(a, false, false, true);
-        })
+        });
       };
       return results;
     }).then((results) => {
@@ -109,6 +109,11 @@ const eventRouter = function (app) {
       Events.findOne(filter).then((event) => {
         if(event){
           event.update(options).then(result => {
+            if(req.body.notify){
+              event.dataValues.attendees.forEach((attendee) => {
+                mailerHelper(attendee.dataValues, false, false, false, true);
+              });
+            };
             res.json(result);
           })
           .catch(error => console.log(error));
