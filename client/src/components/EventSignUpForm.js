@@ -27,7 +27,13 @@ class EventSignUpForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     if (this.state.name && validator.validate(this.state.email) && this.state.guests.every(this.checkEmptyGuest)) {
-      axios.post(`${config.API_URL}/api/attendees`, this.state)
+      let url;
+      if(process.env.NODE_ENV === 'development'){
+        url = config.developmentUrl;
+      } else {
+        url = config.productionUrl;
+      };
+      axios.post(`${url}/api/attendees`, this.state)
         .then((result) => {
           this.props.submitMessageToggle(true);
           this.props.closeForm();

@@ -216,7 +216,13 @@ class BookingForm extends Component {
       bodyParams.forEach((param) => {
         body[param] = this.state[param];
       });
-      axios.post(`${config.API_URL}/api/attendees`, body)
+      let url;
+      if(process.env.NODE_ENV === 'development'){
+        url = config.developmentUrl;
+      } else {
+        url = config.productionUrl;
+      };
+      axios.post(`${url}/api/attendees`, body)
         .then((result) => {
           this.setMessage('Thank you for booking.');
         })

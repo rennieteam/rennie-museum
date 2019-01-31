@@ -33,7 +33,13 @@ class CreateEventForm extends Component {
   };
 
   handleSubmit = () => {
-    axios.post(`${config[process.env.NODE_ENV]}/api/events`, this.state)
+    let url;
+    if(process.env.NODE_ENV){
+      url = config[process.env.NODE_ENV];
+    } else {
+      url = config.production;
+    };
+    axios.post(`${url}/api/events`, this.state)
       .then((result) => {
         this.props.updateEvents(result.data);
         this.props.setMessage('Event Successfully Created');

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import qs from 'query-string';
 
-// import EventIndex from './components/EventIndex';
 import CancelForm from './components/CancelForm';
 import BookingForm from './components/BookingForm';
 import RegisterForm from './components/RegisterForm';
@@ -24,7 +23,13 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    axios.get(`${config.API_URL}/api/events`)
+    let url;
+    if(process.env.NODE_ENV === 'development'){
+      url = config.developmentUrl;
+    } else {
+      url = config.productionUrl;
+    };
+    axios.get(`${url}/api/events`)
       .then((results) => {
         this.setState({ events: results.data });
         let dupCheck = [];

@@ -32,7 +32,13 @@ class CancelForm extends Component {
 
   componentDidMount = () => {
     let q = qs.parse(this.props.location.hash);
-    axios.get(`${config.API_URL}/api/attendee/${q.cancel}`)
+    let url;
+    if(process.env.NODE_ENV === 'development'){
+      url = config.developmentUrl;
+    } else {
+      url = config.productionUrl;
+    };
+    axios.get(`${url}/api/attendee/${q.cancel}`)
       .then((result) => {
         this.setState({attendee: result.data, guests: result.data.guests, selectedEvent: result.data.Event, isLoading: false});
       })
@@ -109,7 +115,13 @@ class CancelForm extends Component {
   };
 
   cancelBooking = () => {
-    axios.delete(`${config.API_URL}/api/attendee/${this.state.attendee.id}`)
+    let url;
+    if(process.env.NODE_ENV === 'development'){
+      url = config.developmentUrl;
+    } else {
+      url = config.productionUrl;
+    };
+    axios.delete(`${url}/api/attendee/${this.state.attendee.id}`)
       .then((result) => {
         this.setState({cancelSuccess: true});
       })
@@ -186,7 +198,13 @@ class CancelForm extends Component {
     } else if(!guests.every(checkGuest)){
       this.setMessage('Guest names are required.');
     } else {
-      axios.put(`${config.API_URL}/api/attendee/${this.state.attendee.id}`, options)
+      let url;
+      if(process.env.NODE_ENV === 'development'){
+        url = config.developmentUrl;
+      } else {
+        url = config.productionUrl;
+      };
+      axios.put(`${url}/api/attendee/${this.state.attendee.id}`, options)
         .then((result) => {
           this.setState({ updateSuccess: true });
         })
