@@ -1,0 +1,384 @@
+* {
+  box-sizing: border-box; }
+
+a {
+  text-decoration: none; }
+
+input:focus,
+button:focus {
+  outline: none; }
+
+.admin-nav {
+  width: 100vw;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .admin-nav-item {
+    text-decoration: none;
+    margin: 10px;
+    font-size: 24px;
+    color: #000000; }
+
+.hidden {
+  display: none; }
+
+.events-index-container {
+  display: grid;
+  grid-column-gap: 30px;
+  grid-row-gap: 30px;
+  grid-template-columns: repeat(12, 1fr);
+  max-width: 1280px;
+  margin: 0 auto; }
+  .events-index-container .sorter-container {
+    padding-bottom: 5px;
+    grid-column: span 12;
+    border-bottom: 1px #A4A6A8 solid;
+    display: flex; }
+    .events-index-container .sorter-container .sort-label {
+      font-weight: 600;
+      margin-right: 15px; }
+    .events-index-container .sorter-container .sort-item-label {
+      margin-right: 3px; }
+    .events-index-container .sorter-container .sort-item {
+      margin-right: 10px;
+      display: flex;
+      align-items: center;
+      min-width: 50px; }
+      .events-index-container .sorter-container .sort-item .fas {
+        font-weight: 900;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 15px;
+        height: 13px; }
+  .events-index-container .admin-event {
+    grid-column: span 3;
+    display: flex;
+    flex-direction: column;
+    padding: 30px 30px 60px 30px;
+    border: 1px #A4A6A8 solid;
+    border-radius: 2px;
+    position: relative; }
+    .events-index-container .admin-event .event-date,
+    .events-index-container .admin-event .event-time,
+    .events-index-container .admin-event .event-info {
+      margin: 0; }
+    .events-index-container .admin-event .event-date {
+      font-weight: 600; }
+    .events-index-container .admin-event .event-time {
+      font-style: italic;
+      margin-bottom: 10px; }
+    .events-index-container .admin-event .event-edit {
+      height: 30px;
+      width: max-content;
+      padding: 0 10px;
+      font-size: 14px;
+      color: #FFFFFF;
+      background: #DA291C;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      bottom: 15px;
+      right: 15px; }
+    .events-index-container .admin-event .full-label {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      color: #DA291C;
+      font-weight: 600; }
+
+@page {
+  size: auto; }
+
+@media print {
+  @page {
+    margin: 5mm; } }
+
+.waiver-container {
+  background: #FFFFFF;
+  pointer-events: none;
+  width: 100vw;
+  height: max-content;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  padding-top: 60px; }
+
+.print-waiver {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0 auto;
+  padding: 30px; }
+  .print-waiver .bold {
+    font-weight: 600; }
+  .print-waiver .list-header {
+    margin-bottom: 15px; }
+  .print-waiver ul {
+    margin-top: 0;
+    padding-left: 15px; }
+  .print-waiver .bold,
+  .print-waiver .regular,
+  .print-waiver li {
+    font-size: 10px;
+    font-family: national; }
+  .print-waiver .release {
+    margin-bottom: 30px; }
+  .print-waiver .header-fields {
+    border-bottom: 1px solid #A4A6A8;
+    border-top: 1px solid #A4A6A8;
+    padding: 15px 0; }
+  .print-waiver .form-fields {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    margin-bottom: 8px; }
+    .print-waiver .form-fields .bold {
+      font-size: 14px;
+      font-family: national; }
+    .print-waiver .form-fields p {
+      grid-column: span 1;
+      height: 100%;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      font-family: national;
+      color: #333333; }
+    .print-waiver .form-fields .form-fill {
+      border-bottom: 1px #A4A6A8 solid;
+      padding-bottom: 10px; }
+  .print-waiver .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px #A4A6A8 solid;
+    border-top: 1px #A4A6A8 solid;
+    margin-bottom: 15px; }
+    .print-waiver .title-container .exhibit-name {
+      font-family: Antwerp;
+      font-size: 14px;
+      color: #000000;
+      margin: 0; }
+    .print-waiver .title-container .date {
+      font-family: Antwerp;
+      font-size: 12px;
+      color: #333333;
+      margin: 0; }
+  .print-waiver .waiver-header-container {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: space-between;
+    align-items: center; }
+    .print-waiver .waiver-header-container svg {
+      height: 11px;
+      width: auto; }
+    .print-waiver .waiver-header-container .header-text {
+      font-size: 18px;
+      margin: 0; }
+
+.form-outer-container {
+  display: flex;
+  padding: 60px 60px 90px 60px;
+  margin: 0 auto;
+  border: 1px solid #A4A6A8;
+  border-radius: 2px;
+  width: max-content;
+  max-width: 640px;
+  position: relative; }
+
+.admin-edit-container {
+  width: 100vw;
+  height: 100vh; }
+  .admin-edit-container .menu-toggle {
+    font-size: 24px;
+    position: absolute;
+    right: 30px;
+    top: 30px; }
+    .admin-edit-container .menu-toggle:hover {
+      cursor: pointer; }
+  .admin-edit-container .email-list {
+    visibility: hidden;
+    height: 0;
+    width: 0; }
+  .admin-edit-container .menu {
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    background: #FFFFFF;
+    box-shadow: 0 0 36px rgba(0, 0, 0, 0.04); }
+    .admin-edit-container .menu .close-menu {
+      margin-left: auto;
+      font-size: 12px;
+      margin-bottom: 15px; }
+      .admin-edit-container .menu .close-menu:hover {
+        cursor: pointer; }
+    .admin-edit-container .menu-item {
+      font-size: 14px;
+      margin: 0;
+      color: #000000;
+      transition: all 0.5s ease-in-out; }
+      .admin-edit-container .menu-item:hover {
+        cursor: pointer;
+        color: #DA291C; }
+    .admin-edit-container .menu .print {
+      margin-bottom: 10px; }
+  .admin-edit-container .hidden {
+    display: none; }
+  .admin-edit-container .form-message {
+    position: absolute;
+    bottom: 5px;
+    font-size: 12px;
+    color: #DA291C;
+    left: 60px; }
+  .admin-edit-container .state {
+    position: absolute;
+    bottom: -30px;
+    left: 0; }
+  .admin-edit-container .update-button,
+  .admin-edit-container .cancel-button {
+    width: max-content;
+    height: 30px;
+    padding: 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: #DA291C;
+    color: #FFFFFF;
+    position: absolute;
+    bottom: 40px; }
+  .admin-edit-container .update-button {
+    left: 60px; }
+  .admin-edit-container .cancel-button {
+    right: 60px; }
+  .admin-edit-container .loading-container {
+    width: max-content;
+    font-size: 20px;
+    color: #DA291C;
+    margin: auto auto; }
+  .admin-edit-container .edit-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column; }
+    .admin-edit-container .edit-form .notify-select {
+      display: flex;
+      align-items: center;
+      margin-top: 10px; }
+      .admin-edit-container .edit-form .notify-select-label {
+        font-size: 12px;
+        font-style: italic; }
+      .admin-edit-container .edit-form .notify-select input {
+        margin-right: 10px; }
+    .admin-edit-container .edit-form .event-header {
+      font-size: 20px;
+      font-weight: normal;
+      margin: 0 auto 10px auto;
+      border-bottom: 1px solid #DA291C;
+      padding-bottom: 10px; }
+    .admin-edit-container .edit-form .event-info {
+      margin: 0; }
+    .admin-edit-container .edit-form .edit-date {
+      font-size: 12px;
+      color: #DA291C;
+      margin-left: auto; }
+    .admin-edit-container .edit-form .react-datetime-picker__wrapper {
+      width: 100%; }
+    .admin-edit-container .edit-form .number-of-attendee-input {
+      height: 20px;
+      padding-left: 10px;
+      margin-left: 5px;
+      width: 50px; }
+    .admin-edit-container .edit-form .total-attending {
+      margin: 10px 0; }
+    .admin-edit-container .edit-form .attendees-header {
+      margin-bottom: 5px; }
+    .admin-edit-container .edit-form .attendee-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      padding: 10px;
+      margin-bottom: 5px;
+      border-bottom: 1px solid #DA291C;
+      position: relative; }
+      .admin-edit-container .edit-form .attendee-container .attendee-remove {
+        position: absolute;
+        right: 15px;
+        top: 15px; }
+        .admin-edit-container .edit-form .attendee-container .attendee-remove:hover {
+          cursor: pointer; }
+      .admin-edit-container .edit-form .attendee-container .cancel-remove {
+        font-size: 12px;
+        color: #DA291C; }
+        .admin-edit-container .edit-form .attendee-container .cancel-remove:hover {
+          cursor: pointer; }
+      .admin-edit-container .edit-form .attendee-container .name {
+        font-weight: 600; }
+      .admin-edit-container .edit-form .attendee-container .name-true {
+        text-decoration: line-through;
+        text-decoration-color: #DA291C; }
+      .admin-edit-container .edit-form .attendee-container .email {
+        font-size: 12px;
+        font-style: italic;
+        color: #A4A6A8;
+        margin-bottom: 5px; }
+      .admin-edit-container .edit-form .attendee-container .guests-label {
+        font-size: 14px; }
+      .admin-edit-container .edit-form .attendee-container .guest-container .guest-name {
+        font-size: 14px; }
+
+.create-event-form {
+  padding: 30px 30px 60px 30px;
+  border: 1px #A4A6A8 solid;
+  width: max-content;
+  margin: 0 auto;
+  position: relative; }
+  .create-event-form .create-header {
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0 0 20px 0;
+    border-bottom: thin #DA291C solid;
+    padding-bottom: 10px; }
+  .create-event-form .react-datetime-picker {
+    margin-bottom: 10px; }
+    .create-event-form .react-datetime-picker__calendar {
+      bottom: inital;
+      top: 0; }
+    .create-event-form .react-datetime-picker__clock {
+      display: none; }
+  .create-event-form .spots-container {
+    margin-bottom: 10px;
+    height: 30px; }
+    .create-event-form .spots-container label {
+      font-size: 14px;
+      margin-right: 10px; }
+    .create-event-form .spots-container input {
+      height: 100%;
+      padding-left: 10px; }
+  .create-event-form .create-button,
+  .create-event-form .cancel-button {
+    padding: 0 10px;
+    border: none;
+    background: #DA291C;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    font-size: 12px;
+    position: absolute;
+    bottom: 30px; }
+  .create-event-form .create-button {
+    left: 30px; }
+  .create-event-form .cancel-button {
+    right: 30px; }

@@ -1,48 +1,154 @@
-const Sequelize = require('sequelize');
-const sequelize = new Sequelize('postgres://josh@localhost:5432/booking_system_development');
+const db = require('./../../db/models/index');
+const Events = db.Event;
+const Attendee = db.Attendee;
+const cors = require('cors');
+const mailerHelper = require('../../helpers/mailerHelper');
 
-// Models
-const evnt = require('./../../db/models/event');
-const Events = evnt(sequelize, Sequelize)
+const config = require('../../config');
+
+const corsOptions = {
+  origin: (origin, callback) => {
+    if(config.allowedOrigin.indexOf(origin) !== -1 || !origin){
+      callback(null, true);
+    } else {
+      callback(new Error('Origin forbidden'));
+    };
+  }
+};
 
 const eventRouter = function (app) {
 
   app.get('/api/events', (req, res) => {
-    Events.findAll().then(evt => res.json(evt));
+    Events.findAll(
+      {
+        order: [
+          ['date', 'ASC']
+        ],
+        include: [{
+          model: Attendee,
+          as: 'attendees'
+        }]
+      }
+    )
+    .then(evt => res.json(evt));
   });
 
   app.post('/api/events', (req, res) => {
-    Events.create(req.query).then((result) => {
-      res.json(result);
-    });
+    Events.create(req.body).then((result) => {
+      Events.findAll(
+        {
+          order: [
+            ['date', 'ASC']
+          ],
+          include: [{
+            model: Attendee,
+            as: 'attendees'
+          }]
+        }
+      ).then(result => {
+        res.json(result)
+      })
+
+    }).catch(error => {
+      console.log(error)
+    })
   });
 
   app.get('/api/event/:eventId', (req, res) => {
-    Events.findAll({
+    Events.findOne({
       where: {
-        id: parseInt(req.params['EventId'])
-      }
-    }).then(evt => res.json(evt));
+        id: parseInt(req.params['eventId'])
+      },
+      include: [{
+        model: Attendee,
+        as: 'attendees'
+      }]
+    })
+    .then(evt => res.json(evt))
+    .catch(error => res.send(error))
   });
 
   app.put('/api/event/:eventId', (req, res) => {
-    Events.update(req.query, {
+    let options = {};
+    if(req.body.date){
+      options.date = req.body.date;
+    };
+
+    if(req.body.numberOfAttendees){
+      options.numberOfAttendees = req.body.numberOfAttendees
+    };
+
+    Attendee.findAll({
       where: {
-        id: parseInt(req.params['EventId'])
+        id: req.body.removal
       }
-    }).then((result) => {
-      res.json(result);
+    }).then((results) => {
+      if(req.body.notify && results.length){
+        results.forEach((attendee) => {
+          let a = attendee.dataValues;
+          mailerHelper(a, false, false, true);
+        });
+      };
+      return results;
+    }).then((results) => {
+      if(results.length){
+        Attendee.destroy({
+          where: {
+            id: req.body.removal
+          }
+        })
+      };
+    }).then(() => {
+      let filter = {
+        where: { id: parseInt(req.params['eventId']) },
+        include: [
+          { model: Attendee, as: 'attendees' }
+        ]
+      };
+
+      Events.findOne(filter).then((event) => {
+        if(event){
+          event.update(options).then(result => {
+            if(req.body.notify){
+              event.dataValues.attendees.forEach((attendee) => {
+                mailerHelper(attendee.dataValues, false, false, false, true);
+              });
+            };
+            res.json(result);
+          })
+          .catch(error => console.log(error));
+        } else {
+          res.sendStatus(400);
+        };
+      }).catch(error => res.json(error));
+    })
+    .catch(error => {
+      console.log(error);
     });
+
   });
 
-  app.delete('/api/event/:eventId', (req, res) => {
+  // this line needed to enable CORS pre-flight for delete method
+  app.options('/api/event/:eventId', cors(corsOptions));
+
+  app.delete('/api/event/:eventId', cors(corsOptions), (req, res) => {
+    // Attendee.findAll({
+    //   where: {
+    //     EventId: parseInt(req.params['eventId'])
+    //   }
+    // }).then((result) => {
+    //   result.forEach((attendee) => {
+    //     mailerHelper(attendee.dataValues, false, true)
+    //   })
+    // }).catch(err => console.log(err));
+
     Events.destroy({
       where: {
-        id: parseInt(req.params['EventId'])
+        id: parseInt(req.params['eventId'])
       }
     }).then((result) => {
       res.json(result);
-    });
+    }).catch(err => console.log(err))
   });
 }
 

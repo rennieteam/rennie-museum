@@ -6,10 +6,13 @@ module.exports = (sequelize, DataTypes) => {
     externalSlug: DataTypes.STRING,
     date: DataTypes.DATE,
     numberOfAttendees: DataTypes.INTEGER
-  }, {});
+  });
 
-  Event.associate = function(models) {
-    // associations can be defined here
+  Event.associate = (models) => {
+    Event.hasMany(models.Attendee, {
+      foreignKey: 'EventId',
+      as:'attendees'
+    });
   };
 
   return Event;

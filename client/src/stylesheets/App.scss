@@ -1,0 +1,465 @@
+$primary: #DA291C;
+$black: #000000;
+$grey: #A4A6A8;
+$gutter: 80px;
+$white: #FFFFFF;
+$large: 24px;
+$medium: 20px;
+$small: 14px;
+$smallest: 12px;
+$pad: 30px;
+$sans: national;
+$serif: Antwerp;
+
+input,
+button,
+select {
+  &:focus {
+    outline: none;
+  }
+}
+
+button,
+.fas {
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+* {
+  color: black;
+  box-sizing: border-box;
+}
+
+.event {
+  width: max-content;
+  height: max-content;
+  border: 1px black solid;
+  display: flex;
+}
+
+.event-date {
+  padding: 10px;
+  background: lightgrey;
+  border-radius: 2px;
+  height: max-content;
+  width: max-content;
+  margin: 20px;
+}
+
+.booking-form-cta {
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.cancel-message-container,
+.update-message-container {
+  width: 400px;
+  height: max-content;
+  border: thin $black solid;
+  padding: $pad;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+
+  .cancel-message,
+  .update-message {
+    font-size: $medium;
+    color: $primary;
+  }
+}
+
+.cancel-edit-modal {
+  border-radius: 2px;
+
+  .form-greeting {
+    font-size: $medium;
+    font-weight: 400;
+  }
+
+  #cancel-submit-prompt-container {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.booking-form-cta,
+.cancel-edit-container {
+
+  .cta-button {
+    border: 0;
+    padding: 0;
+    margin-left: auto;
+    width: max-content;
+    height: $gutter * 1.5;
+    width: $gutter * 1.5;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+    font-size: $large;
+    position: relative;
+    z-index: 1000;
+    background: $black;
+    border-radius: 0;
+
+    &-text {
+      color: $white;
+      margin-bottom: 30px;
+    }
+  }
+
+  .booking-form-container {
+    background: $white;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    width: 470px;
+    box-shadow: 0 0 36px rgba(0,0,0,0.04);
+  }
+
+  .booking-form-container,
+  .cancel-edit-modal {
+
+    .booking-form {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+
+      .cta-header {
+        height: 120px;
+        padding: $pad 0 0 $pad;
+        width: calc(100% - 120px);
+
+        .header-title {
+          color: black;
+          margin: 0;
+          font-size: $medium;
+        }
+
+        .sub-header {
+          margin: 0;
+          color: $grey;
+          font-size: $small;
+          font-style: italic;
+        }
+      }
+
+      .form-body {
+        width: 100%;
+        height: calc(100% - 120px);
+        padding: $pad;
+
+        .form-header {
+          margin: 0 0 10px 0;
+          font-size: $medium;
+          color: $grey;
+          text-transform: capitalize;
+        }
+
+        .date-time-select {
+          // height: $pad;
+          display: flex;
+          width: 100%;
+          margin-bottom: $pad;
+
+          .availability {
+            width: calc(100% / 3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: thin $primary solid;
+            font-size: $small;
+            color: $primary;
+            border-radius: 2px;
+          }
+
+          .time-select {
+            margin: 0 10px;
+          }
+
+          .date-select,
+          .time-select,
+          .availability-holder {
+            width: calc(100% /3);
+
+            // gets rid of spans that create vertical grey lines
+            .css-d8oujb,
+            .css-ln5n5c {
+              display: none;
+            }
+
+            // dropdown container
+            .css-15k3avv {
+              width: max-content;
+
+              .css-11unzgr {
+                div {
+                  font-size: $small;
+                }
+              }
+            }
+
+            .css-bl6clz {
+              display: none !important;
+            }
+
+            .css-vj8t7z,
+            .css-2o5izw,
+            .css-162g8z5 {
+              height: $pad !important;
+              min-height: initial !important;
+              border-radius: 2 !important;
+              border: 1px solid $grey !important;
+
+              // class below is text inside select
+              .css-xp4uvy,
+              .css-1492t68 {
+                font-size: $small;
+              }
+
+              // shifts svg more to the right
+              .css-1ep9fjw,
+              .css-1uq0kb5 {
+                padding: 8px 3px 8px 8px;
+              }
+
+              svg {
+                height: 10px !important;
+                width: 10px !important;
+                fill: $grey;
+              }
+            }
+
+          }
+        }
+
+        .attendee-info {
+          display: flex;
+          justify-content: space-between;
+          height: $pad;
+          margin-bottom: 10px;
+
+          .attendee-name-input {
+            margin-right: 10px;
+          }
+
+          input {
+            width: calc(100% / 2);
+            height: 100%;
+            padding-left: 8px;
+            font-size: $small;
+            border-radius: 2px;
+            border: 1px solid $grey;
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+
+        .subscribe-container {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+
+          input {
+            margin: 0;
+            width: 15px;
+            height: 15px;
+            border-radius: 0;
+            margin-right: 5px;
+          }
+
+          .subscribe-label {
+            font-style: italic;
+            font-size: $smallest;
+          }
+        }
+
+        .guests-container {
+          display: flex;
+          flex-direction: column;
+          width: 100%;
+          margin-bottom: $pad;
+
+          .guest-inputs {
+            display: flex;
+            width: 100%;
+            align-items: center;
+            height: max-content;
+            margin-bottom: 10px;
+
+            .fas {
+              font-size: 10px;
+            }
+
+            input {
+              width: calc(50% - 10px);
+              margin-right: 10px;
+              height: $pad;
+              padding-left: 8px;
+              font-size: $small;
+              border-radius: 2px;
+              border: 1px solid $grey;
+
+              &::placeholder {
+                text-transform: capitalize;
+              }
+
+              &:focus {
+                outline: none;
+              }
+            }
+          }
+
+          .add-guest {
+            width: 100%;
+            display: flex;
+            align-items: center;
+
+            .fas {
+              font-size: 10px;
+            }
+
+            span {
+              font-size: $smallest;
+              margin-left: 5px;
+            }
+          }
+        }
+
+        .message-container {
+          color: $primary;
+          font-size: $small;
+          margin-bottom: 10px;
+        }
+
+        .submit-prompt-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+
+          .guest-message {
+            font-size: $small;
+            color: $primary;
+            margin-bottom: 10px;
+          }
+
+          .submit-button {
+            color: $white;
+            font-size: $smallest;
+            padding: 10px;
+            background: $primary;
+            border: none;
+          }
+        }
+
+      }
+
+    }
+
+  }
+}
+
+
+.hidden {
+  display: none;
+}
+
+
+
+
+
+// .form-body > h2 {
+//   color: black;
+//   margin: 0;
+// }
+
+.cancel-edit-container,
+.register-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cancel-edit-modal,
+  .register-modal {
+    border: thin black solid;
+    border-radius: 2px;
+    width: max-content;
+  }
+
+  .register-modal {
+    padding: $pad;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .register-header {
+      margin: 0;
+      font-size: $large;
+      font-weight: 400;
+      margin-bottom: 15px;
+    }
+
+    .email-input {
+      height: $pad;
+      padding-left: 8px;
+      border: 1px solid $grey;
+      border-radius: 2px;
+      margin-bottom: 15px;
+    }
+
+    .register-button {
+      height: $pad;
+      font-size: $smallest;
+      color: $white;
+      background: $primary;
+      padding: 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      width: max-content;
+      margin: 0 auto;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .register-message {
+      font-style: italic;
+      position: absolute;
+      left: $pad;
+      bottom: 5px;
+      font-size: $smallest;
+      color: $primary;
+    }
+
+    .close-register-button {
+      font-size: $smallest;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+}
+
