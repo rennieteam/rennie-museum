@@ -92,7 +92,8 @@ h2 {
 .has-large-font-size,
 .comments-title,
 h3 {
-	font-size: $font__size-lg;
+	font-size: $font__size-md;
+	font-weight: 300;
 }
 
 .site-title,

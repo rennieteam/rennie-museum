@@ -8,7 +8,27 @@
 	}
 
 	> div {
-		display: inline;
+		display: flex;
+
+		@media only screen and (max-width: $tablet_width) {
+			position: relative;
+		}
+
+		#root {
+			margin-left: 30px;
+		}
+	}
+
+	#navToggle {
+		display: none;
+
+		@media only screen and (max-width: $tablet_width) {
+			display: block;
+			background: none;
+			color: $color__text-main;
+			align-self: flex-end;
+			margin: 0 0 30px;
+		}
 	}
 
 	.main-menu {
@@ -33,8 +53,8 @@
 			> a {
 
 				font-weight: 300;
+				line-height: 1;
 				color: $color__text-main;
-				margin-right: #{0.5 * $size__spacing-unit};
 				margin-bottom: 30px;
 
 				+ svg {
@@ -109,6 +129,38 @@
 				margin-right: 0;
 			}
 		}
+
+
+		@media only screen and (max-width: $tablet_width) {
+			// display: none;
+			visibility: hidden;
+			transform-origin: top;
+			transform: scaleY(0) translateY(0);
+			transition: transform 0.24s ease;
+			display: block;
+			position: absolute;
+			top: 100%;
+			right: 120px;
+			background: #fff;
+			// width: 200px;
+			left: auto;
+			box-shadow: 0 15px 30px -10px rgba($color__text-main, .1);
+
+
+			&.is-open {
+				visibility: visible;
+				transform: scaleY(1) translateY(0);
+
+				> li {
+					margin: 0 30px;
+
+					&:last-of-type {
+						margin: 0 30px;
+					}
+				}
+			}
+		}
+
 	}
 
 	.sub-menu {

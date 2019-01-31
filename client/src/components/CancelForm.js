@@ -73,8 +73,8 @@ class CancelForm extends Component {
     } else {
       insufficientSpots = selectedEvent.numberOfAttendees - eventCount < this.state.guests.length + 1;
     };
-    this.setState({ 
-      selectedTime, 
+    this.setState({
+      selectedTime,
       selectedEvent: selectedEvent,
       eventCount,
       EventId: selectedTime.value.id
@@ -157,10 +157,10 @@ class CancelForm extends Component {
           params.map((param) => {
             let req = param.req ? '*' : '';
             return(
-              <input 
-                key={param.value} 
+              <input
+                key={param.value}
                 name={param.value}
-                placeholder={`Guest ${param.value}${req}`} 
+                placeholder={`Guest ${param.value}${req}`}
                 onChange={(event) => this.handleGuestChange(event, index)}
                 value={this.state.guests[index][param.value]}
               />
@@ -224,7 +224,7 @@ class CancelForm extends Component {
                   onChange={this.selectDate}
                   options={this.state.dateOptions}
                 />
-                <Select 
+                <Select
                   className="time-select"
                   placeholder="Time"
                   value={this.state.selectedTime}
@@ -238,13 +238,13 @@ class CancelForm extends Component {
                 }
               </div>
               {
-                !this.state.disableAddGuest ? 
+                !this.state.disableAddGuest ?
                   <div className="guests-container">
                     {
                       this.state.guests.map( (guest,index) => this.guestInput(guest,index) )
                     }
                     <div className="add-guest" onClick={this.addGuest}>
-                      <i 
+                      <i
                         className="fas fa-plus"
                       />
                       <span> Add Guest </span>
@@ -264,6 +264,7 @@ class CancelForm extends Component {
           </div>
         </div>
       )
+    // eslint-disable-next-line
     };
   };
 

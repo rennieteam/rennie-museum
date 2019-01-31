@@ -7,15 +7,15 @@ input[type="submit"] {
 	@include button-transition;
 	background: $color__background-button;
 	border: none;
-	border-radius: 5px;
+	border-radius: 2px;
 	box-sizing: border-box;
 	color: $color__background-body;
 	font-family: $font__heading;
 	font-size: $font__size-sm;
-	font-weight: 700;
+	font-weight: 300;
 	line-height: $font__line-height-heading;
 	outline: none;
-	padding: ( $size__spacing-unit * .76 ) $size__spacing-unit;
+	padding: 9px 10px;
 	text-decoration: none;
 	vertical-align: bottom;
 

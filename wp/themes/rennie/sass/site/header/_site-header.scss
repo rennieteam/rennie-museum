@@ -1,5 +1,15 @@
 // Site header
 
+#masthead {
+	&.has-shadow {
+		box-shadow: 0 3px 3px rgba($color__text-main, .1);
+
+		@include media(mobile) {
+			box-shadow: 0 0 30px rgba($color__text-main, .1);
+		}
+  }
+}
+
 .site-header {
 	position: fixed;
 	width: 100%;
@@ -28,18 +38,18 @@
 
 // Site branding
 .site-branding {
-	margin: 0 30px 30px;
+	margin: 0 30px;
 	max-width: 1380px;
 	display: flex;
-	align-items: center;
+	align-items: flex-end;
 	justify-content: space-between;
 
 	@include media(desktop) {
-		margin: 0 60px 30px;
+		margin: 0 60px;
 	}
 
 	@include media(wide) {
-		margin: 0 auto 30px;
+		margin: 0 auto;
 		width: 100%;
 	}
 }
@@ -91,7 +101,7 @@
 	display: block;
 	width: 100%;
 	max-width: 200px;
-	margin: 0;
+	margin: 0 0 30px;
 	color: $color__text-main;
 
 	a {
@@ -118,6 +128,10 @@
 	/* When there is no description set, make sure navigation appears below title. */
 	+ .main-navigation {
 		display: block;
+		// flex-direction: row;
+		// width: 50%;
+		// align-items: center;
+		// justify-content: flex-end;
 	}
 
 	&:not(:empty) + .site-description:not(:empty):before {

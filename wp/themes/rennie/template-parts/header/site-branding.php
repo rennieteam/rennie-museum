@@ -33,7 +33,7 @@
 				array(
 					'theme_location' => 'menu-1',
 					'menu_class'     => 'main-menu',
-					'items_wrap'     => '<ul id="%1$s" class="%2$s" tabindex="0">%3$s<li id="root"></li></ul>',
+					'items_wrap'     => '<ul id="%1$s" class="%2$s" tabindex="0">%3$s</ul><button id="navToggle"><span class="hidden">Menu</span>' . renniemuseum_get_icon_svg( 'menu' ) .'</button><div id="root"><div/',
 				)
 			);
 			?>

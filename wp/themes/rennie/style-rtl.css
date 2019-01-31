@@ -666,7 +666,8 @@ h2 {
 .has-large-font-size,
 .comments-title,
 h3 {
-  font-size: 1.6875em;
+  font-size: 20px;
+  font-weight: 300;
 }
 
 .site-title,
@@ -681,7 +682,7 @@ h2.author-title,
 p.author-bio,
 h4 {
   color: #da291c;
-  font-size: 1.125em;
+  font-size: 20px;
 }
 
 .pagination .nav-links,
@@ -793,6 +794,11 @@ a:hover {
 
 a:focus {
   text-decoration: underline;
+}
+
+.notice {
+  font-size: 10px;
+  color: #333333;
 }
 
 .exhibit-list {
@@ -1075,15 +1081,15 @@ input[type="submit"] {
   transition: background 150ms ease-in-out;
   background: #da291c;
   border: none;
-  border-radius: 5px;
+  border-radius: 2px;
   box-sizing: border-box;
   color: #fff;
   font-family: "Antwerp", serif;
   font-size: 1em;
-  font-weight: 700;
+  font-weight: 300;
   line-height: 1.2;
   outline: none;
-  padding: 0.76rem 1rem;
+  padding: 9px 10px;
   text-decoration: none;
   vertical-align: bottom;
 }
@@ -1116,6 +1122,18 @@ input[type="submit"]:focus {
   outline-offset: -4px;
 }
 
+form p {
+  margin-bottom: 15px !important;
+}
+
+label {
+  width: 100%;
+}
+
+.join-mailing-list {
+  font-style: italic;
+}
+
 input[type="text"],
 input[type="email"],
 input[type="url"],
@@ -1141,6 +1159,7 @@ textarea {
   -webkit-appearance: none;
   outline-offset: 0;
   border-radius: 0;
+  width: 100%;
 }
 
 input[type="text"]:focus,
@@ -1229,7 +1248,31 @@ body.page .main-navigation {
 }
 
 .main-navigation > div {
-  display: inline;
+  display: flex;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation > div {
+    position: relative;
+  }
+}
+
+.main-navigation > div #root {
+  margin-right: 30px;
+}
+
+.main-navigation #navToggle {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation #navToggle {
+    display: block;
+    background: none;
+    color: #000;
+    align-self: flex-end;
+    margin: 0 0 30px;
+  }
 }
 
 .main-navigation .main-menu {
@@ -1254,8 +1297,8 @@ body.page .main-navigation {
 
 .main-navigation .main-menu > li > a {
   font-weight: 300;
+  line-height: 1;
   color: #000;
-  margin-left: 0.5rem;
   margin-bottom: 30px;
 }
 
@@ -1323,6 +1366,32 @@ body.page .main-navigation {
 .main-navigation .main-menu > li:last-child > a,
 .main-navigation .main-menu > li:last-child.menu-item-has-children .submenu-expand {
   margin-left: 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .main-navigation .main-menu {
+    visibility: hidden;
+    transform-origin: top;
+    transform: scaleY(0) translateY(0);
+    transition: transform 0.24s ease;
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 120px;
+    background: #fff;
+    right: auto;
+    box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1);
+  }
+  .main-navigation .main-menu.is-open {
+    visibility: visible;
+    transform: scaleY(1) translateY(0);
+  }
+  .main-navigation .main-menu.is-open > li {
+    margin: 0 30px;
+  }
+  .main-navigation .main-menu.is-open > li:last-of-type {
+    margin: 0 30px;
+  }
 }
 
 .main-navigation .sub-menu {
@@ -2099,16 +2168,22 @@ body.page .main-navigation {
 
 @media only screen and (min-width: 961px) {
   .site-content {
-    margin: 0 auto;
+    margin: 0 60px 30px;
+  }
+}
+
+@media only screen and (min-width: 1379px) {
+  .site-content {
+    margin: 0 auto 30px;
   }
 }
 
 .singular .site-content {
-  padding-top: 125px;
+  padding-top: 120px;
 }
 
 .blog .site-content {
-  padding-top: 125px;
+  padding-top: 120px;
 }
 
 .blog .site-main {
@@ -2159,6 +2234,16 @@ body.page .main-navigation {
 /*--------------------------------------------------------------
 ## Header
 --------------------------------------------------------------*/
+#masthead.has-shadow {
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+}
+
+@media only screen and (min-width: 600px) {
+  #masthead.has-shadow {
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+  }
+}
+
 .site-header {
   position: fixed;
   width: 100%;
@@ -2187,22 +2272,22 @@ body.page .main-navigation {
 }
 
 .site-branding {
-  margin: 0 30px 30px;
+  margin: 0 30px;
   max-width: 1380px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: space-between;
 }
 
 @media only screen and (min-width: 961px) {
   .site-branding {
-    margin: 0 60px 30px;
+    margin: 0 60px;
   }
 }
 
 @media only screen and (min-width: 1379px) {
   .site-branding {
-    margin: 0 auto 30px;
+    margin: 0 auto;
     width: 100%;
   }
 }
@@ -2253,7 +2338,7 @@ body.page .main-navigation {
   display: block;
   width: 100%;
   max-width: 200px;
-  margin: 0;
+  margin: 0 0 30px;
   color: #000;
   /* When there is no description set, make sure navigation appears below title. */
 }
@@ -2656,6 +2741,7 @@ body.page .main-navigation {
 
 .entry .entry-content p {
   word-wrap: break-word;
+  margin: 0 0 30px;
 }
 
 .entry .entry-content .more-link {
@@ -2775,7 +2861,7 @@ body.page .main-navigation {
 .author-bio .author-description {
   display: inline;
   color: #D0D0CE;
-  font-size: 1.125em;
+  font-size: 20px;
   line-height: 1.2;
 }
 
@@ -3492,7 +3578,6 @@ body.page .main-navigation {
 @media only screen and (min-width: 768px) {
   .entry .entry-content > *.alignfull,
   .entry .entry-summary > *.alignfull {
-    margin-top: calc(2 * 1rem);
     margin-bottom: calc(2 * 1rem);
     width: calc( 100% + (1380px - 960px));
     right: -210px;
@@ -4206,7 +4291,7 @@ body.page .main-navigation {
 }
 
 .entry .entry-content .wp-block-code code {
-  font-size: 1.125em;
+  font-size: 20px;
   white-space: pre-wrap;
   word-break: break-word;
 }
@@ -4271,7 +4356,7 @@ body.page .main-navigation {
 }
 
 .entry .entry-content .has-normal-font-size {
-  font-size: 1.125em;
+  font-size: 20px;
 }
 
 .entry .entry-content .has-large-font-size {
