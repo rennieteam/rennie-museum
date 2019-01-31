@@ -30,7 +30,6 @@ button {
 
 
 .admin-nav {
-  width: 100vw;
   height: 60px;
   display: flex;
   justify-content: center;
@@ -55,7 +54,7 @@ button {
   grid-template-columns: repeat(12, 1fr);
   max-width: $max-width;
   margin: 0 auto;
-  
+
   .sorter-container {
     padding-bottom: 5px;
     grid-column: span 12;
@@ -287,7 +286,7 @@ button {
 .admin-edit-container {
   width: 100vw;
   height: 100vh;
-  
+
   .menu-toggle {
     font-size: $large;
     position: absolute;

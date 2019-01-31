@@ -64,11 +64,9 @@ class Rennie_Museum_Tour_Admin {
 		$CSSfiles = scandir(dirname(__FILE__) . '/build/static/css/');
 		foreach($CSSfiles as $filename) {
 			if(strpos($filename,'.css')&&!strpos($filename,'.css.map')) {
-				wp_enqueue_style( 'tour', plugin_dir_url( __FILE__ ) . 'build/static/css/' . $filename, array(), mt_rand(10,1000), 'all' );
+				wp_enqueue_style( 'tour' . $filename, plugin_dir_url( __FILE__ ) . 'build/static/css/' . $filename, array(), mt_rand(10,1000), 'all' );
 			}
 		}
-
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/rennie-museum-tour-admin.css', array(), $this->version, 'all' );
 	}
 
 	/**
