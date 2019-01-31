@@ -24,7 +24,13 @@ class RegisterForm extends Component {
       if(!validator.validate(this.state.email)){
         this.setState({ message: 'Please enter a valid email.' })
       } else {
-        axios.post(`${config.API_URL}/api/attendee/register`, this.state)
+        let url;
+        if(process.env.NODE_ENV){
+          url = config.developmentUrl;
+        } else {
+          url = config.productionUrl;
+        };
+        axios.post(`${url}/api/attendee/register`, this.state)
           .then((result) => {
             this.setState({ email: '', message: 'Thank you for subscribing!'});
           })
