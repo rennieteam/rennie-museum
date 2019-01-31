@@ -33,7 +33,7 @@ class CancelForm extends Component {
   componentDidMount = () => {
     let q = qs.parse(this.props.location.hash);
     let url;
-    if(process.env.NODE_ENV){
+    if(process.env.NODE_ENV === 'development'){
       url = config.developmentUrl;
     } else {
       url = config.productionUrl;
@@ -116,7 +116,7 @@ class CancelForm extends Component {
 
   cancelBooking = () => {
     let url;
-    if(process.env.NODE_ENV){
+    if(process.env.NODE_ENV === 'development'){
       url = config.developmentUrl;
     } else {
       url = config.productionUrl;
@@ -199,7 +199,7 @@ class CancelForm extends Component {
       this.setMessage('Guest names are required.');
     } else {
       let url;
-      if(process.env.NODE_ENV){
+      if(process.env.NODE_ENV === 'development'){
         url = config.developmentUrl;
       } else {
         url = config.productionUrl;

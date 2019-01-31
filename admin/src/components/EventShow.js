@@ -315,6 +315,23 @@ class EventShow extends Component {
     )
   };
 
+  deleteBooking = () => {
+    let url;
+    if(process.env.NODE_ENV){
+      url = config[process.env.NODE_ENV];
+    } else {
+      url = config.production;
+    };
+    axios.delete(`${url}/api/event/${this.state.event.id}`)
+      .then((result) => {
+        this.props.updateEvents(result.data);
+        this.setState({ message: 'Event canceled.' });
+      })
+      .catch(error => {
+        this.setState({ message: 'Unable to cancel booking.'});
+      })
+  };
+
   printWaiver = () => {
     let waiver = document.getElementsByClassName('waiver-container');
     let formContainer = document.getElementById('form-outer-container');
@@ -381,7 +398,7 @@ class EventShow extends Component {
           {this.renderMenu()}
           {this.renderForm()}
           <button className="update-button" onClick={this.updateEvent}> Update Tour </button>
-          <button className="cancel-button"> Cancel Tour </button>
+          <button className="cancel-button" onClick={this.deleteBooking}> Cancel Tour </button>
           {
             this.state.message ? <p className="form-message"> {this.state.message} </p> : ''
           }

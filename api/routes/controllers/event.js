@@ -147,7 +147,19 @@ const eventRouter = function (app) {
         id: parseInt(req.params['eventId'])
       }
     }).then((result) => {
-      res.json(result);
+      Events.findAll(
+        {
+          order: [
+            ['date', 'ASC']
+          ],
+          include: [{
+            model: Attendee,
+            as: 'attendees'
+          }]
+        }
+      ).then((results) => {
+        res.json(result);
+      })
     }).catch(err => console.log(err))
   });
 }
