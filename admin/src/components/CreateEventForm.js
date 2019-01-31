@@ -35,27 +35,29 @@ class CreateEventForm extends Component {
   handleSubmit = () => {
     axios.post(`${config[process.env.NODE_ENV]}/api/events`, this.state)
       .then((result) => {
+        this.props.updateEvents(result.data);
         this.props.setMessage('Event Successfully Created');
-        this.resetQuery();
+        // this.resetQuery();
       })
       .catch((error) => {
-
+        console.log(error);
       })
   };
 
   render() {
     return (
       <div className="create-event-form">
-        <h2> Create New Event </h2>
-        <label> Select Exhibit </label>
+        <h2 className="create-header"> Create New Event </h2>
         <DateTimePicker
           onChange={this.setDate}
           value={this.state.date}
         />
-        <label> Select Number of Spots </label>
-        <input onChange={this.handleChange} name="numberOfAttendees" value={this.state.numberOfAttendees}/>
-        <button onClick={this.handleSubmit}> Create Event </button>
-        <button onClick={this.resetQuery} > Cancel </button>
+        <div className="spots-container">
+          <label> Number of Spots </label>
+          <input onChange={this.handleChange} name="numberOfAttendees" value={this.state.numberOfAttendees}/>
+        </div>
+        <button className="create-button" onClick={this.handleSubmit}> Create Event </button>
+        <button className="cancel-button" onClick={this.resetQuery} > Cancel </button>
       </div>
     );
   }

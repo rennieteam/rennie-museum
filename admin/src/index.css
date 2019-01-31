@@ -19,8 +19,3 @@ code {
   flex-direction: column;
   align-items: center;
 }
-
-.attendee-container {
-  border: 1px solid black;
-  margin-bottom: 5px;
-}

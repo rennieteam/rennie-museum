@@ -35,9 +35,23 @@ const eventRouter = function (app) {
 
   app.post('/api/events', (req, res) => {
     Events.create(req.body).then((result) => {
-      res.json(result);
-    });
-    res.json({})
+      Events.findAll(
+        {
+          order: [
+            ['date', 'ASC']
+          ],
+          include: [{
+            model: Attendee,
+            as: 'attendees'
+          }]
+        }
+      ).then(result => {
+        res.json(result)
+      })
+
+    }).catch(error => {
+      console.log(error)
+    })
   });
 
   app.get('/api/event/:eventId', (req, res) => {
@@ -56,43 +70,77 @@ const eventRouter = function (app) {
 
   app.put('/api/event/:eventId', (req, res) => {
     let options = {};
-    if(req.body.newDate){
-      options.date = req.body.newDate;
+    if(req.body.date){
+      options.date = req.body.date;
     };
 
-    if(req.body.attendeesRemoval.length){
-      Attendee.destroy({
-        where: {
-          id: req.body.attendeesRemoval
-        }
-      });
+    if(req.body.numberOfAttendees){
+      options.numberOfAttendees = req.body.numberOfAttendees
     };
 
-    Events.update(
-      options,
-      {returning: true, where: { id: req.body.event.id }}
-    )
-    .then(([result, [updatedEvent]]) => {
-      res.json(updatedEvent);
+    Attendee.findAll({
+      where: {
+        id: req.body.removal
+      }
+    }).then((results) => {
+      if(req.body.notify && results.length){
+        results.forEach((attendee) => {
+          let a = attendee.dataValues;
+          mailerHelper(a, false, false, true);
+        });
+      };
+      return results;
+    }).then((results) => {
+      if(results.length){
+        Attendee.destroy({
+          where: {
+            id: req.body.removal
+          }
+        })
+      };
+    }).then(() => {
+      let filter = {
+        where: { id: parseInt(req.params['eventId']) },
+        include: [
+          { model: Attendee, as: 'attendees' }
+        ]
+      };
+
+      Events.findOne(filter).then((event) => {
+        if(event){
+          event.update(options).then(result => {
+            if(req.body.notify){
+              event.dataValues.attendees.forEach((attendee) => {
+                mailerHelper(attendee.dataValues, false, false, false, true);
+              });
+            };
+            res.json(result);
+          })
+          .catch(error => console.log(error));
+        } else {
+          res.sendStatus(400);
+        };
+      }).catch(error => res.json(error));
     })
-    .catch((error) => {
-      res.json(error);
-    })
+    .catch(error => {
+      console.log(error);
+    });
+
   });
 
   // this line needed to enable CORS pre-flight for delete method
   app.options('/api/event/:eventId', cors(corsOptions));
 
   app.delete('/api/event/:eventId', cors(corsOptions), (req, res) => {
-    Attendee.findAll({
-      where: {
-        EventId: parseInt(req.params['eventId'])
-      }
-    }).then((result) => {
-      result.forEach((attendee) => {
-        mailerHelper(attendee.dataValues, false, true)
-      })
-    }).catch(err => console.log(err));
+    // Attendee.findAll({
+    //   where: {
+    //     EventId: parseInt(req.params['eventId'])
+    //   }
+    // }).then((result) => {
+    //   result.forEach((attendee) => {
+    //     mailerHelper(attendee.dataValues, false, true)
+    //   })
+    // }).catch(err => console.log(err));
 
     Events.destroy({
       where: {

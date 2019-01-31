@@ -37,7 +37,7 @@ class CancelForm extends Component {
         this.setState({attendee: result.data, guests: result.data.guests, selectedEvent: result.data.Event, isLoading: false});
       })
       .catch((error) => {
-
+        this.setState({ isLoading: false });
       })
   };
 
