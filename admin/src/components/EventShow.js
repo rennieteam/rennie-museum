@@ -54,7 +54,6 @@ class EventShow extends Component {
           });
         };
       };
-      waiverList = ['a', 'a','a', 'a','a', 'a','a', 'a','a', 'a','a', 'a','a', 'a',];
       this.setState({ waiverList, event: events[0], attendees: events[0].attendees, isLoading: false, eventCount, numberOfAttendees: events[0].numberOfAttendees, attendeesRemoval});
     } else {
       this.setState({ isLoading: false });
