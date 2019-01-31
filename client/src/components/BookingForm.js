@@ -217,7 +217,7 @@ class BookingForm extends Component {
         body[param] = this.state[param];
       });
       let url;
-      if(process.env.NODE_ENV){
+      if(process.env.NODE_ENV === 'development'){
         url = config.developmentUrl;
       } else {
         url = config.productionUrl;

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import qs from 'query-string';
 
-// import EventIndex from './components/EventIndex';
 import CancelForm from './components/CancelForm';
 import BookingForm from './components/BookingForm';
 import RegisterForm from './components/RegisterForm';
@@ -25,7 +24,7 @@ class App extends Component {
 
   componentDidMount = () => {
     let url;
-    if(process.env.NODE_ENV){
+    if(process.env.NODE_ENV === 'development'){
       url = config.developmentUrl;
     } else {
       url = config.productionUrl;

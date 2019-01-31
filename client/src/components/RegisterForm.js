@@ -25,7 +25,7 @@ class RegisterForm extends Component {
         this.setState({ message: 'Please enter a valid email.' })
       } else {
         let url;
-        if(process.env.NODE_ENV){
+        if(process.env.NODE_ENV === 'development'){
           url = config.developmentUrl;
         } else {
           url = config.productionUrl;

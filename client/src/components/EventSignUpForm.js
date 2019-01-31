@@ -28,7 +28,7 @@ class EventSignUpForm extends Component {
     event.preventDefault();
     if (this.state.name && validator.validate(this.state.email) && this.state.guests.every(this.checkEmptyGuest)) {
       let url;
-      if(process.env.NODE_ENV){
+      if(process.env.NODE_ENV === 'development'){
         url = config.developmentUrl;
       } else {
         url = config.productionUrl;
