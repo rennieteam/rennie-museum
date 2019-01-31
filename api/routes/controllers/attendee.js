@@ -37,7 +37,14 @@ const attendeeRouter = function (app) {
   app.post('/api/attendee/register', (req, res) => {
     const mailChimp = new Mailchimp(config.mailchimp.key);
     mailChimp.post(`lists/${config.mailchimp.listId}`, {
-      members: [{email_address: req.body.email, status: "subscribed"}]
+      members: [{
+        email_address: req.body.email,
+        status: "subscribed",
+        merge_fields: {
+          FNAME: req.body.firstName,
+          LNAME: req.body.lastName
+        }
+      }]
     })
     .then((result) => {
       res.json(result);
@@ -67,32 +74,6 @@ const attendeeRouter = function (app) {
           .then((result) => {
     
             mailerHelper(result.dataValues, req.body.subscribe);
-    
-            // if(req.body.subscribe){
-            //   const mailChimp = new Mailchimp(config.mailchimp.key);
-            //   mailChimp.post(`lists/${config.mailchimp.listId}`, {
-            //     members: [{email_address: req.body.email, status: "subscribed"}]
-            //   })
-            //   .then((result) => {
-            //     console.log(result);
-            //   })
-            //   .catch((error) => {
-            //     console.log(result);
-            //   })
-            // };
-          
-            // transport.sendMail({
-            //   from: config.mandrill.fromAddress,
-            //   to: req.body.email,
-            //   subject: config.mandrill.subject,
-            //   html: `Thank you for booking! <a href="${config.cancelLink}${hash}">Edit/Cancel Booking</a>`
-            // }, function(error, info){
-            //   if(error){
-            //     console.log(error);
-            //   } else {
-            //     console.log(info);
-            //   }
-            // });
     
             res.json(result);
           })
