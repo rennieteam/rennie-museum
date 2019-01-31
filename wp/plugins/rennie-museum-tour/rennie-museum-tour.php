@@ -79,4 +79,27 @@ function run_rennie_museum_tour() {
 	$plugin->run();
 
 }
+
+
+
+
+function add_rennie_meseum_tour_js() {
+
+	foreach(scandir(dirname(__FILE__) . '/includes/build/static/css/') as $filename) {
+		if(strpos($filename,'.css')&&!strpos($filename,'.css.map')) {
+			wp_enqueue_style( 'does-this-work', plugin_dir_url( __FILE__ ) . 'includes/build/static/css/' . $filename, array(), mt_rand(10,1000), 'all' );
+		}
+	}
+
+	foreach(scandir(dirname(__FILE__) . '/includes/build/static/js/') as $filename) {
+		if(strpos($filename,'.js')&&!strpos($filename,'.js.map')) {
+			wp_enqueue_script($filename, plugin_dir_url( __FILE__ ) . 'includes/build/static/js/' . $filename, '', mt_rand(10,1000), true);
+		}
+	}
+}
+
+add_action('wp_enqueue_scripts','add_rennie_meseum_tour_js');
+
 run_rennie_museum_tour();
+
+

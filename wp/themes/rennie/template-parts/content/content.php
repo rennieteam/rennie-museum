@@ -19,7 +19,9 @@
 
 			<?php
 			echo '<h4 class="content-card-date">' .  get_the_date( $format, $post_id ) . '</h4>';
-			the_title('<h3 class="content-card-title">', '</h3>' );;
+			the_title('<h3 class="content-card-title">', '</h3>' );
+			echo '<p class="content-card-author">By ' . get_the_author() .  '</p>';
+
 			the_excerpt(
 				sprintf(
 					wp_kses(
@@ -35,12 +37,7 @@
 				)
 			);
 
-			wp_link_pages(
-				array(
-					'before' => '<div class="page-links">' . __( 'Pages:', 'renniemuseum' ),
-					'after'  => '</div>',
-				)
-			);
+			echo '<a class="content-card-more" href="'. get_permalink($post->ID) . '">Read more.</a>';
 			?>
 		</div><!-- .entry-content -->
 	</div><!-- .content-card -->

@@ -23,30 +23,22 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'renniemuseum' ); ?></a>
 
-		<header id="masthead" class="<?php echo is_singular() && renniemuseum_can_show_post_thumbnail() ? 'site-header featured-image' : 'site-header'; ?>">
-
+		<header id="masthead" class="site-header">
 			<div class="site-branding-container">
 				<?php get_template_part( 'template-parts/header/site', 'branding' ); ?>
 			</div><!-- .layout-wrap -->
-
-			<?php if ( is_singular() && renniemuseum_can_show_post_thumbnail() ) : ?>
-				<div class="site-featured-image">
-					<?php
-						renniemuseum_post_thumbnail();
-						the_post();
-						$discussion = ! is_page() && renniemuseum_can_show_post_thumbnail() ? renniemuseum_get_discussion_data() : null;
-
-						$classes = 'entry-header';
-						if ( ! empty( $discussion ) && absint( $discussion->responses ) > 0 ) {
-							$classes = 'entry-header has-discussion';
-						}
-					?>
-					<div class="<?php echo $classes; ?>">
-						<?php get_template_part( 'template-parts/header/entry', 'header' ); ?>
-					</div><!-- .entry-header -->
-					<?php rewind_posts(); ?>
-				</div>
-			<?php endif; ?>
 		</header><!-- #masthead -->
 
 	<div id="content" class="site-content">
+		<?php if ( is_singular() && renniemuseum_can_show_post_thumbnail() ) : ?>
+			<div class="site-featured-image">
+				<?php
+					renniemuseum_post_thumbnail();
+					the_post();
+				?>
+				<div class="entry-header">
+					<?php get_template_part( 'template-parts/header/entry', 'header' ); ?>
+				</div><!-- .entry-header -->
+				<!-- <?php rewind_posts(); ?> -->
+			</div>
+		<?php endif; ?>

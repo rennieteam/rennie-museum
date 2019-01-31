@@ -221,19 +221,30 @@
     grid = document.getElementById('main');
     rowHeight = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-auto-rows'));
     rowGap = parseInt(window.getComputedStyle(grid).getPropertyValue('grid-row-gap'));
-    rowSpan = Math.ceil((item.querySelector('.content-card').getBoundingClientRect().height + rowGap) / (rowHeight + rowGap));
-    item.style.gridRowEnd = "span " + rowSpan;
+    if(item.querySelector('.content-card')){
+      rowSpan = Math.ceil((item.querySelector('.content-card').getBoundingClientRect().height + rowGap) / (rowHeight + rowGap));
+      item.style.gridRowEnd = "span " + rowSpan;
+    }
   }
 
   function resizeAllGridItems(){
-    const elms = document.getElementsByClassName("entry")
+    const elms = document.getElementsByClassName("entry");
     for(x = 0; x < elms.length; x++){
       resizeGridItem(elms[x]);
     }
   }
 
+  function resizeInstance(instance){
+    resizeGridItem(instance.elements[0]);
+  }
+
   window.onload = resizeAllGridItems();
   window.addEventListener("resize", resizeAllGridItems);
+
+  const allItems = document.getElementsByClassName("entry")
+  for(x = 0; x < allItems.length; x++){
+    imagesLoaded( allItems[x], resizeInstance);
+  }
 
 })();
 

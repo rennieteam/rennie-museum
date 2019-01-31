@@ -25,9 +25,6 @@
 }
 
 .entry {
-
-	margin-top: calc(6 * #{$size__spacing-unit});
-
 	&:first-of-type {
 		margin-top: 0;
 	}
@@ -96,12 +93,6 @@
 
 	.post-thumbnail {
 
-		margin: $size__spacing-unit;
-
-		@include media(tablet) {
-			margin: $size__spacing-unit $size__site-margins;
-		}
-
 		&:focus {
 			outline: none;
 		}
@@ -136,6 +127,7 @@
 		}
 	}
 
+	.entry-header,
 	.entry-content,
 	.entry-summary {
 		max-width: 960px;
@@ -143,7 +135,6 @@
 	}
 
 	.entry-content {
-
 		p {
 			word-wrap: break-word;
 		}
