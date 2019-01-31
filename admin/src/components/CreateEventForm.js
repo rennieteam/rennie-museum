@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 import config from './../config';
-import qs from 'query-string';
+import { Cat } from 'react-kawaii';
 
 class CreateEventForm extends Component {
   constructor(props) {
@@ -64,6 +64,7 @@ class CreateEventForm extends Component {
         </div>
         <button className="create-button" onClick={this.handleSubmit}> Create Event </button>
         <button className="cancel-button" onClick={this.resetQuery} > Cancel </button>
+        <Cat size={200} mood="blissful" color="#596881" />
       </div>
     );
   }
