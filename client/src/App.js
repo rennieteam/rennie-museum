@@ -43,6 +43,8 @@ class App extends Component {
           };
         });
         this.setState({ dateOptions });
+      }).catch(error => {
+        console.log(error);
       })
   };
 
