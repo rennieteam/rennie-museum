@@ -20,7 +20,13 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    axios.get(`${config[process.env.NODE_ENV]}/api/events/`)
+    let url;
+    if(process.env.NODE_ENV){
+      url = config[process.env.NODE_ENV];
+    } else {
+      url = config.production;
+    };
+    axios.get(`${url}/api/events/`)
       .then((result) => {
         this.setState({ events: result.data });
       })

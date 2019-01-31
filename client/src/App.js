@@ -24,7 +24,13 @@ class App extends Component {
   };
 
   componentDidMount = () => {
-    axios.get(`${config.API_URL}/api/events`)
+    let url;
+    if(process.env.NODE_ENV){
+      url = config.developmentUrl;
+    } else {
+      url = config.productionUrl;
+    };
+    axios.get(`${url}/api/events`)
       .then((results) => {
         this.setState({ events: results.data });
         let dupCheck = [];
