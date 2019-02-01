@@ -14,7 +14,7 @@
 
 <?php if ( ! is_page() ) : ?>
 <div class="entry-meta">
-	<?php renniemuseum_posted_by(); ?>
+	<?php renniemuseum_posted_by($post->post_author); ?>
 	<?php
 	// Edit post link.
 		edit_post_link(

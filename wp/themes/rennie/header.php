@@ -44,7 +44,7 @@
 		</header><!-- #masthead -->
 
 	<div id="content" class="site-content">
-		<?php if ( is_singular() && renniemuseum_can_show_post_thumbnail() ) : ?>
+		<?php if ( is_singular() ) : ?>
 			<div class="site-featured-image">
 				<?php
 					renniemuseum_post_thumbnail();
