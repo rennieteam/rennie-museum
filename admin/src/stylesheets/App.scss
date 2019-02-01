@@ -226,6 +226,7 @@ button {
     .form-fill {
       border-bottom: 1px $grey solid;
       padding-bottom: 10px;
+      min-height: 30px;
     }
   }
 
@@ -274,13 +275,21 @@ button {
 
 .form-outer-container {
   display: flex;
-  padding: $pad*2 $pad*2 $pad*3 $pad*2;
+  padding: $pad*2 $pad*2 $pad*2 $pad*2;
   margin: 0 auto;
   border: 1px solid $grey;
   border-radius: 2px;
   width: max-content;
   max-width: $max-width/2;
   position: relative;
+  flex-direction: column;
+  min-width: 400px;
+  min-height: 350px;
+}
+
+.loading-container {
+  justify-content: center;
+  align-items: center;
 }
 
 .admin-edit-container {
@@ -348,10 +357,17 @@ button {
 
   .form-message {
     position: absolute;
-    bottom: 5px;
+    bottom: 15px;
     font-size: $smallest;
     color: $primary;
     left: $pad*2;
+  }
+
+  #not-found-message {
+    position: initial;
+    margin-top: $pad;
+    display: flex;
+    justify-content: center;
   }
 
   .state {
@@ -371,16 +387,11 @@ button {
     border: none;
     background: $primary;
     color: $white;
-    position: absolute;
-    bottom: $pad + 10px;
   }
 
-  .update-button {
-    left: $pad*2;
-  }
-
-  .cancel-button {
-    right: $pad*2;
+  .edit-button-container {
+    display: flex;
+    justify-content: space-between;
   }
 
   .loading-container {
@@ -399,6 +410,7 @@ button {
       display: flex;
       align-items: center;
       margin-top: 10px;
+      margin-bottom: $pad;
 
       &-label {
         font-size: $smallest;
@@ -505,7 +517,7 @@ button {
 }
 
 .create-event-form {
-  padding: $pad $pad $pad*2 $pad;
+  padding: $pad;
   border: 1px $grey solid;
   width: max-content;
   margin: 0 auto;
@@ -533,7 +545,7 @@ button {
   }
 
   .spots-container {
-    margin-bottom: 10px;
+    margin-bottom: $pad;
     height: $pad;
 
     label {
@@ -547,8 +559,14 @@ button {
     }
   }
 
-  .create-button,
-  .cancel-button {
+  .create-form-message {
+    font-family: $serif;
+    color: $primary;
+    font-style: italic;
+    font-size: $small;
+  }
+
+  .create-button {
     padding: 0 10px;
     border: none;
     background: $primary;
@@ -558,15 +576,5 @@ button {
     align-items: center;
     height: $pad;
     font-size: $smallest;
-    position: absolute;
-    bottom: $pad;
-  }
-
-  .create-button {
-    left: $pad;
-  }
-
-  .cancel-button {
-    right: $pad;
   }
 }

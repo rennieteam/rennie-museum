@@ -151,7 +151,8 @@ button:focus {
       color: #333333; }
     .print-waiver .form-fields .form-fill {
       border-bottom: 1px #A4A6A8 solid;
-      padding-bottom: 10px; }
+      padding-bottom: 10px;
+      min-height: 30px; }
   .print-waiver .title-container {
     display: flex;
     justify-content: space-between;
@@ -184,13 +185,20 @@ button:focus {
 
 .form-outer-container {
   display: flex;
-  padding: 60px 60px 90px 60px;
+  padding: 60px 60px 60px 60px;
   margin: 0 auto;
   border: 1px solid #A4A6A8;
   border-radius: 2px;
   width: max-content;
   max-width: 640px;
-  position: relative; }
+  position: relative;
+  flex-direction: column;
+  min-width: 400px;
+  min-height: 350px; }
+
+.loading-container {
+  justify-content: center;
+  align-items: center; }
 
 .admin-edit-container {
   width: 100vw;
@@ -236,10 +244,15 @@ button:focus {
     display: none; }
   .admin-edit-container .form-message {
     position: absolute;
-    bottom: 5px;
+    bottom: 15px;
     font-size: 12px;
     color: #DA291C;
     left: 60px; }
+  .admin-edit-container #not-found-message {
+    position: initial;
+    margin-top: 30px;
+    display: flex;
+    justify-content: center; }
   .admin-edit-container .state {
     position: absolute;
     bottom: -30px;
@@ -254,13 +267,10 @@ button:focus {
     align-items: center;
     border: none;
     background: #DA291C;
-    color: #FFFFFF;
-    position: absolute;
-    bottom: 40px; }
-  .admin-edit-container .update-button {
-    left: 60px; }
-  .admin-edit-container .cancel-button {
-    right: 60px; }
+    color: #FFFFFF; }
+  .admin-edit-container .edit-button-container {
+    display: flex;
+    justify-content: space-between; }
   .admin-edit-container .loading-container {
     width: max-content;
     font-size: 20px;
@@ -273,7 +283,8 @@ button:focus {
     .admin-edit-container .edit-form .notify-select {
       display: flex;
       align-items: center;
-      margin-top: 10px; }
+      margin-top: 10px;
+      margin-bottom: 30px; }
       .admin-edit-container .edit-form .notify-select-label {
         font-size: 12px;
         font-style: italic; }
@@ -337,7 +348,7 @@ button:focus {
         font-size: 14px; }
 
 .create-event-form {
-  padding: 30px 30px 60px 30px;
+  padding: 30px;
   border: 1px #A4A6A8 solid;
   width: max-content;
   margin: 0 auto;
@@ -356,7 +367,7 @@ button:focus {
     .create-event-form .react-datetime-picker__clock {
       display: none; }
   .create-event-form .spots-container {
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     height: 30px; }
     .create-event-form .spots-container label {
       font-size: 14px;
@@ -364,8 +375,12 @@ button:focus {
     .create-event-form .spots-container input {
       height: 100%;
       padding-left: 10px; }
-  .create-event-form .create-button,
-  .create-event-form .cancel-button {
+  .create-event-form .create-form-message {
+    font-family: Antwerp;
+    color: #DA291C;
+    font-style: italic;
+    font-size: 14px; }
+  .create-event-form .create-button {
     padding: 0 10px;
     border: none;
     background: #DA291C;
@@ -374,10 +389,4 @@ button:focus {
     justify-content: center;
     align-items: center;
     height: 30px;
-    font-size: 12px;
-    position: absolute;
-    bottom: 30px; }
-  .create-event-form .create-button {
-    left: 30px; }
-  .create-event-form .cancel-button {
-    right: 30px; }
+    font-size: 12px; }

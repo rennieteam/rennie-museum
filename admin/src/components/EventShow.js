@@ -4,6 +4,7 @@ import config from './../config';
 import qs from 'query-string';
 import hdate from 'human-date';
 import DateTimePicker from 'react-datetime-picker';
+import { Ghost } from 'react-kawaii';
 
 class EventShow extends Component {
   constructor(props) {
@@ -14,6 +15,7 @@ class EventShow extends Component {
       message: '',
       attendeesRemoval: {},
       error: null,
+      success: null,
       modifyDate: false,
       isLoading: true,
       eventCount: null,
@@ -22,17 +24,23 @@ class EventShow extends Component {
       editDate: false,
       emailList: '',
       notify: false,
-      waiverList: []
+      waiverList: [],
+      noEvent: false
     };
   };
 
   componentDidMount = () => {
-    this.setEvents();
+    setTimeout(() => {
+      this.setEvents();
+    }, 500);
+    // this.setEvents();
   };
 
   componentDidUpdate = (prevProps) => {
     if(this.props.events !== prevProps.events){
-      this.setEvents();
+      setTimeout(() => {
+        this.setEvents();
+      }, 500);
     };
   };
 
@@ -54,11 +62,11 @@ class EventShow extends Component {
           });
         };
       };
-      this.setState({ waiverList, event: events[0], attendees: events[0].attendees, isLoading: false, eventCount, numberOfAttendees: events[0].numberOfAttendees, attendeesRemoval});
+      this.setState({ noEvent: false, waiverList, event: events[0], isLoading: false, attendees: events[0].attendees, eventCount, numberOfAttendees: events[0].numberOfAttendees, attendeesRemoval});
     } else {
-      this.setState({ isLoading: false });
+      this.setState({ noEvent: true, isLoading: false, message: 'Event not found.' });
     };
-  }
+  };
 
   changeNumberOfAttendee = (event) => {
     this.setState({ numberOfAttendees: event.target.value });
@@ -91,6 +99,7 @@ class EventShow extends Component {
           options.removal.push(parseInt(attendee));
         }
       };
+      options.numberOfAttendees = this.state.numberOfAttendees;
       options.date = this.state.date;
       let url;
       if(process.env.NODE_ENV){
@@ -278,7 +287,7 @@ class EventShow extends Component {
         {
           guests.map((attendee, index) => {
             return(
-              <div className="form-fields" key={index + attendee}>
+              <div className="form-fields" key={index + Math.random()}>
                 <p className="regular form-fill"> {attendee} </p>
                 <p className="form-fill"></p>
                 <p className="form-fill"></p>
@@ -295,10 +304,24 @@ class EventShow extends Component {
     let iteration = [];
     let list = this.state.waiverList;
     if(list.length <= 10){
+      let emptyList = Array.from({ length: 5 });
+      let remainder = 10 - list.length;
+      if(remainder){
+        Array.from({ length: remainder }).forEach(() => {
+          list.push('');
+        });
+      };
       iteration.push(list);
+      iteration.push(emptyList);
     } else if(list.length <= 20){
       let x = list.slice(0, 10);
       let y = list.slice(10, 20);
+      let remainder = 10 - y.length;
+      if(remainder){
+        Array.from({ length: remainder }).forEach(() => {
+          y.push('');
+        });
+      };
       iteration.push(x);
       iteration.push(y);
     };
@@ -324,7 +347,7 @@ class EventShow extends Component {
     axios.delete(`${url}/api/event/${this.state.event.id}`)
       .then((result) => {
         this.props.updateEvents(result.data);
-        this.setState({ message: 'Event canceled.' });
+        this.setState({ message: 'Event canceled.', noEvent: true });
       })
       .catch(error => {
         this.setState({ message: 'Unable to cancel booking.'});
@@ -388,21 +411,48 @@ class EventShow extends Component {
     )
   };
 
+  renderLoading = () => {
+    return (
+      <div className="form-outer-container loading-container" id="form-outer-container">
+        Loading
+      </div>
+    )
+  };
+
+  renderFound = () => {
+    return(
+      <div className="form-outer-container" id="form-outer-container">
+        <i className="menu-toggle fas fa-ellipsis-v" onClick={this.toggleMenu}/>
+        {this.renderMenu()}
+        {this.renderForm()}
+        <div className="edit-button-container">
+          <button className="update-button" onClick={this.updateEvent}> Update Tour </button>
+          <button className="cancel-button" onClick={this.deleteBooking}> Cancel Tour </button>
+        </div>
+        {
+          this.state.message ? <p className="form-message"> {this.state.message} </p> : ''
+        }
+    </div>
+    )
+  };
+
+  renderNotFound = () => {
+    return(
+      <div className="form-outer-container" id="form-outer-container">
+        <Ghost size={240} mood="ko" color="#E0E4E8" />
+        {
+          this.state.message ? <p className="form-message" id="not-found-message"> {this.state.message} </p> : ''
+        }
+      </div>
+    )
+  }
+
   render() {
     return(
       <div className="admin-edit-container">
-        {/* <input className="email-list" id="email-list" value={this.state.emailList} readOnly={true}/> */}
-        <div className="form-outer-container" id="form-outer-container">
-          <i className="menu-toggle fas fa-ellipsis-v" onClick={this.toggleMenu}/>
-          {this.renderMenu()}
-          {this.renderForm()}
-          <button className="update-button" onClick={this.updateEvent}> Update Tour </button>
-          <button className="cancel-button" onClick={this.deleteBooking}> Cancel Tour </button>
-          {
-            this.state.message ? <p className="form-message"> {this.state.message} </p> : ''
-          }
-          <button className='state' onClick={() => {console.log(this.state)}}> State </button>
-        </div>
+        {
+          this.state.isLoading ? this.renderLoading() : this.state.noEvent? this.renderNotFound() : this.renderFound() 
+        }
         {this.renderWaiver()}
       </div>
     )

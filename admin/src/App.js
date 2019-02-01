@@ -58,11 +58,11 @@ class App extends Component {
 
   renderComponents = () => {
     let hash = qs.parse(this.props.location.hash);
-    if(hash.newEvent){
-      return(<Route path="/" render={(props) => <CreateEventForm {...props} setMessage={this.setMessage} updateEvents={this.updateEvents} /> } />)
-    } else if(hash.index){
+    if('newEvent' in hash){
+      return(<Route path="/" render={(props) => <CreateEventForm {...props} events={this.state.events} setMessage={this.setMessage} updateEvents={this.updateEvents} /> } />)
+    } else if('index' in hash){
       return (<Route path="/" render={(props) => <EventIndex {...props} events={this.state.events} calculateCount={this.calculateCount} />  } />);
-    } else if(hash.edit){
+    } else if('edit' in hash){
       return (<Route path="/" render={(props) => <EventShow {...props} setMessage={this.setMessage} updateEvents={this.updateEvents} calculateCount={this.calculateCount} events={this.state.events} /> } />) ;
     };
   };
