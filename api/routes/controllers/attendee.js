@@ -37,7 +37,14 @@ const attendeeRouter = function (app) {
   app.post('/api/attendee/register', (req, res) => {
     const mailChimp = new Mailchimp(config.mailchimp.key);
     mailChimp.post(`lists/${config.mailchimp.listId}`, {
-      members: [{email_address: req.body.email, status: "subscribed"}]
+      members: [{
+        email_address: req.body.email,
+        status: "subscribed",
+        merge_fields: {
+          FNAME: req.body.firstName,
+          LNAME: req.body.lastName
+        }
+      }]
     })
     .then((result) => {
       res.json(result);
