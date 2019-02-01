@@ -80,7 +80,10 @@ function run_rennie_museum_tour() {
 
 }
 
-
+function add_font_awesome_css() {
+	echo '<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">';
+}
+add_action('admin_footer', 'add_font_awesome_css');
 
 
 function add_rennie_meseum_tour_js() {
