@@ -618,13 +618,13 @@ button:hover,
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #D0D0CE;
-  opacity: 0.9; }
+  background: rgba(208, 208, 206, 0.9); }
   .cancel-edit-container .cancel-edit-modal,
   .register-container .cancel-edit-modal {
     border: thin black solid;
     border-radius: 2px;
-    width: max-content; }
+    width: max-content;
+    background: #FFFFFF; }
   .cancel-edit-container .register-modal,
   .register-container .register-modal {
     padding: 30px;

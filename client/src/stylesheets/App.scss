@@ -398,13 +398,13 @@ button,
   display: flex;
   justify-content: center;
   align-items: center;
-  background: $background;
-  opacity: 0.9;
+  background: rgba(208,208,206,0.9);
 
   .cancel-edit-modal {
     border: thin black solid;
     border-radius: 2px;
     width: max-content;
+    background: $white;
   }
 
   .register-modal {
