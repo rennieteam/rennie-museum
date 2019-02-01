@@ -1,6 +1,8 @@
 $primary: #DA291C;
 $black: #000000;
+$dark-grey: #333333;
 $grey: #A4A6A8;
+$background: #D0D0CE;
 $gutter: 80px;
 $white: #FFFFFF;
 $large: 24px;
@@ -17,6 +19,16 @@ select {
   &:focus {
     outline: none;
   }
+}
+
+button {
+  font-family: $serif;
+  font-size: $smallest;
+}
+
+input {
+  font-family: $serif;
+  font-size: $small;
 }
 
 button,
@@ -68,20 +80,39 @@ button,
   justify-content: center;
   align-items: center;
   border-radius: 2px;
+  background: $white;
+  position: relative;
+
+  .close-button {
+    position: absolute;
+    top: $pad;
+    right: $pad;
+    text-decoration: none;
+  }
 
   .cancel-message,
   .update-message {
     font-size: $medium;
     color: $primary;
+    font-family: $serif;
   }
 }
 
 .cancel-edit-modal {
   border-radius: 2px;
+  position: relative;
+
+  .close-button {
+    position: absolute;
+    top: $pad;
+    right: $pad;
+    text-decoration: none;
+  }
 
   .form-greeting {
     font-size: $medium;
     font-weight: 400;
+    font-family: $serif;
   }
 
   #cancel-submit-prompt-container {
@@ -144,12 +175,14 @@ button,
           color: black;
           margin: 0;
           font-size: $medium;
+          font-family: $serif;
         }
 
         .sub-header {
           margin: 0;
           color: $grey;
           font-size: $small;
+          font-family: $serif;
           font-style: italic;
         }
       }
@@ -164,6 +197,7 @@ button,
           font-size: $medium;
           color: $grey;
           text-transform: capitalize;
+          font-family: $serif;
         }
 
         .date-time-select {
@@ -181,6 +215,7 @@ button,
             font-size: $small;
             color: $primary;
             border-radius: 2px;
+            font-family: $serif;
           }
 
           .time-select {
@@ -283,6 +318,8 @@ button,
           .subscribe-label {
             font-style: italic;
             font-size: $smallest;
+            font-family: $serif;
+            font-weight: lighter;
           }
         }
 
@@ -334,6 +371,7 @@ button,
             span {
               font-size: $smallest;
               margin-left: 5px;
+              font-family: $serif;
             }
           }
         }
@@ -354,6 +392,7 @@ button,
             font-size: $small;
             color: $primary;
             margin-bottom: 10px;
+            font-family: $serif;
           }
 
           .submit-button {
@@ -396,12 +435,13 @@ button,
   display: flex;
   justify-content: center;
   align-items: center;
+  background: rgba(208,208,206,0.9);
 
-  .cancel-edit-modal,
-  .register-modal {
+  .cancel-edit-modal {
     border: thin black solid;
     border-radius: 2px;
     width: max-content;
+    background: $white;
   }
 
   .register-modal {
@@ -409,20 +449,74 @@ button,
     display: flex;
     flex-direction: column;
     position: relative;
+    background: $white;
+    border-radius: 2px;
+    max-width: 470px;
+
+    .register-masthead {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: $pad;
+
+      svg {
+        height: 12px;
+        width: auto;
+      }
+
+      .close-register-button {
+        font-size: $smallest;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    }
 
     .register-header {
       margin: 0;
-      font-size: $large;
-      font-weight: 400;
+      font-size: $medium;
+      font-family: $serif;
+      font-weight: normal;
       margin-bottom: 15px;
     }
 
-    .email-input {
-      height: $pad;
-      padding-left: 8px;
-      border: 1px solid $grey;
-      border-radius: 2px;
-      margin-bottom: 15px;
+    .register-text {
+      font-family: $serif;
+      color: $dark-grey;
+      font-size: $small;
+      margin: 0 0 $pad 0;
+      line-height: 22px;
+    }
+
+    .register-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 15px;
+      grid-row-gap: 10px;
+      margin-bottom: $pad;
+      width: 100%;
+
+      .email-input {
+        grid-column: span 2;
+      }
+
+      .name-input {
+        grid-column: span 1;
+        width: 100%;
+      }
+  
+      .email-input,
+      .name-input {
+        height: $pad;
+        padding-left: 8px;
+        border: 1px solid $grey;
+        border-radius: 2px;
+        font-family: $serif;
+        font-size: $medium;
+
+        ::placeholder {
+          color: $grey;
+        }
+      }
     }
 
     .register-button {
@@ -435,6 +529,8 @@ button,
       justify-content: center;
       align-items: center;
       border: none;
+      border-radius: 2px;
+      font-family: $serif;
       width: max-content;
       margin: 0 auto;
 
@@ -452,14 +548,7 @@ button,
       color: $primary;
     }
 
-    .close-register-button {
-      font-size: $smallest;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      text-decoration: none;
-      cursor: pointer;
-    }
+
   }
 }
 

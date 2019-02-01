@@ -214,22 +214,31 @@ class CancelForm extends Component {
     };
   };
 
+  renderClose = () => {
+    return(
+      <a className="fas fa-times close-button" href="#close" />
+    )
+  };
+
   renderPrompt = () => {
     if(this.state.cancelSuccess){
       return(
         <div className="cancel-message-container">
+          {this.renderClose()}
           <p className="cancel-message"> Your booking has been cancelled! If you have guests, be sure to notify them if you did not register their emails! </p>
         </div>
       )
     } else if(this.state.updateSuccess){
       return(
         <div className="update-message-container">
+          {this.renderClose()}
           <p className="update-message"> Your booking has been successfully updated. If you have guests, be sure to notify them if you did not register their emails! </p>
         </div>
       )
     } else {
       return(
         <div className="cancel-edit-modal">
+          {this.renderClose()}
           <div className="booking-form">
             <div className="form-body" onClick={this.stopProp}>
               <h2 className="form-greeting"> Hi {this.state.attendee.name}! </h2>

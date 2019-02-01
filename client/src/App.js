@@ -43,6 +43,8 @@ class App extends Component {
           };
         });
         this.setState({ dateOptions });
+      }).catch(error => {
+        console.log(error);
       })
   };
 
@@ -58,31 +60,20 @@ class App extends Component {
     return eventCount;
   };
 
-  // renderComponents = () => {
-  //   let qp = qs.parse(this.props.location.search);
-  //   if(qp.cancel){
-  //     return(<Route path="/" render={(props) => <CancelForm {...props} /> } />)
-  //   } else {
-  //     return(<Route path="/" render={(props) => <BookingForm {...props} /> } />)
-  //   };
-  // };
-
   render() {
     let q = qs.parse(this.props.location.hash);
+    
     return (
       <div className="App">
         <Route 
           path="/"
           render={(props) => <BookingForm {...props} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions} />} />
         {
-          q.cancel ? <Route path="/" render={(props) => <CancelForm {...props} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions}  /> } /> : '' 
+          'cancel' in q ? <Route path="/" render={(props) => <CancelForm {...props} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions}  /> } /> : '' 
         }
         {
-          q.register ? <Route path="/" component={RegisterForm} /> : ''
+          'register' in q ? <Route path="/" component={RegisterForm} /> : ''
         }
-        {/* {this.renderComponents()} */}
-        {/* <Route exact path="/events" component={EventIndex} />
-        <Route exact path="/event/cancel/:hash" component={CancelForm} /> */}
       </div>
     );
   }

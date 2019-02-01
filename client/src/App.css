@@ -3,6 +3,14 @@ button:focus,
 select:focus {
   outline: none; }
 
+button {
+  font-family: Antwerp;
+  font-size: 12px; }
+
+input {
+  font-family: Antwerp;
+  font-size: 14px; }
+
 button:hover,
 .fas:hover {
   cursor: pointer; }
@@ -42,19 +50,35 @@ button:hover,
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 2px; }
+  border-radius: 2px;
+  background: #FFFFFF;
+  position: relative; }
+  .cancel-message-container .close-button,
+  .update-message-container .close-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    text-decoration: none; }
   .cancel-message-container .cancel-message,
   .cancel-message-container .update-message,
   .update-message-container .cancel-message,
   .update-message-container .update-message {
     font-size: 20px;
-    color: #DA291C; }
+    color: #DA291C;
+    font-family: Antwerp; }
 
 .cancel-edit-modal {
-  border-radius: 2px; }
+  border-radius: 2px;
+  position: relative; }
+  .cancel-edit-modal .close-button {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    text-decoration: none; }
   .cancel-edit-modal .form-greeting {
     font-size: 20px;
-    font-weight: 400; }
+    font-weight: 400;
+    font-family: Antwerp; }
   .cancel-edit-modal #cancel-submit-prompt-container {
     flex-direction: row;
     justify-content: space-between; }
@@ -112,7 +136,8 @@ button:hover,
     .cancel-edit-container .cancel-edit-modal .booking-form .cta-header .header-title {
       color: black;
       margin: 0;
-      font-size: 20px; }
+      font-size: 20px;
+      font-family: Antwerp; }
     .booking-form-cta .booking-form-container .booking-form .cta-header .sub-header,
     .booking-form-cta .cancel-edit-modal .booking-form .cta-header .sub-header,
     .cancel-edit-container .booking-form-container .booking-form .cta-header .sub-header,
@@ -120,6 +145,7 @@ button:hover,
       margin: 0;
       color: #A4A6A8;
       font-size: 14px;
+      font-family: Antwerp;
       font-style: italic; }
   .booking-form-cta .booking-form-container .booking-form .form-body,
   .booking-form-cta .cancel-edit-modal .booking-form .form-body,
@@ -135,7 +161,8 @@ button:hover,
       margin: 0 0 10px 0;
       font-size: 20px;
       color: #A4A6A8;
-      text-transform: capitalize; }
+      text-transform: capitalize;
+      font-family: Antwerp; }
     .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select,
     .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select,
     .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select,
@@ -154,7 +181,8 @@ button:hover,
         border: thin #DA291C solid;
         font-size: 14px;
         color: #DA291C;
-        border-radius: 2px; }
+        border-radius: 2px;
+        font-family: Antwerp; }
       .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select,
       .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select,
       .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select,
@@ -511,7 +539,9 @@ button:hover,
       .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container .subscribe-label,
       .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container .subscribe-label {
         font-style: italic;
-        font-size: 12px; }
+        font-size: 12px;
+        font-family: Antwerp;
+        font-weight: lighter; }
     .booking-form-cta .booking-form-container .booking-form .form-body .guests-container,
     .booking-form-cta .cancel-edit-modal .booking-form .form-body .guests-container,
     .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container,
@@ -572,7 +602,8 @@ button:hover,
         .cancel-edit-container .booking-form-container .booking-form .form-body .guests-container .add-guest span,
         .cancel-edit-container .cancel-edit-modal .booking-form .form-body .guests-container .add-guest span {
           font-size: 12px;
-          margin-left: 5px; }
+          margin-left: 5px;
+          font-family: Antwerp; }
     .booking-form-cta .booking-form-container .booking-form .form-body .message-container,
     .booking-form-cta .cancel-edit-modal .booking-form .form-body .message-container,
     .cancel-edit-container .booking-form-container .booking-form .form-body .message-container,
@@ -594,7 +625,8 @@ button:hover,
       .cancel-edit-container .cancel-edit-modal .booking-form .form-body .submit-prompt-container .guest-message {
         font-size: 14px;
         color: #DA291C;
-        margin-bottom: 10px; }
+        margin-bottom: 10px;
+        font-family: Antwerp; }
       .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container .submit-button,
       .booking-form-cta .cancel-edit-modal .booking-form .form-body .submit-prompt-container .submit-button,
       .cancel-edit-container .booking-form-container .booking-form .form-body .submit-prompt-container .submit-button,
@@ -617,33 +649,82 @@ button:hover,
   left: 0;
   display: flex;
   justify-content: center;
-  align-items: center; }
+  align-items: center;
+  background: rgba(208, 208, 206, 0.9); }
   .cancel-edit-container .cancel-edit-modal,
-  .cancel-edit-container .register-modal,
-  .register-container .cancel-edit-modal,
-  .register-container .register-modal {
+  .register-container .cancel-edit-modal {
     border: thin black solid;
     border-radius: 2px;
-    width: max-content; }
+    width: max-content;
+    background: #FFFFFF; }
   .cancel-edit-container .register-modal,
   .register-container .register-modal {
     padding: 30px;
     display: flex;
     flex-direction: column;
-    position: relative; }
+    position: relative;
+    background: #FFFFFF;
+    border-radius: 2px;
+    max-width: 470px; }
+    .cancel-edit-container .register-modal .register-masthead,
+    .register-container .register-modal .register-masthead {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px; }
+      .cancel-edit-container .register-modal .register-masthead svg,
+      .register-container .register-modal .register-masthead svg {
+        height: 12px;
+        width: auto; }
+      .cancel-edit-container .register-modal .register-masthead .close-register-button,
+      .register-container .register-modal .register-masthead .close-register-button {
+        font-size: 12px;
+        text-decoration: none;
+        cursor: pointer; }
     .cancel-edit-container .register-modal .register-header,
     .register-container .register-modal .register-header {
       margin: 0;
-      font-size: 24px;
-      font-weight: 400;
+      font-size: 20px;
+      font-family: Antwerp;
+      font-weight: normal;
       margin-bottom: 15px; }
-    .cancel-edit-container .register-modal .email-input,
-    .register-container .register-modal .email-input {
-      height: 30px;
-      padding-left: 8px;
-      border: 1px solid #A4A6A8;
-      border-radius: 2px;
-      margin-bottom: 15px; }
+    .cancel-edit-container .register-modal .register-text,
+    .register-container .register-modal .register-text {
+      font-family: Antwerp;
+      color: #333333;
+      font-size: 14px;
+      margin: 0 0 30px 0;
+      line-height: 22px; }
+    .cancel-edit-container .register-modal .register-inputs,
+    .register-container .register-modal .register-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 15px;
+      grid-row-gap: 10px;
+      margin-bottom: 30px;
+      width: 100%; }
+      .cancel-edit-container .register-modal .register-inputs .email-input,
+      .register-container .register-modal .register-inputs .email-input {
+        grid-column: span 2; }
+      .cancel-edit-container .register-modal .register-inputs .name-input,
+      .register-container .register-modal .register-inputs .name-input {
+        grid-column: span 1;
+        width: 100%; }
+      .cancel-edit-container .register-modal .register-inputs .email-input,
+      .cancel-edit-container .register-modal .register-inputs .name-input,
+      .register-container .register-modal .register-inputs .email-input,
+      .register-container .register-modal .register-inputs .name-input {
+        height: 30px;
+        padding-left: 8px;
+        border: 1px solid #A4A6A8;
+        border-radius: 2px;
+        font-family: Antwerp;
+        font-size: 20px; }
+        .cancel-edit-container .register-modal .register-inputs .email-input ::placeholder,
+        .cancel-edit-container .register-modal .register-inputs .name-input ::placeholder,
+        .register-container .register-modal .register-inputs .email-input ::placeholder,
+        .register-container .register-modal .register-inputs .name-input ::placeholder {
+          color: #A4A6A8; }
     .cancel-edit-container .register-modal .register-button,
     .register-container .register-modal .register-button {
       height: 30px;
@@ -655,6 +736,8 @@ button:hover,
       justify-content: center;
       align-items: center;
       border: none;
+      border-radius: 2px;
+      font-family: Antwerp;
       width: max-content;
       margin: 0 auto; }
       .cancel-edit-container .register-modal .register-button:hover,
@@ -668,11 +751,3 @@ button:hover,
       bottom: 5px;
       font-size: 12px;
       color: #DA291C; }
-    .cancel-edit-container .register-modal .close-register-button,
-    .register-container .register-modal .close-register-button {
-      font-size: 12px;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      text-decoration: none;
-      cursor: pointer; }

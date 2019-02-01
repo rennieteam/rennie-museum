@@ -224,6 +224,7 @@ class BookingForm extends Component {
       };
       axios.post(`${url}/api/attendees`, body)
         .then((result) => {
+          this.setState({ name: '', email: '', selectedDate: null, guests: [{name: '', email: ''}], subscribe: false, selectedTime: null, selectedEvent: {} })
           this.setMessage('Thank you for booking.');
         })
         .catch((error) => {
@@ -237,6 +238,12 @@ class BookingForm extends Component {
   };
 
   renderForm = () => {
+    let singleCount;
+    if(this.state.name || this.state.email){
+      singleCount = 1;
+    } else {
+      singleCount = 0;
+    };
     return(
       <div className="booking-form-cta" >
         <div className="book-form-header">
@@ -269,7 +276,7 @@ class BookingForm extends Component {
                   isDisabled={!this.state.selectedDate}
                 />
                 {
-                  this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
+                  this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount - singleCount - this.guestCount()}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
                 }
               </div>
               <div className="attendee-info">
