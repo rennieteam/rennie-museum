@@ -36,17 +36,13 @@ if ( ! function_exists( 'renniemuseum_posted_by' ) ) :
 	/**
 	 * Prints HTML with meta information about theme author.
 	 */
-	function renniemuseum_posted_by($author_id) {
-		$user_meta = get_userdata($author_id);
-		$user_roles = $user_meta -> roles; //array of roles the user is part of.\
-		if(!in_array("administrator", $user_roles )) {
-			printf(
-				/* translators: 1: post author, only visible to screen readers. 3: author link. */
-				'<span class="byline entry-author">%1$s %2$s</span>',
-				__( 'By', 'renniemuseum' ),
-				esc_html( get_the_author() )
-			);
-		}
+	function renniemuseum_posted_by() {
+		printf(
+			/* translators: 1: post author, only visible to screen readers. 3: author link. */
+			'<span class="byline entry-author">%1$s %2$s</span>',
+			__( 'By', 'renniemuseum' ),
+			esc_html( get_the_author() )
+		);
 	}
 endif;
 
