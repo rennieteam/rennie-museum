@@ -11,8 +11,8 @@ class NavBar extends Component {
   render() {
     return (
       <div className="admin-nav" id="admin-nav">
-        <a className="admin-nav-item" href="#index=true"> Events </a>
-        <a className="admin-nav-item" href="#newEvent=true"> New Event </a>
+        <a className="admin-nav-item" href="#index"> Events </a>
+        <a className="admin-nav-item" href="#newEvent"> New Event </a>
       </div>
     );
   }

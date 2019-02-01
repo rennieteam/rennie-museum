@@ -158,7 +158,7 @@ const eventRouter = function (app) {
           }]
         }
       ).then((results) => {
-        res.json(result);
+        res.json(results);
       })
     }).catch(err => console.log(err))
   });
