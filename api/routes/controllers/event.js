@@ -132,15 +132,6 @@ const eventRouter = function (app) {
   app.options('/api/event/:eventId', cors(corsOptions));
 
   app.delete('/api/event/:eventId', cors(corsOptions), (req, res) => {
-    // Attendee.findAll({
-    //   where: {
-    //     EventId: parseInt(req.params['eventId'])
-    //   }
-    // }).then((result) => {
-    //   result.forEach((attendee) => {
-    //     mailerHelper(attendee.dataValues, false, true)
-    //   })
-    // }).catch(err => console.log(err));
 
     Events.destroy({
       where: {

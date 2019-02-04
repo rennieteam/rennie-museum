@@ -105,7 +105,6 @@ class BookingForm extends Component {
   showForm = (e) => {
     let form = document.getElementsByClassName('booking-form-container')[0];
     let classList = form.classList;
-    console.log(form);
     if(classList.contains('hidden')){
       classList.remove('hidden');
     } else {
@@ -238,12 +237,7 @@ class BookingForm extends Component {
   };
 
   renderForm = () => {
-    let singleCount;
-    if(this.state.name || this.state.email){
-      singleCount = 1;
-    } else {
-      singleCount = 0;
-    };
+    let singleCount = this.state.name || this.state.email ? 1 : 0;
     return(
       <div className="booking-form-cta" >
         <div className="book-form-header">
@@ -325,7 +319,7 @@ class BookingForm extends Component {
               }
               <div className="submit-prompt-container">
                 {
-                  this.guestCount() ? <span className="guest-message"> You are booking {this.guestCount()} visitors to the museum. </span> : ''
+                  this.guestCount() + singleCount ? <span className="guest-message"> You are booking {this.guestCount() + singleCount} visitors to the museum. </span> : ''
                 }
                 <button className="submit-button" onClick={this.handleSubmit}> Book now </button>
               </div>
