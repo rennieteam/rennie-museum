@@ -68,7 +68,6 @@ class App extends Component {
   };
 
   render() {
-    // console.log(qp);
     return (
       <div className="App">
         <Route path="/" component={NavBar} />
