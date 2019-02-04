@@ -468,6 +468,7 @@ button,
         font-size: $smallest;
         text-decoration: none;
         cursor: pointer;
+        color: $black;
       }
     }
 
@@ -485,6 +486,7 @@ button,
       font-size: $small;
       margin: 0 0 $pad 0;
       line-height: 22px;
+      font-weight: normal;
     }
 
     .register-inputs {
@@ -511,10 +513,11 @@ button,
         border: 1px solid $grey;
         border-radius: 2px;
         font-family: $serif;
-        font-size: $medium;
+        font-size: $small;
 
         ::placeholder {
           color: $grey;
+          font-family: $serif;
         }
       }
     }
