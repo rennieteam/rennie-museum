@@ -143,6 +143,48 @@ button {
 
 @media print {
 
+  .adminmenuback,
+  .adminmenuwrap,
+  .adminmenumain,
+  .wpadminbar,
+  #wpfooter {
+    display: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  #wpcontent {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  html.wp-toolbar {
+    padding-top: 0;
+  }
+
+  #adminmenuback,
+  .sticky-menu #adminmenuwrap {
+    display: none;
+  }
+
+  .wpcontent {
+    margin: 0;
+    padding: 0;
+  }
+
+  .waiver-container {
+    padding-top: 0 !important;
+  }
+
+  .wrap {
+    margin: 0;
+
+    h2,
+    noscript {
+      display: none;
+    }
+  }
+
   @page {
     margin: 5mm;
   }
