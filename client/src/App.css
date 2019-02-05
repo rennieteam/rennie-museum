@@ -680,7 +680,8 @@ button:hover,
       .register-container .register-modal .register-masthead .close-register-button {
         font-size: 12px;
         text-decoration: none;
-        cursor: pointer; }
+        cursor: pointer;
+        color: #000000; }
     .cancel-edit-container .register-modal .register-header,
     .register-container .register-modal .register-header {
       margin: 0;
@@ -694,7 +695,8 @@ button:hover,
       color: #333333;
       font-size: 14px;
       margin: 0 0 30px 0;
-      line-height: 22px; }
+      line-height: 22px;
+      font-weight: 300; }
     .cancel-edit-container .register-modal .register-inputs,
     .register-container .register-modal .register-inputs {
       display: grid;
@@ -719,12 +721,13 @@ button:hover,
         border: 1px solid #A4A6A8;
         border-radius: 2px;
         font-family: Antwerp;
-        font-size: 20px; }
+        font-size: 14px; }
         .cancel-edit-container .register-modal .register-inputs .email-input ::placeholder,
         .cancel-edit-container .register-modal .register-inputs .name-input ::placeholder,
         .register-container .register-modal .register-inputs .email-input ::placeholder,
         .register-container .register-modal .register-inputs .name-input ::placeholder {
-          color: #A4A6A8; }
+          color: #A4A6A8;
+          font-family: Antwerp; }
     .cancel-edit-container .register-modal .register-button,
     .register-container .register-modal .register-button {
       height: 30px;
