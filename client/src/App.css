@@ -38,8 +38,6 @@ button:hover,
   align-items: center;
   position: relative;
   z-index: 1; }
-  .booking-form-cta:hover {
-    cursor: pointer; }
 
 .cancel-message-container,
 .update-message-container {
@@ -114,6 +112,11 @@ button:hover,
   z-index: 1;
   width: 470px;
   box-shadow: 0 0 36px rgba(0, 0, 0, 0.04); }
+
+@media only screen and (max-width: 375px) {
+  .booking-form-cta .booking-form-container,
+  .cancel-edit-container .booking-form-container {
+    width: calc(100vw - 2em); } }
 
 .booking-form-cta .booking-form-container .booking-form,
 .booking-form-cta .cancel-edit-modal .booking-form,
@@ -650,7 +653,8 @@ button:hover,
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(208, 208, 206, 0.9); }
+  background: rgba(208, 208, 206, 0.9);
+  z-index: 1; }
   .cancel-edit-container .cancel-edit-modal,
   .register-container .cancel-edit-modal {
     border: thin black solid;

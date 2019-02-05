@@ -65,9 +65,7 @@ button,
   position: relative;
   z-index: 1;
 
-  &:hover {
-    cursor: pointer;
-  }
+
 }
 
 .cancel-message-container,
@@ -155,6 +153,12 @@ button,
     z-index: 1;
     width: 470px;
     box-shadow: 0 0 36px rgba(0,0,0,0.04);
+  }
+
+  .booking-form-container {
+    @media only screen and (max-width: 375px) {
+      width: calc(100vw - 2em);
+		}
   }
 
   .booking-form-container,
@@ -416,15 +420,6 @@ button,
   display: none;
 }
 
-
-
-
-
-// .form-body > h2 {
-//   color: black;
-//   margin: 0;
-// }
-
 .cancel-edit-container,
 .register-container {
   width: 100vw;
@@ -436,6 +431,7 @@ button,
   justify-content: center;
   align-items: center;
   background: rgba(208,208,206,0.9);
+  z-index: 1;
 
   .cancel-edit-modal {
     border: thin black solid;
@@ -505,7 +501,7 @@ button,
         grid-column: span 1;
         width: 100%;
       }
-  
+
       .email-input,
       .name-input {
         height: $pad;
