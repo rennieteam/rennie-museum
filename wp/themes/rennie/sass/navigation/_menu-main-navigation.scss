@@ -67,6 +67,12 @@
 				}
 			}
 
+			&.current_page_item {
+				> a {
+					color: $color__brand_primary;
+				}
+			}
+
 			&.menu-item-has-children {
 
 				display: inline-block;
