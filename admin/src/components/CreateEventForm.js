@@ -73,7 +73,6 @@ class CreateEventForm extends Component {
   };
 
   render() {
-    console.log(this.state)
     return (
       <div className="create-event-form">
         <h2 className="create-header"> Create New Event </h2>

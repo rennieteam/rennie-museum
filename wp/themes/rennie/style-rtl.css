@@ -1048,6 +1048,7 @@ table th {
 .content-card-date {
   color: #da291c;
   font-family: 'national', sans-serif;
+  font-size: 14px;
   text-transform: uppercase;
   margin: 0;
 }
@@ -1131,7 +1132,17 @@ label {
 }
 
 .join-mailing-list {
+  font-size: 12px;
   font-style: italic;
+}
+
+.join-mailing-list .wpcf7-list-item {
+  margin: 0;
+}
+
+.wpcf7-submit,
+.wpcf7-form input[type="text"] {
+  font-size: 12px;
 }
 
 input[type="text"],
@@ -1308,6 +1319,10 @@ body.page .main-navigation {
 
 .main-navigation .main-menu > li > a:hover,
 .main-navigation .main-menu > li > a:hover + svg {
+  color: #da291c;
+}
+
+.main-navigation .main-menu > li.current_page_item > a {
   color: #da291c;
 }
 
@@ -2222,6 +2237,9 @@ body.page .main-navigation {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 60px;
     grid-auto-rows: 60px;
+  }
+  .blog .site-main .entry {
+    grid-row-end: span 7;
   }
 }
 

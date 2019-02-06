@@ -9,11 +9,17 @@ label {
 }
 
 .join-mailing-list {
+	font-size: 12px;
 	font-style: italic;
 
 	.wpcf7-list-item {
 		margin: 0;
 	}
+}
+
+.wpcf7-submit,
+.wpcf7-form input[type="text"] {
+	font-size: 12px;
 }
 
 input[type="text"],
