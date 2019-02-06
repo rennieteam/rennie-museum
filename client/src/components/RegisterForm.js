@@ -59,11 +59,11 @@ class RegisterForm extends Component {
               </span>
             </a>
           </div>
-          <h2 className="register-header"> Register to receive our newsletter. </h2>
+          <h2 className="register-header">Subscribe to receive our newsletter.</h2>
           <p className="register-text"> To get immediate notification of this and all other Rennie Museum activities, please fill out the form below. We will never sell or share your personal information, including your name, email address and phone number. </p>
           <div className="register-inputs">
-            <input className="name-input" name="firstName" placeholder='First Name*' value={this.state.firstName} onChange={this.handleChange}/> 
-            <input className="name-input" name="lastName" placeholder='Last Name*' value={this.state.lastName} onChange={this.handleChange}/> 
+            <input className="name-input" name="firstName" placeholder='First Name*' value={this.state.firstName} onChange={this.handleChange}/>
+            <input className="name-input" name="lastName" placeholder='Last Name*' value={this.state.lastName} onChange={this.handleChange}/>
             <input className="email-input" name='email' value={this.state.email} onChange={this.handleChange} placeholder='Email' />
           </div>
           {
