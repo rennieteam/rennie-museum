@@ -2,6 +2,7 @@ const nodemailer = require('nodemailer');
 const mandrillTransport = require('nodemailer-mandrill-transport');
 const Mailchimp = require('mailchimp-api-v3');
 const config = require('../config.js');
+const template = require('./htmlMailTemplate');
 
 let transport = nodemailer.createTransport(mandrillTransport({
   auth: {
@@ -33,7 +34,7 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     from: config.mandrill.fromAddress,
     to: data.email,
     subject: 'Rennie Museum Booking',
-    html: `<p> Hi ${data.name}, ${message}. <a href="${link}${data.hash}"> ${linkText} </a> </p>`
+    html: template.getTemplate(`<p> Hi ${data.name}, ${message}. <a href="${link}${data.hash}"> ${linkText} </a> </p>`)
   }, function(error, info){
     if(error){
       console.log(error);
