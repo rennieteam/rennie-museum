@@ -35,40 +35,10 @@ class BookingForm extends Component {
     if(this.props.dateOptions !== prevProps.dateOptions){
       this.setState({ dateOptions: this.props.dateOptions });
     };
-  }
-
-  // componentDidMount = () => {
-  //   axios.get(`${config.API_URL}/api/events`)
-  //     .then((results) => {
-  //       this.setState({ events: results.data });
-  //       let dupCheck = [];
-  //       let dateOptions = [];
-  //       results.data.forEach((result) => {
-  //         let dateWithTime = new Date(result.date);
-  //         let dateWithZeroedTime = dateWithTime.setHours(0,0,0,0);
-  //         if(!dupCheck.includes(dateWithZeroedTime)){
-  //           dateOptions.push({ value: dateWithZeroedTime, label: hdate.prettyPrint(new Date(Date.parse(result.date))) })
-  //           dupCheck.push(dateWithZeroedTime);
-  //         };
-  //       });
-  //       this.setState({ dateOptions });
-  //     })
-  // };
-
-  // calculateCount = (event = {}) => {
-  //   let eventCount = event.attendees.length;
-  //   if(eventCount >= event.numberOfAttendees){
-  //     return eventCount;
-  //   } else {
-  //     event.attendees.forEach((attendee) => {
-  //       eventCount += attendee.guests.length;
-  //     });
-  //   };
-  //   return eventCount;
-  // };
+  };
 
   selectDate = (selectedDate) => {
-    this.setState({ selectedDate, selectedTime: null, EventId: null });
+    this.setState({ selectedDate, selectedTime: null, EventId: null, disableAddGuest: false, message: '' });
     let filteredEvents = this.state.events.filter((event) => {
       let d = new Date(event.date)
       return d.setHours(0,0,0,0) === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
@@ -221,6 +191,8 @@ class BookingForm extends Component {
       } else {
         url = config.productionUrl;
       };
+      let d = hdate.prettyPrint(new Date(Date.parse(this.state.selectedEvent.date)), {showTime: true});
+      body.eventDate = d;
       axios.post(`${url}/api/attendees`, body)
         .then((result) => {
           this.setState({ name: '', email: '', selectedDate: null, guests: [{name: '', email: ''}], subscribe: false, selectedTime: null, selectedEvent: {} })
