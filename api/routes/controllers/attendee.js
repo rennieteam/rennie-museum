@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const secret = 'abc';
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
+const hdate = require('human-date');
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -72,7 +73,7 @@ const attendeeRouter = function (app) {
       } else {
         Attendee.create(options)
           .then((result) => {
-    
+            result.dataValues.eventDate = req.body.eventDate;
             mailerHelper(result.dataValues, req.body.subscribe);
     
             res.json(result);
@@ -115,7 +116,8 @@ const attendeeRouter = function (app) {
       { returning: true, where: {id: req.params['attendeeId']} }
     )
     .then(([result, [updatedAttendee]]) => {
-      mailerHelper(updatedAttendee.dataValues);
+      updatedAttendee.dataValues.eventDate = req.body.eventDate;
+      mailerHelper(updatedAttendee.dataValues, false, false, false, true);
       res.send(200);
     })
     .catch((error) => {
@@ -126,12 +128,22 @@ const attendeeRouter = function (app) {
   app.options('/api/attendee/:attendeeId', cors(corsOptions));
 
   app.delete('/api/attendee/:attendeeId', cors(corsOptions), (req, res) => {
-    Attendee.destroy({
-      where: {
-        id: parseInt(req.params['attendeeId'])
-      }
-    }).then( (result) => {
+    Attendee.findOne({
+      where: { id: parseInt(req.params['attendeeId'])},
+      include: [{
+        model: Event
+      }]
+    }).then((result) => {
+      let options = {};
+      options.email = result.dataValues.email;
+      options.name = result.dataValues.name;
+      options.guests = result.dataValues.guests;
+      options.eventDate = hdate.prettyPrint(new Date(Date.parse(result.dataValues.Event.dataValues.date)), {showTime: true});
+      mailerHelper(options, false, true, false, false);
+      result.destroy();
       res.json(result);
+    }).catch(error => {
+      res.json(error);
     });
   });
 }
