@@ -1262,14 +1262,17 @@ body.page .main-navigation {
   display: flex;
 }
 
+.main-navigation > div #root {
+  margin-left: 30px;
+}
+
 @media only screen and (max-width: 768px) {
   .main-navigation > div {
     position: relative;
   }
-}
-
-.main-navigation > div #root {
-  margin-left: 30px;
+  .main-navigation > div #root {
+    margin-left: 8px;
+  }
 }
 
 .main-navigation #navToggle {
@@ -1282,7 +1285,7 @@ body.page .main-navigation {
     background: none;
     color: #000;
     align-self: flex-end;
-    margin: 0 0 30px;
+    margin: 0 0 18px;
   }
 }
 
@@ -2252,7 +2255,7 @@ body.page .main-navigation {
 .site-content {
   overflow: hidden;
   max-width: 1380px;
-  margin: 0 30px;
+  margin: 0 10px;
 }
 
 @media only screen and (min-width: 961px) {
@@ -2364,7 +2367,7 @@ body.page .main-navigation {
 }
 
 .site-branding {
-  margin: 0 30px;
+  margin: 0 10px;
   max-width: 1380px;
   display: flex;
   align-items: flex-end;
@@ -4750,4 +4753,24 @@ svg {
 
 .gallery-item > div > a:focus {
   box-shadow: 0 0 0 2px #da291c;
+}
+
+.desktop-only {
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .desktop-only {
+    display: block;
+  }
+}
+
+.mobile-only {
+  display: block;
+}
+
+@media only screen and (min-width: 768px) {
+  .mobile-only {
+    display: none;
+  }
 }
