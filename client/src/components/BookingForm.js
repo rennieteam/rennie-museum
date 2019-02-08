@@ -221,7 +221,7 @@ class BookingForm extends Component {
           <div className="booking-form">
             <div className="cta-header" onClick={this.stopProp}>
               <p className="header-title"> Spring 2019: <br /> Collected Works </p>
-              <p className="sub-header"> Through May 25, 2019 </p>
+              <p className="sub-header"> Through June 15, 2019 </p>
             </div>
             <div className="form-body" onClick={this.stopProp}>
               <h2 className="form-header"> Your booking details </h2>
