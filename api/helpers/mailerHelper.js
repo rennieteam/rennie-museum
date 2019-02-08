@@ -46,8 +46,8 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     <p ${style}> <strong>rennie museum</strong> </p>
     `;
   } else if(forRemove){
-    subject = 'Booking Removal'
-    message = 'you have been removed from your tour';
+    subject = 'Booking Removal';
+    message = 'You have been removed from your tour.';
   } else if(forUpdate) {
     emailStaff = true;
     staffSubject = 'You have a new booking update.';
