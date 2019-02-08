@@ -38,7 +38,9 @@ const options = {
 };
 
 const server = http.createServer(app);
-const server2 = https.createServer(options, app);
+const server2 = https.createServer(options, app).listen(8001, function(){
+  console.log('listening on port 8001')
+});
 
 app.set('port', port);
 server.listen(port);
