@@ -204,6 +204,8 @@ class CancelForm extends Component {
       } else {
         url = config.productionUrl;
       };
+      let d = hdate.prettyPrint(new Date(Date.parse(this.state.selectedEvent.date)), {showTime: true});
+      options.eventDate = d;
       axios.put(`${url}/api/attendee/${this.state.attendee.id}`, options)
         .then((result) => {
           this.setState({ updateSuccess: true });
@@ -298,8 +300,9 @@ class CancelForm extends Component {
   renderNotFound = () => {
     if(!this.state.isLoading){
       return(
-        <div>
-          Sorry, there were no bookings found!
+        <div className="no-booking-found">
+          <a href="#close" className="fas fa-times close-button" />
+          We couldn't find your booking. Check your email to see if it was cancelled!
         </div>
       )
     };
