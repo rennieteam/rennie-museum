@@ -575,6 +575,15 @@ button {
 
   .react-datetime-picker {
     margin-bottom: 10px;
+    width: 100%;
+
+    .react-datetime-picker__inputGroup__hour {
+      margin-left: 10px;
+    }
+
+    &__wrapper {
+      width: 100%;
+    }
 
     &__calendar {
       bottom: inital;

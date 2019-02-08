@@ -386,7 +386,12 @@ button:focus {
     border-bottom: thin #DA291C solid;
     padding-bottom: 10px; }
   .create-event-form .react-datetime-picker {
-    margin-bottom: 10px; }
+    margin-bottom: 10px;
+    width: 100%; }
+    .create-event-form .react-datetime-picker .react-datetime-picker__inputGroup__hour {
+      margin-left: 10px; }
+    .create-event-form .react-datetime-picker__wrapper {
+      width: 100%; }
     .create-event-form .react-datetime-picker__calendar {
       bottom: inital;
       top: 0; }
