@@ -93,8 +93,12 @@ class CancelForm extends Component {
   selectDate = (selectedDate) => {
     this.setState({ selectedDate, selectedTime: null, EventId: null, message: '' });
     let filteredEvents = this.state.events.filter((event) => {
-      let d = new Date(event.date)
-      return d.setHours(0,0,0,0) === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
+      if(event.id === this.state.attendee.EventId){
+        return true;
+      } else {
+        let d = new Date(event.date)
+        return d.setHours(0,0,0,0) === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
+      };
     });
     let timeOptions = [];
     filteredEvents.forEach((event) => {
