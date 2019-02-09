@@ -39,7 +39,7 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     message = `<p ${style}> Your <strong>rennie museum</strong> tour has been cancelled for: </p>
     <p ${style}> Spring 2019: Collected Works <br> ${data.eventDate} <br> ${guests} <br> </p>
     <p ${style}> If you need to create a new booking, please <i>click <a ${anchorStyle} href="${config.homeLink}">here</a>. </i> </p>
-    <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</p> </p>
+    <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</a> </p>
     <p ${style}> Thank you, </p>
     <p ${style}> <strong>rennie museum</strong> </p>
     `;
@@ -55,7 +55,7 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     <p ${style}> Spring 2019: Collected Works <br/> ${data.eventDate} <br/> ${guests} <br/> <a ${anchorStyle} href="https://goo.gl/maps/GWSE5v7k7MP2">Click here for directions to the museum.</a> </p>
     <p ${style}> All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
     <p ${style}> If you need to edit your booking, please <i>click <a ${anchorStyle} href="${config.cancelLink + data.hash}">here</a>. </i> </p>
-    <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</p> </p>
+    <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</a> </p>
     <p ${style}> We look forward to welcoming you! </p>
     <p ${style}> <strong>rennie museum</strong> </p>
     `;
@@ -68,7 +68,7 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
      <p ${style}> Spring 2019: Collected Works <br> ${data.eventDate} <br> ${guests} <br> <a ${anchorStyle} href="https://goo.gl/maps/GWSE5v7k7MP2">Click here for directions to the museum.</a> </p>
      <p ${style}> All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
      <p ${style}> If you need to edit your booking, please <i>click <a ${anchorStyle} href="${config.cancelLink + data.hash}">here</a>. </i> </p>
-     <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</p> </p>
+     <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</a> </p>
      <p ${style}> We look forward to welcoming you! </p>
      <p ${style}> <strong>rennie museum</strong> </p>
      `;
