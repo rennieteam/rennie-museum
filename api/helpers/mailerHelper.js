@@ -17,11 +17,9 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
   let guests = '';
   if(data.guests){
     if(data.guests.length === 0){
-      guests = 'No Guests';
-    } else if(data.guests.length === 1){
       guests = '1 Guest';
     } else {
-      guests = `${data.guests.length} Guests`;
+      guests = `${data.guests.length + 1} Guests`;
     };
   };
 
