@@ -35,29 +35,6 @@ class App extends Component {
       };
     });
     this.setState({ dateOptions });
-    // let url;
-    // if(process.env.NODE_ENV === 'development'){
-    //   url = config.developmentUrl;
-    // } else {
-    //   url = config.productionUrl;
-    // };
-    // axios.get(`${url}/api/events`)
-    //   .then((results) => {
-    //     this.setState({ events: results.data });
-    //     let dupCheck = [];
-    //     let dateOptions = [];
-    //     results.data.forEach((result) => {
-    //       let dateWithTime = new Date(result.date);
-    //       let dateWithZeroedTime = dateWithTime.setHours(0,0,0,0);
-    //       if(!dupCheck.includes(dateWithZeroedTime)){
-    //         dateOptions.push({ value: dateWithZeroedTime, label: hdate.prettyPrint(new Date(Date.parse(result.date))) })
-    //         dupCheck.push(dateWithZeroedTime);
-    //       };
-    //     });
-    //     this.setState({ dateOptions });
-    //   }).catch(error => {
-    //     console.log(error);
-    //   })
   };
 
   componentDidMount = () => {

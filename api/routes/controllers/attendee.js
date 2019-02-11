@@ -49,11 +49,11 @@ const attendeeRouter = function (app) {
       }]
     })
     .then((result) => {
-      console.log(result)
+      console.log(result);
       res.json(result);
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
       res.sendStatus(error.response.status);
     })
   });
