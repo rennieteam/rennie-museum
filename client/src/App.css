@@ -246,6 +246,35 @@ button:hover,
         .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-d8oujb,
         .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-ln5n5c {
           display: none; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-1hwfws3,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-1hwfws3,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-1hwfws3,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-1hwfws3,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-1hwfws3,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-1hwfws3,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-1hwfws3,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-1hwfws3,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-1hwfws3,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-1hwfws3,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-1hwfws3,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-1hwfws3 {
+          position: absolute;
+          width: 80%;
+          overflow: visible; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-1wy0on6,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-1wy0on6,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-1wy0on6,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-1wy0on6,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-1wy0on6,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-1wy0on6,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-1wy0on6,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-1wy0on6,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-1wy0on6,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-1wy0on6,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-1wy0on6,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-1wy0on6 {
+          position: absolute;
+          right: 0; }
         .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-15k3avv,
         .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-15k3avv,
         .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-15k3avv,
