@@ -9,6 +9,7 @@ const crypto = require('crypto');
 const secret = 'abc';
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
+const countHelper = require('../../helpers/countHelper');
 const hdate = require('human-date');
 
 const corsOptions = {
@@ -59,6 +60,7 @@ const attendeeRouter = function (app) {
     let date = new Date();
     let hash = crypto.createHmac('sha256', secret).update(`${date}${req.body.email}`).digest('hex');
     let options = req.body;
+    let payload = {};
     options.hash = hash;
 
     Attendee.findOne({
@@ -69,21 +71,80 @@ const attendeeRouter = function (app) {
     })
     .then((result) => {
       if(result){
-        res.sendStatus(403);
+        payload.success = false;
+        payload.emailUsed = true;
+        res.json(payload);
       } else {
-        Attendee.create(options)
-          .then((result) => {
-            result.dataValues.eventDate = req.body.eventDate;
-            mailerHelper(result.dataValues, req.body.subscribe);
-    
-            res.json(result);
-          })
-          .catch(error => res.send(error))
-      }
+        Event.findOne({
+          where: {
+            id: req.body.EventId
+          },
+          include: [{ model: Attendee, as: 'attendees' }]
+        }).then((result) => {
+          if(parseInt(countHelper(result.dataValues)) === result.dataValues.numberOfAttendees){
+            Event.findAll(
+              {
+                order: [
+                  ['date', 'ASC']
+                ],
+                include: [{
+                  model: Attendee,
+                  as: 'attendees'
+                }]
+              }
+            ).then((events) => {
+              payload.events = events;
+              payload.full = true;
+              payload.success = false;
+              res.json(payload)
+            });
+          } else if(req.body.guests.length + 1 > result.dataValues.numberOfAttendees - countHelper(result.dataValues)){
+            Event.findAll(
+              {
+                order: [
+                  ['date', 'ASC']
+                ],
+                include: [{
+                  model: Attendee,
+                  as: 'attendees'
+                }]
+              }
+            ).then((events) => {
+              payload.events = events;
+              payload.tooMany = true;
+              payload.success = false;
+              res.json(payload);
+            })
+          } else {
+            Attendee.create(options)
+              .then((result) => {
+                payload.success = true;
+                payload.result = result;
+                result.dataValues.eventDate = req.body.eventDate;
+                mailerHelper(result.dataValues, req.body.subscribe);
+                Event.findAll(
+                  {
+                    order: [
+                      ['date', 'ASC']
+                    ],
+                    include: [{
+                      model: Attendee,
+                      as: 'attendees'
+                    }]
+                  }
+                ).then((events) => {
+                  payload.events = events;
+                  res.json(payload);
+                });
+              })
+              .catch(error => res.send(error))
+          };
+        }).catch((error) => res.json(error));
+      };
     })
     .catch((error) => {
-      res.send(error);
-    })
+      res.json(error);
+    });
 
   });
 
