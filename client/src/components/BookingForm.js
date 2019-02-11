@@ -51,12 +51,7 @@ class BookingForm extends Component {
       let remainingSpots = `${event.numberOfAttendees - this.props.calculateCount(event)} spots remaining`;
       timeOptions.push({ value: event, label: splitDate.splice(index).join(' ') + ` - ${remainingSpots}` });
     });
-    if(!timeOptions.length){
-      this.setState({ fullyBooked: true });
-    } else {
-      this.setState({ fullyBooked: false });
-    };
-    this.setState({ timeOptions, message: '' });
+    this.setState({ timeOptions, message: '', fullyBooked: !timeOptions.length });
   };
 
   selectDate = (selectedDate) => {
