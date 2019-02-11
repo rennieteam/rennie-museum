@@ -324,7 +324,9 @@ class CancelForm extends Component {
     } else {
       return(
         <div className="cancel-edit-container">
-          Loading
+          <div className="loading-container">
+            Loading...
+          </div>
         </div>
       )
     }
