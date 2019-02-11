@@ -83,15 +83,15 @@ button,
 
   .close-button {
     position: absolute;
-    top: $pad;
-    right: $pad;
+    top: 15px;
+    right: 15px;
     text-decoration: none;
   }
 
   .cancel-message,
   .update-message {
-    font-size: $medium;
-    color: $primary;
+    font-size: $small;
+    color: $black;
     font-family: $serif;
   }
 }
@@ -105,6 +105,7 @@ button,
     top: $pad;
     right: $pad;
     text-decoration: none;
+    color: $black;
   }
 
   .form-greeting {
@@ -123,11 +124,13 @@ button,
 .booking-form-cta,
 .cancel-edit-container {
   
-  .no-booking-found {
+  .no-booking-found,
+  .loading-container {
     padding: $pad;
     font-family: $serif;
     background: $white;
-    color: $primary;
+    font-size: $small;
+    color: $black;
     border: 1px $black solid;
     position: relative;
     max-width: 300px;
@@ -137,6 +140,7 @@ button,
       right: 15px;
       top: 15px;
       text-decoration: none;
+      color: $black;
     }
   }
 

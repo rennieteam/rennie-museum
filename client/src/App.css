@@ -54,15 +54,15 @@ button:hover,
   .cancel-message-container .close-button,
   .update-message-container .close-button {
     position: absolute;
-    top: 30px;
-    right: 30px;
+    top: 15px;
+    right: 15px;
     text-decoration: none; }
   .cancel-message-container .cancel-message,
   .cancel-message-container .update-message,
   .update-message-container .cancel-message,
   .update-message-container .update-message {
-    font-size: 20px;
-    color: #DA291C;
+    font-size: 14px;
+    color: #000000;
     font-family: Antwerp; }
 
 .cancel-edit-modal {
@@ -72,7 +72,8 @@ button:hover,
     position: absolute;
     top: 30px;
     right: 30px;
-    text-decoration: none; }
+    text-decoration: none;
+    color: #000000; }
   .cancel-edit-modal .form-greeting {
     font-size: 20px;
     font-weight: 400;
@@ -82,20 +83,26 @@ button:hover,
     justify-content: space-between; }
 
 .booking-form-cta .no-booking-found,
-.cancel-edit-container .no-booking-found {
+.booking-form-cta .loading-container,
+.cancel-edit-container .no-booking-found,
+.cancel-edit-container .loading-container {
   padding: 30px;
   font-family: Antwerp;
   background: #FFFFFF;
-  color: #DA291C;
+  font-size: 14px;
+  color: #000000;
   border: 1px #000000 solid;
   position: relative;
   max-width: 300px; }
   .booking-form-cta .no-booking-found .close-button,
-  .cancel-edit-container .no-booking-found .close-button {
+  .booking-form-cta .loading-container .close-button,
+  .cancel-edit-container .no-booking-found .close-button,
+  .cancel-edit-container .loading-container .close-button {
     position: absolute;
     right: 15px;
     top: 15px;
-    text-decoration: none; }
+    text-decoration: none;
+    color: #000000; }
 
 .booking-form-cta .cta-button,
 .cancel-edit-container .cta-button {
