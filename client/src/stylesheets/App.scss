@@ -72,8 +72,7 @@ button,
 .update-message-container {
   width: 400px;
   height: max-content;
-  border: thin $black solid;
-  padding: $pad;
+  padding: $pad*2 $pad $pad $pad;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -81,10 +80,19 @@ button,
   background: $white;
   position: relative;
 
-  .close-button {
+  .logo {
+    height: 12px;
+    width: auto;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: $pad;
+    left: $pad;
+  }
+
+  .close-button {
+    font-size: $smallest;
+    position: absolute;
+    top: $pad;
+    right: $pad;
     text-decoration: none;
   }
 
@@ -100,7 +108,16 @@ button,
   border-radius: 2px;
   position: relative;
 
+  .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: $pad;
+    left: $pad;
+  }
+
   .close-button {
+    font-size: $smallest;
     position: absolute;
     top: $pad;
     right: $pad;
@@ -110,8 +127,13 @@ button,
 
   .form-greeting {
     font-size: $medium;
-    font-weight: 400;
+    font-weight: 600;
     font-family: $serif;
+    margin-top: $pad;
+  }
+
+  .event-date-label {
+    font-weight: normal;
   }
 
   #cancel-submit-prompt-container {
@@ -126,19 +148,28 @@ button,
   
   .no-booking-found,
   .loading-container {
-    padding: $pad;
+    padding: $pad*2 $pad $pad $pad;
     font-family: $serif;
     background: $white;
     font-size: $small;
     color: $black;
-    border: 1px $black solid;
+    border-radius: 2px;
     position: relative;
     max-width: 300px;
 
-    .close-button {
+    .logo {
+      height: 12px;
+      width: auto;
       position: absolute;
-      right: 15px;
-      top: 15px;
+      top: $pad;
+      left: $pad;
+    }
+
+    .close-button {
+      font-size: $smallest;
+      position: absolute;
+      right: $pad;
+      top: $pad;
       text-decoration: none;
       color: $black;
     }
@@ -468,7 +499,6 @@ button,
   z-index: 1;
 
   .cancel-edit-modal {
-    border: thin black solid;
     border-radius: 2px;
     width: max-content;
     background: $white;
@@ -489,7 +519,7 @@ button,
       justify-content: space-between;
       margin-bottom: $pad;
 
-      svg {
+      .logo {
         height: 12px;
         width: auto;
       }
