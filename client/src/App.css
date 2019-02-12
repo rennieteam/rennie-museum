@@ -5,7 +5,8 @@ select:focus {
 
 button {
   font-family: Antwerp;
-  font-size: 12px; }
+  font-size: 12px;
+  font-weight: lighter; }
 
 input {
   font-family: Antwerp;
@@ -236,7 +237,8 @@ button:hover,
         font-size: 14px;
         color: #DA291C;
         border-radius: 2px;
-        font-family: Antwerp; }
+        font-family: Antwerp;
+        font-weight: lighter; }
       .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select,
       .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select,
       .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select,
@@ -460,7 +462,9 @@ button:hover,
           .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1492t68,
           .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-xp4uvy,
           .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1492t68 {
-            font-size: 14px; }
+            font-size: 14px;
+            font-weight: lighter;
+            font-family: Antwerp; }
           .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1ep9fjw,
           .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1uq0kb5,
           .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1ep9fjw,
@@ -716,6 +720,8 @@ button:hover,
       .cancel-edit-container .cancel-edit-modal .booking-form .form-body .submit-prompt-container .submit-button {
         color: #FFFFFF;
         font-size: 12px;
+        font-family: Antwerp;
+        font-weight: lighter;
         padding: 10px;
         background: #DA291C;
         border: none; }
