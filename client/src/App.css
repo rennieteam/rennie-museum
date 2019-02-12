@@ -43,19 +43,26 @@ button:hover,
 .update-message-container {
   width: 400px;
   height: max-content;
-  border: thin #000000 solid;
-  padding: 30px;
+  padding: 60px 30px 30px 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 2px;
   background: #FFFFFF;
   position: relative; }
+  .cancel-message-container .logo,
+  .update-message-container .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: 30px;
+    left: 30px; }
   .cancel-message-container .close-button,
   .update-message-container .close-button {
+    font-size: 12px;
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 30px;
+    right: 30px;
     text-decoration: none; }
   .cancel-message-container .cancel-message,
   .cancel-message-container .update-message,
@@ -68,7 +75,14 @@ button:hover,
 .cancel-edit-modal {
   border-radius: 2px;
   position: relative; }
+  .cancel-edit-modal .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: 30px;
+    left: 30px; }
   .cancel-edit-modal .close-button {
+    font-size: 12px;
     position: absolute;
     top: 30px;
     right: 30px;
@@ -76,8 +90,11 @@ button:hover,
     color: #000000; }
   .cancel-edit-modal .form-greeting {
     font-size: 20px;
-    font-weight: 400;
-    font-family: Antwerp; }
+    font-weight: 600;
+    font-family: Antwerp;
+    margin-top: 30px; }
+  .cancel-edit-modal .event-date-label {
+    font-weight: normal; }
   .cancel-edit-modal #cancel-submit-prompt-container {
     flex-direction: row;
     justify-content: space-between; }
@@ -86,21 +103,31 @@ button:hover,
 .booking-form-cta .loading-container,
 .cancel-edit-container .no-booking-found,
 .cancel-edit-container .loading-container {
-  padding: 30px;
+  padding: 60px 30px 30px 30px;
   font-family: Antwerp;
   background: #FFFFFF;
   font-size: 14px;
   color: #000000;
-  border: 1px #000000 solid;
+  border-radius: 2px;
   position: relative;
   max-width: 300px; }
+  .booking-form-cta .no-booking-found .logo,
+  .booking-form-cta .loading-container .logo,
+  .cancel-edit-container .no-booking-found .logo,
+  .cancel-edit-container .loading-container .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: 30px;
+    left: 30px; }
   .booking-form-cta .no-booking-found .close-button,
   .booking-form-cta .loading-container .close-button,
   .cancel-edit-container .no-booking-found .close-button,
   .cancel-edit-container .loading-container .close-button {
+    font-size: 12px;
     position: absolute;
-    right: 15px;
-    top: 15px;
+    right: 30px;
+    top: 30px;
     text-decoration: none;
     color: #000000; }
 
@@ -710,7 +737,6 @@ button:hover,
   z-index: 1; }
   .cancel-edit-container .cancel-edit-modal,
   .register-container .cancel-edit-modal {
-    border: thin black solid;
     border-radius: 2px;
     width: max-content;
     background: #FFFFFF; }
@@ -729,8 +755,8 @@ button:hover,
       display: flex;
       justify-content: space-between;
       margin-bottom: 30px; }
-      .cancel-edit-container .register-modal .register-masthead svg,
-      .register-container .register-modal .register-masthead svg {
+      .cancel-edit-container .register-modal .register-masthead .logo,
+      .register-container .register-modal .register-masthead .logo {
         height: 12px;
         width: auto; }
       .cancel-edit-container .register-modal .register-masthead .close-register-button,
