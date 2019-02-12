@@ -24,6 +24,7 @@ select {
 button {
   font-family: $serif;
   font-size: $smallest;
+  font-weight: lighter;
 }
 
 input {
@@ -274,6 +275,7 @@ button,
             color: $primary;
             border-radius: 2px;
             font-family: $serif;
+            font-weight: lighter;
           }
 
           .time-select {
@@ -329,6 +331,8 @@ button,
               .css-xp4uvy,
               .css-1492t68 {
                 font-size: $small;
+                font-weight: lighter;
+                font-family: $serif;
               }
 
               // shifts svg more to the right
@@ -467,6 +471,8 @@ button,
           .submit-button {
             color: $white;
             font-size: $smallest;
+            font-family: $serif;
+            font-weight: lighter;
             padding: 10px;
             background: $primary;
             border: none;
