@@ -50,7 +50,8 @@ button:hover,
   align-items: center;
   border-radius: 2px;
   background: #FFFFFF;
-  position: relative; }
+  position: relative;
+  font-weight: lighter; }
   .cancel-message-container .logo,
   .update-message-container .logo {
     height: 12px;
@@ -111,7 +112,8 @@ button:hover,
   color: #000000;
   border-radius: 2px;
   position: relative;
-  max-width: 300px; }
+  max-width: 300px;
+  font-weight: lighter; }
   .booking-form-cta .no-booking-found .logo,
   .booking-form-cta .loading-container .logo,
   .cancel-edit-container .no-booking-found .logo,
