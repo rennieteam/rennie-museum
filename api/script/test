@@ -7,5 +7,5 @@ echo 2
 NODE_ENV=test node ./db/seeds/seeds.js;
 
 echo 'start'
-./node_modules/.bin/mocha ./tests/*
+./node_modules/.bin/mocha ./tests/* --exit
 echo 'end'
