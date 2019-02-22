@@ -1,0 +1,11 @@
+#!/bin/sh
+echo '0'
+NODE_ENV=test ./node_modules/.bin/sequelize db:migrate:undo:all;
+echo '1'
+NODE_ENV=test ./node_modules/.bin/sequelize db:migrate;
+echo 2
+NODE_ENV=test node ./db/seeds/seeds.js;
+
+echo 'start'
+./node_modules/.bin/mocha ./tests/*
+echo 'end'
