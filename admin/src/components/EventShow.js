@@ -263,7 +263,7 @@ class EventShow extends Component {
             <p className="header-text"> visitor sign-in </p>
           </div>
           <div className="title-container">
-            <p className="exhibit-name"> Spring 2019: Replace </p>
+            <p className="exhibit-name"> Spring 2019: Collected Works </p>
             <p className="date"> {hdate.prettyPrint(new Date(Date.parse(this.state.event.date)), {showTime: true})} </p>
           </div>
           <p className="bold"> Waiver of Claims and Release of Liability </p>

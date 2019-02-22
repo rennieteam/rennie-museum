@@ -24,7 +24,8 @@ class BookingForm extends Component {
       message: '',
       subscribe: false,
       disableAddGuest: false,
-      disableAddMoreGuests: false
+      disableAddMoreGuests: false,
+      fullyBooked: false
     };
   };
 
@@ -35,41 +36,10 @@ class BookingForm extends Component {
     if(this.props.dateOptions !== prevProps.dateOptions){
       this.setState({ dateOptions: this.props.dateOptions });
     };
-  }
+  };
 
-  // componentDidMount = () => {
-  //   axios.get(`${config.API_URL}/api/events`)
-  //     .then((results) => {
-  //       this.setState({ events: results.data });
-  //       let dupCheck = [];
-  //       let dateOptions = [];
-  //       results.data.forEach((result) => {
-  //         let dateWithTime = new Date(result.date);
-  //         let dateWithZeroedTime = dateWithTime.setHours(0,0,0,0);
-  //         if(!dupCheck.includes(dateWithZeroedTime)){
-  //           dateOptions.push({ value: dateWithZeroedTime, label: hdate.prettyPrint(new Date(Date.parse(result.date))) })
-  //           dupCheck.push(dateWithZeroedTime);
-  //         };
-  //       });
-  //       this.setState({ dateOptions });
-  //     })
-  // };
-
-  // calculateCount = (event = {}) => {
-  //   let eventCount = event.attendees.length;
-  //   if(eventCount >= event.numberOfAttendees){
-  //     return eventCount;
-  //   } else {
-  //     event.attendees.forEach((attendee) => {
-  //       eventCount += attendee.guests.length;
-  //     });
-  //   };
-  //   return eventCount;
-  // };
-
-  selectDate = (selectedDate) => {
-    this.setState({ selectedDate, selectedTime: null, EventId: null });
-    let filteredEvents = this.state.events.filter((event) => {
+  setTimeOptions = (events, selectedDate) => {
+    let filteredEvents = events.filter((event) => {
       let d = new Date(event.date)
       return d.setHours(0,0,0,0) === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
     });
@@ -81,7 +51,12 @@ class BookingForm extends Component {
       let remainingSpots = `${event.numberOfAttendees - this.props.calculateCount(event)} spots remaining`;
       timeOptions.push({ value: event, label: splitDate.splice(index).join(' ') + ` - ${remainingSpots}` });
     });
-    this.setState({ timeOptions })
+    this.setState({ timeOptions, message: '', fullyBooked: !timeOptions.length });
+  };
+
+  selectDate = (selectedDate) => {
+    this.setState({ selectedDate, selectedTime: null, EventId: null, disableAddGuest: false, message: '' });
+    this.setTimeOptions(this.state.events, selectedDate);
   };
 
   selectTime = (selectedTime) => {
@@ -92,7 +67,8 @@ class BookingForm extends Component {
       selectedTime,
       selectedEvent: selectedEvent,
       eventCount,
-      EventId: selectedTime.value.id
+      EventId: selectedTime.value.id,
+      message: ''
     });
     if(disableAddGuest){
       this.setState({
@@ -221,19 +197,31 @@ class BookingForm extends Component {
       } else {
         url = config.productionUrl;
       };
+      let d = hdate.prettyPrint(new Date(Date.parse(this.state.selectedEvent.date)), {showTime: true});
+      body.eventDate = d;
       axios.post(`${url}/api/attendees`, body)
         .then((result) => {
-          this.setState({ name: '', email: '', selectedDate: null, guests: [{name: '', email: ''}], subscribe: false, selectedTime: null, selectedEvent: {} })
-          this.setMessage('Thank you for booking.');
+          if(result.data.success){
+            this.props.initializeData(result.data.events);
+            this.setState({ name: '', email: '', selectedDate: null, guests: [{name: '', email: ''}], subscribe: false, selectedTime: null, selectedEvent: {} })
+            this.setMessage('Thank you for booking.');
+          } else if(result.data.full){
+            this.setState({ selectedTime: null, selectedEvent: {} });
+            this.setTimeOptions(result.data.events, this.state.selectedDate);
+            this.setMessage(`We're sorry, this time slot is now fully booked, Please make another selection above.`);
+          } else if(result.data.tooMany){
+            this.setState({ selectedTime: null, selectedEvent: {} });
+            this.props.initializeData(result.data.events);
+            this.setTimeOptions(result.data.events, this.state.selectedDate);
+            this.setMessage(`We're sorry, this time slot no longer has enough spots for your number of visitors.`);
+          } else if(result.data.emailUsed){
+            this.setMessage('This email has already been registered with this tour.');
+          };
         })
         .catch((error) => {
-          if(error.response.status === 403){
-            this.setMessage('This email has already been registered with this tour.');
-          } else {
-            this.setMessage('Sorry, could not book at this moment.');
-          }
-        })
-    }
+          this.setMessage('Sorry, could not book at this moment.');
+        });
+    };
   };
 
   renderForm = () => {
@@ -249,7 +237,7 @@ class BookingForm extends Component {
           <div className="booking-form">
             <div className="cta-header" onClick={this.stopProp}>
               <p className="header-title"> Spring 2019: <br /> Collected Works </p>
-              <p className="sub-header"> Through May 25, 2019 </p>
+              <p className="sub-header"> Through June 15, 2019 </p>
             </div>
             <div className="form-body" onClick={this.stopProp}>
               <h2 className="form-header"> Your booking details </h2>
@@ -263,11 +251,13 @@ class BookingForm extends Component {
                 />
                 <Select
                   className="time-select"
-                  placeholder="Time"
+                  // placeholder="Time"
+                  placeholder={this.state.fullyBooked ? "Fully Booked" : "Time"}
                   value={this.state.selectedTime}
                   onChange={this.selectTime}
                   options={this.state.timeOptions}
-                  isDisabled={!this.state.selectedDate}
+                  isDisabled={!this.state.selectedDate || this.state.fullyBooked}
+                  noResultsText={'Fully Booked'}
                 />
                 {
                   this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount - singleCount - this.guestCount()}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
@@ -296,7 +286,7 @@ class BookingForm extends Component {
                   value={this.state.subscribe}
                   onChange={this.mailSubscribe}
                 />
-                <label className="subscribe-label" htmlFor="subscribe"> I want to receive to the rennie museum newsletter </label>
+                <label className="subscribe-label" htmlFor="subscribe"> I want to receive the rennie museum newsletter </label>
               </div>
               {
                 !this.state.disableAddGuest ?

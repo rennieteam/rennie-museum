@@ -1,8 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const http = require('http');
+const https = require('https');
 const port = parseInt(process.env.PORT, 10) || 8000;
 const app = express();
+const fs = require('fs');
+const path = require('path');
 
 const config = require('./config');
 
@@ -24,8 +27,21 @@ app.use((req, res, next) => {
   next();
 });
 
+const options = {
+  key: fs.readFileSync(path.join(__dirname, 'certificates/ssl_key.key')),
+  cert: fs.readFileSync(
+    path.join(__dirname, 'certificates/ssl_certificate.cer'),
+  ),
+  ca: fs.readFileSync(
+    path.join(__dirname, 'certificates/ssl_intermediate.cer'),
+  ),
+};
 
 const server = http.createServer(app);
+const server2 = https.createServer(options, app).listen(8001, function(){
+  console.log('listening on port 8001')
+});
+
 app.set('port', port);
 server.listen(port);
 
@@ -33,3 +49,5 @@ attendeeRouter(app);
 eventRouter(app);
 
 app.get('*', (req, res) => res.status(200).send());
+
+module.exports = server;

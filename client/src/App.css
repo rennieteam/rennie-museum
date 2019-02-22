@@ -5,7 +5,8 @@ select:focus {
 
 button {
   font-family: Antwerp;
-  font-size: 12px; }
+  font-size: 12px;
+  font-weight: lighter; }
 
 input {
   font-family: Antwerp;
@@ -43,16 +44,24 @@ button:hover,
 .update-message-container {
   width: 400px;
   height: max-content;
-  border: thin #000000 solid;
-  padding: 30px;
+  padding: 60px 30px 30px 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 2px;
   background: #FFFFFF;
-  position: relative; }
+  position: relative;
+  font-weight: lighter; }
+  .cancel-message-container .logo,
+  .update-message-container .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: 30px;
+    left: 30px; }
   .cancel-message-container .close-button,
   .update-message-container .close-button {
+    font-size: 12px;
     position: absolute;
     top: 30px;
     right: 30px;
@@ -61,25 +70,69 @@ button:hover,
   .cancel-message-container .update-message,
   .update-message-container .cancel-message,
   .update-message-container .update-message {
-    font-size: 20px;
-    color: #DA291C;
+    font-size: 14px;
+    color: #000000;
     font-family: Antwerp; }
 
 .cancel-edit-modal {
   border-radius: 2px;
   position: relative; }
+  .cancel-edit-modal .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: 30px;
+    left: 30px; }
   .cancel-edit-modal .close-button {
+    font-size: 12px;
     position: absolute;
     top: 30px;
     right: 30px;
-    text-decoration: none; }
+    text-decoration: none;
+    color: #000000; }
   .cancel-edit-modal .form-greeting {
     font-size: 20px;
-    font-weight: 400;
-    font-family: Antwerp; }
+    font-weight: 600;
+    font-family: Antwerp;
+    margin-top: 30px; }
+  .cancel-edit-modal .event-date-label {
+    font-weight: normal; }
   .cancel-edit-modal #cancel-submit-prompt-container {
     flex-direction: row;
     justify-content: space-between; }
+
+.booking-form-cta .no-booking-found,
+.booking-form-cta .loading-container,
+.cancel-edit-container .no-booking-found,
+.cancel-edit-container .loading-container {
+  padding: 60px 30px 30px 30px;
+  font-family: Antwerp;
+  background: #FFFFFF;
+  font-size: 14px;
+  color: #000000;
+  border-radius: 2px;
+  position: relative;
+  max-width: 300px;
+  font-weight: lighter; }
+  .booking-form-cta .no-booking-found .logo,
+  .booking-form-cta .loading-container .logo,
+  .cancel-edit-container .no-booking-found .logo,
+  .cancel-edit-container .loading-container .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: 30px;
+    left: 30px; }
+  .booking-form-cta .no-booking-found .close-button,
+  .booking-form-cta .loading-container .close-button,
+  .cancel-edit-container .no-booking-found .close-button,
+  .cancel-edit-container .loading-container .close-button {
+    font-size: 12px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    text-decoration: none;
+    color: #000000; }
 
 .booking-form-cta .cta-button,
 .cancel-edit-container .cta-button {
@@ -110,7 +163,8 @@ button:hover,
   top: 0;
   right: 0;
   z-index: 1;
-  width: 470px;
+  max-width: 470px;
+  width: calc(100vw - 60px);
   box-shadow: 0 0 36px rgba(0, 0, 0, 0.04); }
 
 @media only screen and (max-width: 375px) {
@@ -185,7 +239,8 @@ button:hover,
         font-size: 14px;
         color: #DA291C;
         border-radius: 2px;
-        font-family: Antwerp; }
+        font-family: Antwerp;
+        font-weight: lighter; }
       .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select,
       .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select,
       .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select,
@@ -229,6 +284,35 @@ button:hover,
         .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-d8oujb,
         .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-ln5n5c {
           display: none; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-1hwfws3,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-1hwfws3,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-1hwfws3,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-1hwfws3,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-1hwfws3,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-1hwfws3,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-1hwfws3,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-1hwfws3,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-1hwfws3,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-1hwfws3,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-1hwfws3,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-1hwfws3 {
+          position: absolute;
+          width: 80%;
+          overflow: visible; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-1wy0on6,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-1wy0on6,
+        .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-1wy0on6,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-1wy0on6,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-1wy0on6,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-1wy0on6,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .date-select .css-1wy0on6,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .time-select .css-1wy0on6,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-1wy0on6,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .date-select .css-1wy0on6,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .time-select .css-1wy0on6,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-1wy0on6 {
+          position: absolute;
+          right: 0; }
         .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-15k3avv,
         .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .time-select .css-15k3avv,
         .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .availability-holder .css-15k3avv,
@@ -380,7 +464,9 @@ button:hover,
           .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-2o5izw .css-1492t68,
           .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-xp4uvy,
           .cancel-edit-container .cancel-edit-modal .booking-form .form-body .date-time-select .availability-holder .css-162g8z5 .css-1492t68 {
-            font-size: 14px; }
+            font-size: 14px;
+            font-weight: lighter;
+            font-family: Antwerp; }
           .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1ep9fjw,
           .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-vj8t7z .css-1uq0kb5,
           .booking-form-cta .booking-form-container .booking-form .form-body .date-time-select .date-select .css-2o5izw .css-1ep9fjw,
@@ -636,6 +722,8 @@ button:hover,
       .cancel-edit-container .cancel-edit-modal .booking-form .form-body .submit-prompt-container .submit-button {
         color: #FFFFFF;
         font-size: 12px;
+        font-family: Antwerp;
+        font-weight: lighter;
         padding: 10px;
         background: #DA291C;
         border: none; }
@@ -657,7 +745,6 @@ button:hover,
   z-index: 1; }
   .cancel-edit-container .cancel-edit-modal,
   .register-container .cancel-edit-modal {
-    border: thin black solid;
     border-radius: 2px;
     width: max-content;
     background: #FFFFFF; }
@@ -676,8 +763,8 @@ button:hover,
       display: flex;
       justify-content: space-between;
       margin-bottom: 30px; }
-      .cancel-edit-container .register-modal .register-masthead svg,
-      .register-container .register-modal .register-masthead svg {
+      .cancel-edit-container .register-modal .register-masthead .logo,
+      .register-container .register-modal .register-masthead .logo {
         height: 12px;
         width: auto; }
       .cancel-edit-container .register-modal .register-masthead .close-register-button,

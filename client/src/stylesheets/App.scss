@@ -24,6 +24,7 @@ select {
 button {
   font-family: $serif;
   font-size: $smallest;
+  font-weight: lighter;
 }
 
 input {
@@ -72,16 +73,25 @@ button,
 .update-message-container {
   width: 400px;
   height: max-content;
-  border: thin $black solid;
-  padding: $pad;
+  padding: $pad*2 $pad $pad $pad;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 2px;
   background: $white;
   position: relative;
+  font-weight: lighter;
+
+  .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: $pad;
+    left: $pad;
+  }
 
   .close-button {
+    font-size: $smallest;
     position: absolute;
     top: $pad;
     right: $pad;
@@ -90,8 +100,8 @@ button,
 
   .cancel-message,
   .update-message {
-    font-size: $medium;
-    color: $primary;
+    font-size: $small;
+    color: $black;
     font-family: $serif;
   }
 }
@@ -100,17 +110,32 @@ button,
   border-radius: 2px;
   position: relative;
 
+  .logo {
+    height: 12px;
+    width: auto;
+    position: absolute;
+    top: $pad;
+    left: $pad;
+  }
+
   .close-button {
+    font-size: $smallest;
     position: absolute;
     top: $pad;
     right: $pad;
     text-decoration: none;
+    color: $black;
   }
 
   .form-greeting {
     font-size: $medium;
-    font-weight: 400;
+    font-weight: 600;
     font-family: $serif;
+    margin-top: $pad;
+  }
+
+  .event-date-label {
+    font-weight: normal;
   }
 
   #cancel-submit-prompt-container {
@@ -119,8 +144,39 @@ button,
   }
 }
 
+
 .booking-form-cta,
 .cancel-edit-container {
+  
+  .no-booking-found,
+  .loading-container {
+    padding: $pad*2 $pad $pad $pad;
+    font-family: $serif;
+    background: $white;
+    font-size: $small;
+    color: $black;
+    border-radius: 2px;
+    position: relative;
+    max-width: 300px;
+    font-weight: lighter;
+
+    .logo {
+      height: 12px;
+      width: auto;
+      position: absolute;
+      top: $pad;
+      left: $pad;
+    }
+
+    .close-button {
+      font-size: $smallest;
+      position: absolute;
+      right: $pad;
+      top: $pad;
+      text-decoration: none;
+      color: $black;
+    }
+  }
 
   .cta-button {
     border: 0;
@@ -151,7 +207,8 @@ button,
     top: 0;
     right: 0;
     z-index: 1;
-    width: 470px;
+    max-width: 470px;
+    width: calc(100vw - 60px);
     box-shadow: 0 0 36px rgba(0,0,0,0.04);
   }
 
@@ -220,6 +277,7 @@ button,
             color: $primary;
             border-radius: 2px;
             font-family: $serif;
+            font-weight: lighter;
           }
 
           .time-select {
@@ -235,6 +293,17 @@ button,
             .css-d8oujb,
             .css-ln5n5c {
               display: none;
+            }
+
+            .css-1hwfws3 {
+              position: absolute;
+              width: 80%;
+              overflow: visible;
+            }
+
+            .css-1wy0on6 {
+              position: absolute;
+              right: 0;
             }
 
             // dropdown container
@@ -264,6 +333,8 @@ button,
               .css-xp4uvy,
               .css-1492t68 {
                 font-size: $small;
+                font-weight: lighter;
+                font-family: $serif;
               }
 
               // shifts svg more to the right
@@ -402,6 +473,8 @@ button,
           .submit-button {
             color: $white;
             font-size: $smallest;
+            font-family: $serif;
+            font-weight: lighter;
             padding: 10px;
             background: $primary;
             border: none;
@@ -434,7 +507,6 @@ button,
   z-index: 1;
 
   .cancel-edit-modal {
-    border: thin black solid;
     border-radius: 2px;
     width: max-content;
     background: $white;
@@ -455,7 +527,7 @@ button,
       justify-content: space-between;
       margin-bottom: $pad;
 
-      svg {
+      .logo {
         height: 12px;
         width: auto;
       }

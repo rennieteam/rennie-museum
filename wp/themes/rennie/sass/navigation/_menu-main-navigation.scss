@@ -10,12 +10,16 @@
 	> div {
 		display: flex;
 
-		@media only screen and (max-width: $tablet_width) {
-			position: relative;
-		}
-
 		#root {
 			margin-left: 30px;
+		}
+
+		@media only screen and (max-width: $tablet_width) {
+			position: relative;
+
+			#root {
+				margin-left: 8px;
+			}
 		}
 	}
 
@@ -27,14 +31,19 @@
 			background: none;
 			color: $color__text-main;
 			align-self: flex-end;
-			margin: 0 0 30px;
+			margin: 0 0 18px;
 		}
 	}
+
 
 	.main-menu {
 		display: flex;
 		margin: 0;
 		padding: 0;
+
+		&:focus {
+			outline: none;
+		}
 
 		> li {
 
