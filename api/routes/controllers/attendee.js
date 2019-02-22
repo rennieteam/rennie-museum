@@ -29,7 +29,6 @@ let transport = nodemailer.createTransport(mandrillTransport({
 }));
 
 const attendeeRouter = function (app) {
-
   app.get('/api/attendees', (req, res) => {
     Attendee.findAll().then((attendees) => {
       res.json(attendees);
@@ -119,9 +118,11 @@ const attendeeRouter = function (app) {
             Attendee.create(options)
               .then((result) => {
                 payload.success = true;
-                payload.result = result;
+                // payload.result = result;
                 result.dataValues.eventDate = req.body.eventDate;
-                mailerHelper(result.dataValues, req.body.subscribe);
+                if(process.env.NODE_ENV !== 'test'){
+                  mailerHelper(result.dataValues, req.body.subscribe);
+                };
                 Event.findAll(
                   {
                     order: [
@@ -137,7 +138,7 @@ const attendeeRouter = function (app) {
                   res.json(payload);
                 });
               })
-              .catch(error => res.send(error))
+              .catch(error => res.json(error))
           };
         }).catch((error) => res.json(error));
       };
@@ -156,7 +157,17 @@ const attendeeRouter = function (app) {
       include: [{
         model: Event,
       }]
-    }).then(attendee => res.json(attendee))
+    })
+    .then(attendee => {
+      if(attendee){
+        res.json(attendee);
+      } else {
+        res.sendStatus(404);
+      };
+    })
+    .catch((error) => {
+      console.log(error)
+    })
   });
 
   app.get('/api/attendee/:attendeeId', (req, res) => {
@@ -178,8 +189,10 @@ const attendeeRouter = function (app) {
     )
     .then(([result, [updatedAttendee]]) => {
       updatedAttendee.dataValues.eventDate = req.body.eventDate;
-      mailerHelper(updatedAttendee.dataValues, false, false, false, true);
-      res.send(200);
+      if(process.env.NODE_ENV !== 'test'){
+        mailerHelper(updatedAttendee.dataValues, false, false, false, true);
+      };
+      res.json(updatedAttendee);
     })
     .catch((error) => {
       console.log(error)
