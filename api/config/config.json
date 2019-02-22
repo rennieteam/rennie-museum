@@ -7,10 +7,10 @@
     "dialect": "postgres"
   },
   "test": {
-    "username": "paul",
-    "password": "password",
+    "username": "bob",
+    "password": "rennielikesart",
     "database": "booking_system_test",
-    "host": "localhost",
+    "host": "rennie-booking-system-staging.ciqwdl3ozkc8.ca-central-1.rds.amazonaws.com",
     "dialect": "postgres"
   },
   "production": {
