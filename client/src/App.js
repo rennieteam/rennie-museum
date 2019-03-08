@@ -44,7 +44,7 @@ class App extends Component {
     } else {
       url = config.productionUrl;
     };
-    axios.get(`${url}/api/events`)
+    axios.get(`${url}/api/coming_events`)
       .then((results) => {
         this.initializeData(results.data);
       }).catch(error => {
