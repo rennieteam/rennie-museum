@@ -58,8 +58,67 @@ button {
   .sorter-container {
     padding-bottom: 5px;
     grid-column: span 12;
-    border-bottom: 1px $grey solid;
     display: flex;
+    flex-direction: column;
+
+    .date-filter-container {
+      margin-top: 20px;
+      display: grid;
+      grid-column-gap: $pad;
+      grid-row-gap: $pad;
+      grid-template-columns: repeat(12, 1fr);
+
+      .date-filter,
+      .clear-button {
+        grid-column: span 3;
+        width: 100%;
+      }
+
+      .clear-button {
+        height: 100%;
+        font-size: $small;
+        text-transform: uppercase;
+      }
+    }
+
+    .sorter-item-container {
+      display: flex;
+      width: 100%;
+      border-bottom: 1px $grey solid;
+      padding-bottom: 10px;
+
+      .active-archive-switch-container {
+        margin-left: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+  
+        .label {
+          font-weight: 600;
+        }
+  
+        .indicator {
+          height: 10px;
+          width: 10px;
+          border-radius: 50%;
+          background: black;
+          margin-right: 10px;
+        }
+  
+        .active {
+          background: lightgreen;
+        }
+  
+        .archive {
+          background: $primary;
+        }
+  
+        &:hover {
+          cursor: pointer;
+        };
+      }
+    }
+
 
     .sort-label {
       font-weight: 600;

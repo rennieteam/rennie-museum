@@ -32,8 +32,46 @@ button:focus {
   .events-index-container .sorter-container {
     padding-bottom: 5px;
     grid-column: span 12;
-    border-bottom: 1px #A4A6A8 solid;
-    display: flex; }
+    display: flex;
+    flex-direction: column; }
+    .events-index-container .sorter-container .date-filter-container {
+      margin-top: 20px;
+      display: grid;
+      grid-column-gap: 30px;
+      grid-row-gap: 30px;
+      grid-template-columns: repeat(12, 1fr); }
+      .events-index-container .sorter-container .date-filter-container .date-filter,
+      .events-index-container .sorter-container .date-filter-container .clear-button {
+        grid-column: span 3;
+        width: 100%; }
+      .events-index-container .sorter-container .date-filter-container .clear-button {
+        height: 100%;
+        font-size: 14px;
+        text-transform: uppercase; }
+    .events-index-container .sorter-container .sorter-item-container {
+      display: flex;
+      width: 100%;
+      border-bottom: 1px #A4A6A8 solid;
+      padding-bottom: 10px; }
+      .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container {
+        margin-left: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container .label {
+          font-weight: 600; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container .indicator {
+          height: 10px;
+          width: 10px;
+          border-radius: 50%;
+          background: black;
+          margin-right: 10px; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container .active {
+          background: lightgreen; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container .archive {
+          background: #DA291C; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container:hover {
+          cursor: pointer; }
     .events-index-container .sorter-container .sort-label {
       font-weight: 600;
       margin-right: 15px; }

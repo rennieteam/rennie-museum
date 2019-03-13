@@ -33,7 +33,6 @@ class EventShow extends Component {
     setTimeout(() => {
       this.setEvents();
     }, 500);
-    // this.setEvents();
   };
 
   componentDidUpdate = (prevProps) => {
@@ -109,15 +108,9 @@ class EventShow extends Component {
       };
       axios.put(`${url}/api/event/${this.state.event.id}`, options)
         .then((result) => {
-          let replace = this.props.events.find(function(element){
-            return element.id === result.data.id;
-          });
-          let replaceIndex = this.props.events.indexOf(replace);
-          let events = Object.assign([], this.props.events);
-          events[replaceIndex] = result.data;
-          this.props.updateEvents(events);
-          let attendees = result.data.attendees;
-          this.setState({event: result.data, attendees: attendees, date: null, editDate: false, newDate: null, modifyDate: false, attendeesRemoval: [], message: 'Event Updated', error: null})
+          this.props.updateEvents(result.data);
+          let attendees = result.data.update.attendees;
+          this.setState({event: result.data.update, attendees: attendees, date: null, editDate: false, newDate: null, modifyDate: false, attendeesRemoval: [], message: 'Event Updated', error: null})
         })
         .catch((error) => {
           this.setState({message: 'Unable to update event'})

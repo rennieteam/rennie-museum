@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-// import config from './../config';
+import EventSorter from './EventSorter';
 import hdate from 'human-date';
 
 class EventIndex extends Component {
@@ -24,79 +23,21 @@ class EventIndex extends Component {
     };
   };
 
-  sortEvents = (sortBy) => {
-    let events;
-    let newState = {};
-    if(sortBy === 'dateSort'){
-      newState.dateSort = true;
-      newState.capSort = false;
-    } else if(sortBy === 'capSort'){
-      newState.capSort = true;
-      newState.dateSort = false;
-    };
-
-    const sortHelper = (a,b) => {
-      if(sortBy === 'dateSort'){
-        return new Date(a.date) - new Date(b.date);
-      } else if(sortBy === 'capSort'){
-        return this.props.calculateCount(a) - this.props.calculateCount(b);
-      };
-    };
-
-    const orderHelper = (a,b) => {
-      if(this.state.sort === 'desc'){
-        return sortHelper(a,b);
-      } else {
-        return sortHelper(b,a);
-      };
-    };
-
-    if(!this.state[sortBy]){
-      events = this.state.events.sort((a,b) => {
-        return sortHelper(a, b);
-      });
-      newState.sort = 'asc';
-      newState.events = events;
-    } else {
-      events = this.state.events.sort((a,b) => {
-        return orderHelper(a,b);
-      });
-      newState.sort = this.state.sort === 'asc' ? 'desc' : 'asc';
-      newState.events = events;
-    };
-
-    this.setState( newState );
-  };
-
-  renderSortArrow = (sortBy) => {
-    if(this.state[sortBy]){
-      let className = this.state.sort === 'asc' ? 'fas fa-sort-up' : 'fas fa-sort-down';
-      return(
-        <i className={className} />
-      )
-    };
-  };
-
-  renderSorter = () => {
-    return(
-      <div className="sorter-container">
-        <span className="sort-label"> Sort by: </span>
-        <div className="sort-item" onClick={() => this.sortEvents('dateSort')}>
-          <span className="sort-item-label"> Date </span>
-          {this.renderSortArrow('dateSort')}
-        </div>
-        <div className="sort-item" onClick={() => this.sortEvents('capSort')}>
-          <span className="sort-item-label"> Capacity </span>
-          {this.renderSortArrow('capSort')}
-        </div>
-      </div>
-    )
+  sortEvents = (state) => {
+    this.setState({ events: state });
   };
 
   render() {
     return (
       <div className="events-index-container">
-        { this.renderSorter() }
+        <EventSorter 
+          activeSwitch={this.props.activeSwitch}
+          toggleActive={this.props.toggleActive}
+          updateEvents={this.props.updateEvents}
+          sortEvents={this.sortEvents}
+          events={this.state.events}
+          calculateCount={this.props.calculateCount}
+        />
         {
           this.state.events.map((event) => {
             let dateString = hdate.prettyPrint(new Date(Date.parse(event.date)), {showTime: true}).split('at ');
