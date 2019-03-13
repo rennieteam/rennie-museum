@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import config from './../config';
 import Select from 'react-select';
-import { isNullOrUndefined } from 'util';
 
 class EventSorter extends Component {
   constructor(props) {
@@ -141,7 +140,7 @@ class EventSorter extends Component {
   };
 
   clearFilters = () => {
-    this.setState({ selectedYear: null, selectedMonth: null, selectedDate: null });
+    this.setState({ selectedYear: null, selectedMonth: null, selectedDate: null, sort: 'asc', dateSort: true, capSort: false });
     let url;
     if(process.env.NODE_ENV){
       url = config[process.env.NODE_ENV];
