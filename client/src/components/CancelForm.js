@@ -314,7 +314,6 @@ class CancelForm extends Component {
           </div>
         </div>
       )
-    // eslint-disable-next-line
     };
   };
 
