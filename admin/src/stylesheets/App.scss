@@ -69,13 +69,14 @@ button {
       grid-template-columns: repeat(12, 1fr);
 
       .date-filter,
-      .clear-button {
+      .clear-button,
+      .publish-filter {
         grid-column: span 3;
         width: 100%;
       }
 
       .clear-button {
-        height: 100%;
+        height: $pad;
         font-size: $small;
         text-transform: uppercase;
       }
@@ -154,6 +155,23 @@ button {
     border: 1px $grey solid;
     border-radius: 2px;
     position: relative;
+
+    .published,
+    .draft {
+      position: absolute;
+      bottom: 15px;
+      left: 30px;
+      font-weight: 600;
+      text-transform: capitalize;
+    }
+
+    .published {
+      color: lightseagreen;
+    }
+
+    .draft {
+      color: grey;
+    }
 
     .event-date,
     .event-time,
@@ -507,11 +525,11 @@ button {
     display: flex;
     flex-direction: column;
 
-    .notify-select {
+    .notify-select,
+    .publish-select {
       display: flex;
       align-items: center;
       margin-top: 10px;
-      margin-bottom: $pad;
 
       &-label {
         font-size: $smallest;
@@ -521,6 +539,10 @@ button {
       input {
         margin-right: 10px;
       }
+    }
+
+    .notify-select {
+      margin-bottom: $pad;
     }
 
     .event-header {
@@ -632,6 +654,17 @@ button {
     padding-bottom: 10px;
   }
 
+  .publish-checkbox-container {
+    margin-bottom: $pad;
+    width: 100%;
+    display: flex;
+
+    label {
+      font-size: $small;
+      margin-right: 10px;
+    }
+  }
+
   .react-datetime-picker {
     margin-bottom: 10px;
     width: 100%;
@@ -655,7 +688,7 @@ button {
   }
 
   .spots-container {
-    margin-bottom: $pad;
+    margin-bottom: 10px;
     height: $pad;
 
     label {

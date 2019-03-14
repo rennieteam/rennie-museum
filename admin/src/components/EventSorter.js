@@ -3,6 +3,12 @@ import axios from 'axios';
 import config from './../config';
 import Select from 'react-select';
 
+const publishOptions = [
+  {value: 'all', label: 'All'},
+  {value: 'published', label: 'Published'},
+  {value: 'draft', label: 'Draft'}
+];
+
 class EventSorter extends Component {
   constructor(props) {
     super(props);
@@ -124,7 +130,7 @@ class EventSorter extends Component {
       })
       .catch((error) => {
       })
-  }
+  };
 
   handleFilter = (selection) => {
     let payload = {};
@@ -140,6 +146,7 @@ class EventSorter extends Component {
   };
 
   clearFilters = () => {
+    this.props.sortPublished(null);
     this.setState({ selectedYear: null, selectedMonth: null, selectedDate: null, sort: 'asc', dateSort: true, capSort: false });
     let url;
     if(process.env.NODE_ENV){
@@ -154,6 +161,10 @@ class EventSorter extends Component {
       .catch((error) => {
 
       })
+  };
+
+  handlePublish = (selection) => {
+    this.props.sortPublished(selection);
   };
 
   render = () => {
@@ -197,6 +208,13 @@ class EventSorter extends Component {
             value={this.state.selectedDate}
             options={this.state.dateOptions}
             onChange={this.handleFilter}
+          />
+          <Select
+            placeholder="All"
+            value={this.props.published}
+            options={publishOptions}
+            onChange={this.handlePublish} 
+            className="publish-filter"
           />
           <button className="clear-button" onClick={this.clearFilters}> Clear </button>
         </div>

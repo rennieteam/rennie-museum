@@ -25,7 +25,8 @@ class EventShow extends Component {
       emailList: '',
       notify: false,
       waiverList: [],
-      noEvent: false
+      noEvent: false,
+      published: null
     };
   };
 
@@ -61,7 +62,7 @@ class EventShow extends Component {
           });
         };
       };
-      this.setState({ noEvent: false, waiverList, event: events[0], isLoading: false, attendees: events[0].attendees, eventCount, numberOfAttendees: events[0].numberOfAttendees, attendeesRemoval});
+      this.setState({ published: events[0].published, noEvent: false, waiverList, event: events[0], isLoading: false, attendees: events[0].attendees, eventCount, numberOfAttendees: events[0].numberOfAttendees, attendeesRemoval});
     } else {
       this.setState({ noEvent: true, isLoading: false, message: 'Event not found.' });
     };
@@ -82,6 +83,7 @@ class EventShow extends Component {
       removal: []
     };
     options.notify = this.state.notify;
+    options.published = this.state.published;
 
     let checkDateDupe = this.props.events.find((event) => {
       return Date.parse(event.date) === Date.parse(this.state.date);
@@ -199,6 +201,7 @@ class EventShow extends Component {
               )
             })
           }
+          {this.renderPublishPrompt()}
           {this.renderNotifyPrompt()}
         </div>
       )
@@ -400,6 +403,24 @@ class EventShow extends Component {
       <div className="notify-select">
         <input type="checkbox" id="notify-select" value={this.state.notify} onChange={this.toggleNotify}/>
         <label className="notify-select-label" htmlFor="notify-select"> Notify attendees. </label>
+      </div>
+    )
+  };
+
+  handlePublish = (event) => {
+    this.setState({ published: event.target.checked });
+  };
+
+  renderPublishPrompt = () => {
+    return(
+      <div className="publish-select">
+        <input 
+          type="checkbox"
+          id="publish-select"
+          checked={this.state.published}
+          onChange={this.handlePublish}
+        />
+        <label className="publish-select-label" htmlFor="publish-select"> Publish </label>
       </div>
     )
   };
