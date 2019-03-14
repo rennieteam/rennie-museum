@@ -70,8 +70,6 @@ const eventRouter = function (app) {
   });
 
   app.post('/api/sort_events', (req, res) => {
-    console.log(req.body.date);
-    console.log('server date', new Date())
     let year = req.body.Year !== null ? req.body.Year.value : '';
     let month = req.body.Month !== null ? req.body.Month.label : '';
     let date = req.body.Date !== null ? req.body.Date.value : '';
