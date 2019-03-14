@@ -15,7 +15,8 @@ class CreateEventForm extends Component {
       events: [],
       error: false,
       success: false,
-      message: ''
+      message: '',
+      published: false
     };
   };
 
@@ -64,12 +65,16 @@ class CreateEventForm extends Component {
         .then((result) => {
           this.props.updateEvents(result.data);
           this.props.setMessage('Event Successfully Created');
-          this.setState({ message: 'Event successfully created!', success: true });
+          this.setState({ message: 'Event successfully created!', success: true, date: null, numberOfAttendees: 15, published: false });
         })
         .catch((error) => {
           this.setState({ message: 'Sorry, please try again.', error: true });
         })
     }
+  };
+
+  togglePublish = (event) => {
+    this.setState({ published: event.target.checked });
   };
 
   render() {
@@ -83,6 +88,15 @@ class CreateEventForm extends Component {
         <div className="spots-container">
           <label> Number of Spots </label>
           <input onChange={this.handleChange} name="numberOfAttendees" value={this.state.numberOfAttendees}/>
+        </div>
+        <div className="publish-checkbox-container">
+          <label> Published </label>
+          <input
+            name="published" 
+            type="checkbox"
+            checked={this.state.published} 
+            onChange={this.togglePublish}
+          />
         </div>
         {
           this.state.error ? <Cat size={200} mood="sad" color="#596881"/> : this.state.success ? <Cat size={200} mood="blissful" color="#596881" /> : ''

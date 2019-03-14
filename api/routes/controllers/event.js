@@ -134,7 +134,8 @@ const eventRouter = function (app) {
         where: {
           date: {
             $gt: new Date()
-          }
+          },
+          published: true
         },
         include: [{
           model: Attendee,
@@ -173,6 +174,8 @@ const eventRouter = function (app) {
     if(req.body.date){
       options.date = req.body.date;
     };
+
+    options.published = req.body.published;
 
     if(req.body.numberOfAttendees){
       options.numberOfAttendees = req.body.numberOfAttendees

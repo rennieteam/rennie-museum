@@ -9,7 +9,8 @@ class EventIndex extends Component {
       events: [],
       sort: 'asc',
       dateSort: true,
-      capSort: false
+      capSort: false,
+      published: null
     };
   };
 
@@ -27,7 +28,23 @@ class EventIndex extends Component {
     this.setState({ events: state });
   };
 
+  sortPublished = (state) => {
+    this.setState({ published: state });
+  };
+
   render() {
+    let events = [];
+    if(this.state.published === null || this.state.published.value === 'all'){
+      events = this.state.events;
+    } else {
+      events = this.state.events.filter((event) => {
+        if(this.state.published.value === 'published'){
+          return event.published;
+        } else {
+          return !event.published;
+        };
+      });
+    };
     return (
       <div className="events-index-container">
         <EventSorter 
@@ -37,13 +54,16 @@ class EventIndex extends Component {
           sortEvents={this.sortEvents}
           events={this.state.events}
           calculateCount={this.props.calculateCount}
+          sortPublished={this.sortPublished}
+          published={this.state.published}
         />
         {
-          this.state.events.map((event) => {
+          events.map((event) => {
             let dateString = hdate.prettyPrint(new Date(Date.parse(event.date)), {showTime: true}).split('at ');
             let count = this.props.calculateCount(event);
             let max = event.numberOfAttendees;
             let attendeeCount = event.attendees.length;
+            let status = event.published ? 'published' : 'draft';
             return(
               <div className="admin-event" key={event.id + dateString}>
                 <p className="event-date"> {dateString[0]} </p>
@@ -54,6 +74,9 @@ class EventIndex extends Component {
                 <a className="event-edit" href={`#edit=${event.id}`}> Edit </a>
                 {
                   count >= max ? <div className="full-label"> Full </div> : '' 
+                }
+                {
+                  <div className={status}> { status } </div>
                 }
               </div>
             )

@@ -216,6 +216,8 @@ class BookingForm extends Component {
             this.setMessage(`We're sorry, this time slot no longer has enough spots for your number of visitors.`);
           } else if(result.data.emailUsed){
             this.setMessage('This email has already been registered with this tour.');
+          } else if(result.data.publishError){
+            this.setMessage('An error has occurred, please refresh and try again.');
           };
         })
         .catch((error) => {
