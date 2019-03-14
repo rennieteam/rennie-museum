@@ -3,6 +3,7 @@ const Events = db.Event;
 const Attendee = db.Attendee;
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
+const hdate = require('human-date');
 
 const config = require('../../config');
 
@@ -18,12 +19,124 @@ const corsOptions = {
 
 const eventRouter = function (app) {
 
-  app.get('/api/events', (req, res) => {
+  const splitPayload = (req, res, update = {}) => {
+    let payload = {};
+    payload.update = update;
     Events.findAll(
       {
         order: [
           ['date', 'ASC']
         ],
+        where: {
+          date: {
+            $gt: new Date()
+          }
+        },
+        include: [{
+          model: Attendee,
+          as: 'attendees'
+        }]
+      }
+    )
+    .then((evt) => {
+      payload.active = evt;
+    }).then(() => {
+      Events.findAll(
+        {
+          order: [
+            ['date', 'ASC']
+          ],
+          where: {
+            date: {
+              $lte: new Date()
+            }
+          },
+          include: [{
+            model: Attendee,
+            as: 'attendees'
+          }]
+        }
+      ).then((pastEvents) => {
+        payload.archived = pastEvents;
+      })
+      .then(() => {
+        res.json(payload);
+      })
+    })
+  };
+
+  app.get('/api/events', (req, res) => {
+    splitPayload(req, res);
+  });
+
+  app.post('/api/sort_events', (req, res) => {
+    let year = req.body.Year !== null ? req.body.Year.value : '';
+    let month = req.body.Month !== null ? req.body.Month.label : '';
+    let date = req.body.Date !== null ? req.body.Date.value : '';
+    let payload = {};
+    Events.findAll(
+      {
+        order: [
+          ['date', 'ASC']
+        ],
+        where: {
+          date: {
+            $gt: new Date()
+          }
+        },
+        include: [{
+          model: Attendee,
+          as: 'attendees'
+        }]
+      }
+    )
+    .then((evts) => {
+      let activeEvents = evts.filter((event) => {
+        let d = hdate.prettyPrint(new Date(Date.parse(event.dataValues.date)));
+        return d.includes(month + ' ' + date) && d.includes(year);
+      })
+      payload.active = activeEvents;
+    }).then(() => {
+      Events.findAll(
+        {
+          order: [
+            ['date', 'ASC']
+          ],
+          where: {
+            date: {
+              $lte: new Date()
+            }
+          },
+          include: [{
+            model: Attendee,
+            as: 'attendees'
+          }]
+        }
+      ).then((pastEvents) => {
+        let archivedEvents = pastEvents.filter((event) => {
+          let d = hdate.prettyPrint(new Date(Date.parse(event.dataValues.date)));
+          return d.includes(month + ' ' + date) && d.includes(year);
+        });
+        payload.archived = archivedEvents;
+      })
+      .then(() => {
+        res.json(payload);
+      })
+    })
+  });
+
+  app.get('/api/coming_events', (req, res) => {
+    Events.findAll(
+      {
+        order: [
+          ['date', 'ASC']
+        ],
+        where: {
+          date: {
+            $gt: new Date()
+          },
+          published: true
+        },
         include: [{
           model: Attendee,
           as: 'attendees'
@@ -35,19 +148,7 @@ const eventRouter = function (app) {
 
   app.post('/api/events', (req, res) => {
     Events.create(req.body).then((result) => {
-      Events.findAll(
-        {
-          order: [
-            ['date', 'ASC']
-          ],
-          include: [{
-            model: Attendee,
-            as: 'attendees'
-          }]
-        }
-      ).then(result => {
-        res.json(result)
-      })
+      splitPayload(req, res);
 
     }).catch(error => {
       console.log(error)
@@ -73,6 +174,8 @@ const eventRouter = function (app) {
     if(req.body.date){
       options.date = req.body.date;
     };
+
+    options.published = req.body.published;
 
     if(req.body.numberOfAttendees){
       options.numberOfAttendees = req.body.numberOfAttendees
@@ -114,7 +217,7 @@ const eventRouter = function (app) {
                 mailerHelper(attendee.dataValues, false, false, false, true);
               });
             };
-            res.json(result);
+            splitPayload(req, res, result);
           })
           .catch(error => console.log(error));
         } else {
@@ -138,19 +241,7 @@ const eventRouter = function (app) {
         id: parseInt(req.params['eventId'])
       }
     }).then((result) => {
-      Events.findAll(
-        {
-          order: [
-            ['date', 'ASC']
-          ],
-          include: [{
-            model: Attendee,
-            as: 'attendees'
-          }]
-        }
-      ).then((results) => {
-        res.json(results);
-      })
+      splitPayload(req, res);
     }).catch(err => console.log(err))
   });
 }

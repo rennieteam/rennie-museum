@@ -80,12 +80,22 @@ const attendeeRouter = function (app) {
           },
           include: [{ model: Attendee, as: 'attendees' }]
         }).then((result) => {
-          if(parseInt(countHelper(result.dataValues)) === result.dataValues.numberOfAttendees){
+          if(!result.dataValues.published){
+            payload.success = false;
+            payload.publishError = true;
+            res.json(payload);
+          } else if(parseInt(countHelper(result.dataValues)) === result.dataValues.numberOfAttendees){
             Event.findAll(
               {
                 order: [
                   ['date', 'ASC']
                 ],
+                where: {
+                  date: {
+                    $gt: new Date()
+                  },
+                  published: true
+                },
                 include: [{
                   model: Attendee,
                   as: 'attendees'
@@ -103,6 +113,12 @@ const attendeeRouter = function (app) {
                 order: [
                   ['date', 'ASC']
                 ],
+                where: {
+                  date: {
+                    $gt: new Date()
+                  },
+                  published: true
+                },
                 include: [{
                   model: Attendee,
                   as: 'attendees'
@@ -128,6 +144,12 @@ const attendeeRouter = function (app) {
                     order: [
                       ['date', 'ASC']
                     ],
+                    where: {
+                      date: {
+                        $gt: new Date()
+                      },
+                      published: true
+                    },
                     include: [{
                       model: Attendee,
                       as: 'attendees'

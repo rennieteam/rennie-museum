@@ -15,7 +15,10 @@ class App extends Component {
     super(props);
     this.state = {
       message: null,
-      events: []
+      events: [],
+      active: [],
+      archived: [],
+      toggleActive: true
     };
   };
 
@@ -28,14 +31,32 @@ class App extends Component {
     };
     axios.get(`${url}/api/events/`)
       .then((result) => {
-        this.setState({ events: result.data });
+        this.setState({ events: result.data.active, active: result.data.active, archived: result.data.archived });
       })
       .catch((error) => {
-
       })
   };
 
-  updateEvents = events => this.setState({ events });
+  activeSwitch = () => {
+    if(this.state.toggleActive){
+      this.setEvents(this.state.archived);
+    } else {
+      this.setEvents(this.state.active);
+    };
+    this.setState({toggleActive: !this.state.toggleActive});
+  };
+
+  updateEvents = (events) => {
+    this.setState({
+      events: this.state.toggleActive ? events.active : events.archived,
+      active: events.active,
+      archived: events.archived
+    });
+  };
+
+  setEvents = (events) => {
+    this.setState({events});
+  };
 
   calculateCount = (event = {}) => {
     let eventCount = event.attendees && event.attendees.length;
@@ -59,11 +80,35 @@ class App extends Component {
   renderComponents = () => {
     let hash = qs.parse(this.props.location.hash);
     if('newEvent' in hash){
-      return(<Route path="/" render={(props) => <CreateEventForm {...props} events={this.state.events} setMessage={this.setMessage} updateEvents={this.updateEvents} /> } />)
+      return(<Route 
+              path="/" 
+              render={(props) => 
+                <CreateEventForm 
+                  {...props} 
+                  events={this.state.events} 
+                  setMessage={this.setMessage} 
+                  updateEvents={this.updateEvents} /> } />)
     } else if('index' in hash){
-      return (<Route path="/" render={(props) => <EventIndex {...props} events={this.state.events} calculateCount={this.calculateCount} />  } />);
+      return (<Route 
+                path="/" 
+                render={(props) => 
+                  <EventIndex 
+                    {...props}
+                    activeSwitch={this.activeSwitch}
+                    toggleActive={this.state.toggleActive}
+                    updateEvents={this.updateEvents}
+                    events={this.state.events} 
+                    calculateCount={this.calculateCount} />  } />);
     } else if('edit' in hash){
-      return (<Route path="/" render={(props) => <EventShow {...props} setMessage={this.setMessage} updateEvents={this.updateEvents} calculateCount={this.calculateCount} events={this.state.events} /> } />) ;
+      return (<Route 
+                path="/" 
+                render={(props) => 
+                  <EventShow 
+                    {...props} 
+                    setMessage={this.setMessage} 
+                    updateEvents={this.updateEvents} 
+                    calculateCount={this.calculateCount} 
+                    events={this.state.events} /> } />) ;
     };
   };
 

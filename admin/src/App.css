@@ -32,8 +32,47 @@ button:focus {
   .events-index-container .sorter-container {
     padding-bottom: 5px;
     grid-column: span 12;
-    border-bottom: 1px #A4A6A8 solid;
-    display: flex; }
+    display: flex;
+    flex-direction: column; }
+    .events-index-container .sorter-container .date-filter-container {
+      margin-top: 20px;
+      display: grid;
+      grid-column-gap: 30px;
+      grid-row-gap: 30px;
+      grid-template-columns: repeat(12, 1fr); }
+      .events-index-container .sorter-container .date-filter-container .date-filter,
+      .events-index-container .sorter-container .date-filter-container .clear-button,
+      .events-index-container .sorter-container .date-filter-container .publish-filter {
+        grid-column: span 3;
+        width: 100%; }
+      .events-index-container .sorter-container .date-filter-container .clear-button {
+        height: 30px;
+        font-size: 14px;
+        text-transform: uppercase; }
+    .events-index-container .sorter-container .sorter-item-container {
+      display: flex;
+      width: 100%;
+      border-bottom: 1px #A4A6A8 solid;
+      padding-bottom: 10px; }
+      .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container {
+        margin-left: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container .label {
+          font-weight: 600; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container .indicator {
+          height: 10px;
+          width: 10px;
+          border-radius: 50%;
+          background: black;
+          margin-right: 10px; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container .active {
+          background: lightgreen; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container .archive {
+          background: #DA291C; }
+        .events-index-container .sorter-container .sorter-item-container .active-archive-switch-container:hover {
+          cursor: pointer; }
     .events-index-container .sorter-container .sort-label {
       font-weight: 600;
       margin-right: 15px; }
@@ -59,6 +98,17 @@ button:focus {
     border: 1px #A4A6A8 solid;
     border-radius: 2px;
     position: relative; }
+    .events-index-container .admin-event .published,
+    .events-index-container .admin-event .draft {
+      position: absolute;
+      bottom: 15px;
+      left: 30px;
+      font-weight: 600;
+      text-transform: capitalize; }
+    .events-index-container .admin-event .published {
+      color: lightseagreen; }
+    .events-index-container .admin-event .draft {
+      color: grey; }
     .events-index-container .admin-event .event-date,
     .events-index-container .admin-event .event-time,
     .events-index-container .admin-event .event-info {
@@ -306,16 +356,20 @@ button:focus {
     width: 100%;
     display: flex;
     flex-direction: column; }
-    .admin-edit-container .edit-form .notify-select {
+    .admin-edit-container .edit-form .notify-select,
+    .admin-edit-container .edit-form .publish-select {
       display: flex;
       align-items: center;
-      margin-top: 10px;
-      margin-bottom: 30px; }
-      .admin-edit-container .edit-form .notify-select-label {
+      margin-top: 10px; }
+      .admin-edit-container .edit-form .notify-select-label,
+      .admin-edit-container .edit-form .publish-select-label {
         font-size: 12px;
         font-style: italic; }
-      .admin-edit-container .edit-form .notify-select input {
+      .admin-edit-container .edit-form .notify-select input,
+      .admin-edit-container .edit-form .publish-select input {
         margin-right: 10px; }
+    .admin-edit-container .edit-form .notify-select {
+      margin-bottom: 30px; }
     .admin-edit-container .edit-form .event-header {
       font-size: 20px;
       font-weight: normal;
@@ -385,6 +439,13 @@ button:focus {
     margin: 0 0 20px 0;
     border-bottom: thin #DA291C solid;
     padding-bottom: 10px; }
+  .create-event-form .publish-checkbox-container {
+    margin-bottom: 30px;
+    width: 100%;
+    display: flex; }
+    .create-event-form .publish-checkbox-container label {
+      font-size: 14px;
+      margin-right: 10px; }
   .create-event-form .react-datetime-picker {
     margin-bottom: 10px;
     width: 100%; }
@@ -398,7 +459,7 @@ button:focus {
     .create-event-form .react-datetime-picker__clock {
       display: none; }
   .create-event-form .spots-container {
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     height: 30px; }
     .create-event-form .spots-container label {
       font-size: 14px;

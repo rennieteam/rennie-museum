@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     externalId: DataTypes.INTEGER,
     externalSlug: DataTypes.STRING,
     date: DataTypes.DATE,
-    numberOfAttendees: DataTypes.INTEGER
+    numberOfAttendees: DataTypes.INTEGER,
+    published: DataTypes.BOOLEAN
   });
 
   Event.associate = (models) => {
