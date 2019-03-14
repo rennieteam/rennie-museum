@@ -92,9 +92,19 @@ const eventRouter = function (app) {
     )
     .then((evts) => {
       let activeEvents = evts.filter((event) => {
-        let d = hdate.prettyPrint(new Date(Date.parse(event.dataValues.date)));
-        return d.includes(month + ' ' + date) && d.includes(year);
-      })
+        if(process.env.NODE_ENV === 'production'){
+          let utcDate = new Date(Date.parse(event.dataValues.date));
+          let utcDateString = new Date(utcDate.toUTCString());
+          // temporary use value of 7, need ot fix
+          utcDateString.setHours(utcDateString.getHours() - 7);
+          let pstDate = new Date(utcDateString);
+          let pstd = hdate.prettyPrint(new Date(pstDate));
+          return pstd.includes(month + ' ' + date) && pstd.includes(year);
+        } else {
+          let d = hdate.prettyPrint(new Date(Date.parse(event.dataValues.date)));
+          return d.includes(month + ' ' + date) && d.includes(year);
+        };
+      });
       payload.active = activeEvents;
     }).then(() => {
       Events.findAll(
