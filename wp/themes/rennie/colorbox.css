@@ -1,0 +1,287 @@
+/*
+    Colorbox Core Style:
+    The following CSS is consistent between example themes and should not be altered.
+*/
+.cboxElement {
+    cursor: pointer;
+}
+
+#colorbox.advgb_lightbox,
+#cboxOverlay.advgb_lightbox,
+#colorbox.advgb_lightbox #cboxWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+    overflow: visible;
+}
+
+#cboxOverlay.advgb_lightbox {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+#colorbox.advgb_lightbox #cboxMiddleLeft,
+#colorbox.advgb_lightbox #cboxBottomLeft {
+    clear: left;
+}
+
+
+#colorbox.advgb_lightbox #cboxLoadedContent {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+#colorbox.advgb_lightbox #cboxTitle {
+    margin: 0;
+}
+
+#colorbox.advgb_lightbox #cboxLoadingOverlay,
+#colorbox.advgb_lightbox #cboxLoadingGraphic {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#colorbox.advgb_lightbox #cboxPrevious,
+#colorbox.advgb_lightbox #cboxNext,
+#colorbox.advgb_lightbox #cboxClose,
+#colorbox.advgb_lightbox #cboxSlideshow {
+    cursor: pointer;
+    outline: none;
+}
+
+#colorbox.advgb_lightbox .cboxPhoto {
+    float: left;
+    margin: auto;
+    border: 0;
+    display: block;
+    max-width: none;
+    -ms-interpolation-mode: bicubic;
+}
+
+#colorbox.advgb_lightbox .cboxIframe {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+}
+
+#colorbox.advgb_lightbox,
+#colorbox.advgb_lightbox #cboxContent,
+#colorbox.advgb_lightbox #cboxLoadedContent {
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+
+/*
+    User Style:
+    Change the following styles to modify the appearance of Colorbox.  They are
+    ordered & tabbed in a way that represents the nesting of the generated HTML.
+*/
+#cboxOverlay.advgb_lightbox {
+    background: rgba(255, 255, 255, 0.99);;
+}
+
+#colorbox.advgb_lightbox {
+    outline: 0;
+}
+
+#colorbox.advgb_lightbox #cboxContent {
+    margin-top: 0;
+    overflow: visible;
+    background: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#colorbox.advgb_lightbox .cboxIframe {
+    background: #fff;
+}
+
+#colorbox.advgb_lightbox #cboxError {
+    padding: 50px;
+    border: 1px solid #ccc;
+}
+
+#colorbox.advgb_lightbox #cboxLoadedContent {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+}
+
+#colorbox.advgb_lightbox #cboxLoadingGraphic {
+    background: url(../images/loading.gif) no-repeat center center;
+}
+
+#colorbox.advgb_lightbox #cboxLoadingOverlay {
+    background: #fff;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+#colorbox.advgb_lightbox #cboxTitle {
+    position: absolute;
+    bottom: -42px;
+    top: auto;
+    left: auto;
+    border: none;
+    font-size: 15px;
+    line-height: 1.5em;
+    color: #000;
+    text-align: left;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 90%;
+}
+
+#colorbox.advgb_lightbox #cboxCurrent {
+    position: absolute;
+    top: -22px;
+    text-indent: -9999px;
+    bottom: auto;
+    right: auto;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+}
+
+/* these elements are buttons, and may need to have additional styles reset to avoid unwanted base styles */
+#colorbox.advgb_lightbox #cboxPrevious,
+#colorbox.advgb_lightbox #cboxNext,
+#colorbox.advgb_lightbox #cboxSlideshow,
+#colorbox.advgb_lightbox #cboxClose {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    overflow: visible;
+}
+
+#colorbox.advgb_lightbox #cboxCurrent,
+#colorbox.advgb_lightbox #cboxPrevious,
+#colorbox.advgb_lightbox #cboxNext,
+#colorbox.advgb_lightbox #cboxSlideshow {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+/* avoid outlines on :active (mouseclick), but preserve outlines on :focus (tabbed navigating) */
+#colorbox.advgb_lightbox #cboxPrevious:active,
+#colorbox.advgb_lightbox #cboxNext:active,
+#colorbox.advgb_lightbox #cboxSlideshow:active,
+#colorbox.advgb_lightbox #cboxClose:active {
+    outline: 0;
+}
+
+#colorbox.advgb_lightbox #cboxPrevious {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    bottom: auto;
+    right: auto;
+    background: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAgMTkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTkuNSAxOWEuNDcuNDcgMCAwIDEtLjM1LS4xNWwtOS05YS40OC40OCAwIDAgMSAwLS43bDktOWEuNDguNDggMCAwIDEgLjcgMCAuNDguNDggMCAwIDEgMCAuN2wtOC42NCA4LjY1IDguNjQgOC42NWEuNDguNDggMCAwIDEgMCAuNy40Ny40NyAwIDAgMS0uMzUuMTV6IiBmaWxsPSIjMjMxZjIwIi8+PC9zdmc+) no-repeat center left;
+    background-size: 20px 40px;
+    width: 20px;
+    height: 40px;
+    text-indent: -9999px;
+    opacity: 1;
+
+}
+
+#colorbox.advgb_lightbox #cboxNext {
+    position: fixed;
+    top: 20px;
+    left: 60px;
+    bottom: auto;
+    background: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAgMTkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTS41IDE5YS40Ny40NyAwIDAgMS0uMzUtLjE1LjQ4LjQ4IDAgMCAxIDAtLjdsOC42NC04LjY1LTguNjQtOC42NWEuNDguNDggMCAwIDEgMC0uNy40OC40OCAwIDAgMSAuNyAwbDkgOWEuNDguNDggMCAwIDEgMCAuN2wtOSA5YS40Ny40NyAwIDAgMS0uMzUuMTV6IiBmaWxsPSIjMjMxZjIwIi8+PC9zdmc+) no-repeat center right;
+    background-size: 20px 40px;
+    width: 20px;
+    height: 40px;
+    text-indent: -9999px;
+    opacity: 1;
+}
+
+#colorbox.advgb_lightbox #cboxClose {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    left: auto;
+    display: block;
+    background: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTkgMTkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTEwLjIxIDkuNWw4LjY0LTguNjVhLjQ4LjQ4IDAgMCAwIDAtLjcuNDguNDggMCAwIDAtLjcgMGwtOC42NSA4LjY0LTguNjUtOC42NGEuNDguNDggMCAwIDAtLjcgMCAuNDguNDggMCAwIDAgMCAuN2w4LjY0IDguNjUtOC42NCA4LjY1YS40OC40OCAwIDAgMCAwIC43LjQ3LjQ3IDAgMCAwIC4zNS4xNS40Ny40NyAwIDAgMCAuMzUtLjE1bDguNjUtOC42NCA4LjY1IDguNjRhLjQ4LjQ4IDAgMCAwIC43IDAgLjQ4LjQ4IDAgMCAwIDAtLjd6IiBmaWxsPSIjMjMxZjIwIi8+PC9zdmc+) no-repeat top center;
+    width: 27px;
+    height: 27px;
+    text-indent: -9999px;
+    opacity: 1;
+
+}
+
+@media only screen and (min-width: 768px) {
+    html {
+        background: #000;
+    }
+
+    #colorbox.advgb_lightbox #cboxPrevious {
+        position: fixed;
+        top: 50%;
+        left: 20px;
+        bottom: auto;
+        right: auto;
+        background: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAgMTkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTkuNSAxOWEuNDcuNDcgMCAwIDEtLjM1LS4xNWwtOS05YS40OC40OCAwIDAgMSAwLS43bDktOWEuNDguNDggMCAwIDEgLjcgMCAuNDguNDggMCAwIDEgMCAuN2wtOC42NCA4LjY1IDguNjQgOC42NWEuNDguNDggMCAwIDEgMCAuNy40Ny40NyAwIDAgMS0uMzUuMTV6IiBmaWxsPSIjMjMxZjIwIi8+PC9zdmc+) no-repeat center left;
+        background-size: 20px 40px;
+        width: 20px;
+        height: 40px;
+        text-indent: -9999px;
+    }
+
+    #colorbox.advgb_lightbox #cboxNext {
+        position: fixed;
+        top: 50%;
+        right: 20px;
+        bottom: auto;
+        left: auto;
+        background: url(data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAgMTkiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTS41IDE5YS40Ny40NyAwIDAgMS0uMzUtLjE1LjQ4LjQ4IDAgMCAxIDAtLjdsOC42NC04LjY1LTguNjQtOC42NWEuNDguNDggMCAwIDEgMC0uNy40OC40OCAwIDAgMSAuNyAwbDkgOWEuNDguNDggMCAwIDEgMCAuN2wtOSA5YS40Ny40NyAwIDAgMS0uMzUuMTV6IiBmaWxsPSIjMjMxZjIwIi8+PC9zdmc+) no-repeat center right;
+        background-size: 20px 40px;
+        width: 20px;
+        height: 40px;
+        text-indent: -9999px;
+    }
+}
+
+.cboxSlideshow_on #cboxPrevious,
+.cboxSlideshow_off #cboxPrevious {
+    right: 66px;
+}
+
+.cboxSlideshow_on #cboxSlideshow {
+    background-position: -75px -25px;
+    right: 44px;
+}
+
+.cboxSlideshow_on #cboxSlideshow:hover {
+    background-position: -100px -25px;
+}
+
+.cboxSlideshow_off #cboxSlideshow {
+    background-position: -100px 0px;
+    right: 44px;
+}
+
+.cboxSlideshow_off #cboxSlideshow:hover {
+    background-position: -75px -25px;
+}

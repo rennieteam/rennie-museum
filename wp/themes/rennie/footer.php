@@ -40,6 +40,7 @@
 </div><!-- #page -->
 
 <?php wp_footer(); ?>
+<link rel="stylesheet" href="<?php bloginfo('template_url'); ?>/colorbox.css" type="text/css" />
 
 </body>
 </html>
