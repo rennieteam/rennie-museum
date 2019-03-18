@@ -134,7 +134,6 @@ const attendeeRouter = function (app) {
             Attendee.create(options)
               .then((result) => {
                 payload.success = true;
-                // payload.result = result;
                 result.dataValues.eventDate = req.body.eventDate;
                 if(process.env.NODE_ENV !== 'test'){
                   mailerHelper(result.dataValues, req.body.subscribe);

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import config from './../config';
 import Select from 'react-select';
+import moment from 'moment-timezone';
 
 const publishOptions = [
   {value: 'all', label: 'All'},
@@ -37,7 +38,7 @@ class EventSorter extends Component {
       let dateBuffer = {};
       let dateOptions = [];
       this.props.events.forEach((event) => {
-        let date = new Date(event.date);
+        let date = moment(event.date).tz('America/Los_Angeles').toDate();
         let year = date.getFullYear();
         let month = date.getMonth();
         let day = date.getDate();

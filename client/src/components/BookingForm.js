@@ -4,6 +4,7 @@ import Select from 'react-select';
 import hdate from 'human-date';
 import validator from 'email-validator';
 import config from '../config.js';
+import moment from 'moment-timezone';
 
 class BookingForm extends Component {
   constructor(props){
@@ -40,16 +41,14 @@ class BookingForm extends Component {
 
   setTimeOptions = (events, selectedDate) => {
     let filteredEvents = events.filter((event) => {
-      let d = new Date(event.date)
-      return d.setHours(0,0,0,0) === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
+      let d = moment(event.date).tz('America/Los_Angeles').startOf('day').format();
+      return d === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
     });
     let timeOptions = [];
     filteredEvents.forEach((event) => {
-      let d = hdate.prettyPrint(new Date(Date.parse(event.date)), {showTime: true});
-      let splitDate = d.split(' ');
-      let index = splitDate.indexOf('at') + 1;
+      let formattedTime = moment(event.date).tz('America/Los_Angeles').format('h:mm a');
       let remainingSpots = `${event.numberOfAttendees - this.props.calculateCount(event)} spots remaining`;
-      timeOptions.push({ value: event, label: splitDate.splice(index).join(' ') + ` - ${remainingSpots}` });
+      timeOptions.push({ value: event, label: formattedTime + ` - ${remainingSpots}` });
     });
     this.setState({ timeOptions, message: '', fullyBooked: !timeOptions.length });
   };

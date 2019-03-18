@@ -3,6 +3,7 @@ const mandrillTransport = require('nodemailer-mandrill-transport');
 const Mailchimp = require('mailchimp-api-v3');
 const config = require('../config.js');
 const template = require('./htmlMailTemplate');
+const moment = require('moment');
 
 
 let transport = nodemailer.createTransport(mandrillTransport({

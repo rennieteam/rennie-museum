@@ -6,8 +6,8 @@ import CancelForm from './components/CancelForm';
 import BookingForm from './components/BookingForm';
 import RegisterForm from './components/RegisterForm';
 import config from './config';
-import hdate from 'human-date';
 import axios from 'axios';
+import moment from 'moment-timezone';
 import './App.css';
 
 class App extends Component {
@@ -27,11 +27,10 @@ class App extends Component {
     let dupCheck = [];
     let dateOptions = [];
     events.forEach((event) => {
-      let dateWithTime = new Date(event.date);
-      let dateWithZeroedTime = dateWithTime.setHours(0,0,0,0);
-      if(!dupCheck.includes(dateWithZeroedTime)){
-        dateOptions.push({ value: dateWithZeroedTime, label: hdate.prettyPrint(new Date(Date.parse(event.date))) })
-        dupCheck.push(dateWithZeroedTime);
+      let formattedDate = moment(event.date).tz('America/Los_Angeles').startOf('day').format();
+      if(!dupCheck.includes(formattedDate)){
+        dateOptions.push({ value: formattedDate, label: moment(event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY') });
+        dupCheck.push(formattedDate);
       };
     });
     this.setState({ dateOptions });
