@@ -94,7 +94,7 @@ module.exports = {
                   <td class="frame " bgcolor="#f5f6f5" style="padding:30px 15px;"></td>
                 </tr>
                 <tr>
-                  <td class="frame" bgcolor="#ffffff" style="padding:30px 30px 30px;">
+                  <td class="frame" bgcolor="#ffffff" style="padding:30px 30px 15px;">
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
                         <td>
@@ -125,7 +125,7 @@ module.exports = {
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
                         <td mc:edit="block-11" align="left" style="padding:30px 0 0; font: 20px/25px Georgia, serif; color:#000000;">
-                          <div style="margin:0; color:black; font-size:11px; font-family:serif">${message}</div>
+                          <div style="margin:0; color:black; font-size:11px; font-family:Georgia, serif">${message}</div>
                         </td>
                       </tr>
                     </table>
@@ -143,10 +143,11 @@ module.exports = {
 
                     <table width="100%" cellpadding="0" cellspacing="0">
                       <tr>
-                        <td mc:edit="block-65" align="left" style="padding:30px 0 15px; font:10px/15px Georgia, serif; color: #000000;">
+                        <td mc:edit="block-65" align="left" style="padding:15px 0 0; font:12px/15px Georgia, serif; color: #000000;">
                           The Wing Sang Building<br/>
                           51 East Pender Street <br/>
-                          Vancouver, BC V6A 1S9 <br/><br/>
+                          Vancouver, BC V6A 1S9 <br/>
+                          Canada<br/><br/>
                           <a href="https://renniemuseum.org" style="text-decoration:underline; color:#DA291C;">renniemuseum.org</a>
                         </td>
                       </tr>
