@@ -233,7 +233,7 @@ const attendeeRouter = function (app) {
       options.email = result.dataValues.email;
       options.name = result.dataValues.name;
       options.guests = result.dataValues.guests;
-      options.eventDate = hdate.prettyPrint(new Date(Date.parse(result.dataValues.Event.dataValues.date)), {showTime: true});
+      options.eventDate = moment(result.dataValues.Event.dataValues.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a');
       mailerHelper(options, false, true, false, false);
       result.destroy();
       res.json(result);
