@@ -144,10 +144,18 @@ button,
   }
 }
 
+.backdrop {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #DA291C;
+}
 
 .booking-form-cta,
 .cancel-edit-container {
-  
+
   .no-booking-found,
   .loading-container {
     padding: $pad*2 $pad $pad $pad;
@@ -217,6 +225,8 @@ button,
       width: calc(100vw - 2em);
 		}
   }
+
+
 
   .booking-form-container,
   .cancel-edit-modal {
