@@ -3,6 +3,7 @@ import DateTimePicker from 'react-datetime-picker';
 import axios from 'axios';
 import config from './../config';
 import { Cat } from 'react-kawaii';
+import moment from 'moment-timezone';
 
 class CreateEventForm extends Component {
   constructor(props) {

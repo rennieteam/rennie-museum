@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import EventSorter from './EventSorter';
-import hdate from 'human-date';
+import moment from 'moment-timezone';
 
 class EventIndex extends Component {
   constructor(props) {
@@ -59,15 +59,15 @@ class EventIndex extends Component {
         />
         {
           events.map((event) => {
-            let dateString = hdate.prettyPrint(new Date(Date.parse(event.date)), {showTime: true}).split('at ');
+            let formattedDate = moment(event.date).tz('America/Los_Angeles');
             let count = this.props.calculateCount(event);
             let max = event.numberOfAttendees;
             let attendeeCount = event.attendees.length;
             let status = event.published ? 'published' : 'draft';
             return(
-              <div className="admin-event" key={event.id + dateString}>
-                <p className="event-date"> {dateString[0]} </p>
-                <p className="event-time"> {dateString[1]} </p>
+              <div className="admin-event" key={event.id}>
+                <p className="event-date"> {formattedDate.format('MMMM Do, YYYY')} </p>
+                <p className="event-time"> {formattedDate.format('h:mm a')} </p>
                 <p className="event-info"> Capacity: {count}/{max} </p>
                 <p className="event-info"> Primary Attendees: {attendeeCount} </p>
                 <p className="event-info"> Guests: {count - attendeeCount} </p>

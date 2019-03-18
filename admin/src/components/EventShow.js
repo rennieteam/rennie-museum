@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import config from './../config';
 import qs from 'query-string';
-import hdate from 'human-date';
 import DateTimePicker from 'react-datetime-picker';
 import { Ghost } from 'react-kawaii';
+import moment from 'moment-timezone';
 
 class EventShow extends Component {
   constructor(props) {
@@ -173,7 +173,7 @@ class EventShow extends Component {
     } else {
       return(
         <div className="edit-form">
-          <h2 className="event-header"> {hdate.prettyPrint(new Date(Date.parse(this.state.event.date)), {showTime: true})} </h2>
+          <h2 className="event-header"> {moment(this.state.event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')} </h2>
           {
             this.state.editDate ? 
               <DateTimePicker 
@@ -260,7 +260,7 @@ class EventShow extends Component {
           </div>
           <div className="title-container">
             <p className="exhibit-name"> Spring 2019: Collected Works </p>
-            <p className="date"> {hdate.prettyPrint(new Date(Date.parse(this.state.event.date)), {showTime: true})} </p>
+            <p className="date"> {moment(this.state.event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')} </p>
           </div>
           <p className="bold"> Waiver of Claims and Release of Liability </p>
           <p className="regular"> Visitors to the museum will enter and tour the museum at their own risk. Neither the museum, its affiliates, directors, or employees shall have any liability for any damages arising or related to your use of the site, content, and/or compilation. The museum will hold visitors liable for any damage done to the art or the museum. Visitors are asked to conduct themselves responsibly and to take care to not damage any art, the museum and other visitors. </p>
