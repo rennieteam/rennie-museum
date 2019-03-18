@@ -3,6 +3,7 @@ import axios from 'axios';
 import qs from 'query-string';
 import Select from 'react-select';
 import hdate from 'human-date';
+import moment from 'moment-timezone';
 
 
 import config from '../config.js';
@@ -62,7 +63,8 @@ class CancelForm extends Component {
         });
         if(event){
           let eventCount = this.props.calculateCount(event);
-          let date = hdate.prettyPrint(new Date(Date.parse(this.state.attendee.Event.date)));
+          // let date = hdate.prettyPrint(new Date(Date.parse(this.state.attendee.Event.date)));
+          let date = moment(event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY');
           let dateIndex = this.props.dateOptions.findIndex((el) => {return el.label === date});
           this.setState({ dateOptions: this.props.dateOptions, eventCount});
           this.selectDate(this.props.dateOptions[dateIndex]);
@@ -101,20 +103,21 @@ class CancelForm extends Component {
   selectDate = (selectedDate) => {
     this.setState({ selectedDate, selectedTime: null, EventId: null, message: '' });
     let filteredEvents = this.state.events.filter((event) => {
-      if(event.id === this.state.attendee.EventId){
-        return true;
-      } else {
-        let d = new Date(event.date)
-        return d.setHours(0,0,0,0) === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
-      };
+      // if(event.id === this.state.attendee.EventId){
+      //   return true;
+      // } else {
+      //   // let d = new Date(event.date)
+      //   let d = moment(event.date).tz('America/Los_Angeles').startOf('day').format()
+      //   return d === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
+      // };
+      let d = moment(event.date).tz('America/Los_Angeles').startOf('day').format()
+      return d === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
     });
     let timeOptions = [];
     filteredEvents.forEach((event) => {
-      let d = hdate.prettyPrint(new Date(Date.parse(event.date)), {showTime: true});
-      let splitDate = d.split(' ');
-      let index = splitDate.indexOf('at') + 1;
+      let formattedTime = moment(event.date).tz('America/Los_Angeles').format('h:mm a');
       let remainingSpots = `${event.numberOfAttendees - this.props.calculateCount(event)} spots remaining`;
-      timeOptions.push({ value: event, label: splitDate.splice(index).join(' ') + ` - ${remainingSpots}` });
+      timeOptions.push({ value: event, label: formattedTime + ` - ${remainingSpots}` });
     });
     this.setState({ timeOptions })
     if(this.state.initialLoad){
@@ -216,8 +219,8 @@ class CancelForm extends Component {
       } else {
         url = config.productionUrl;
       };
-      let d = hdate.prettyPrint(new Date(Date.parse(this.state.selectedEvent.date)), {showTime: true});
-      options.eventDate = d;
+      let formattedDate = moment(this.state.selectedEvent.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')
+      options.eventDate = formattedDate;
       axios.put(`${url}/api/attendee/${this.state.attendee.id}`, options)
         .then((result) => {
           this.setState({ updateSuccess: true });
@@ -265,7 +268,7 @@ class CancelForm extends Component {
           <div className="booking-form">
             <div className="form-body" onClick={this.stopProp}>
               <h2 className="form-greeting"> Hi {this.state.attendee.name}! </h2>
-              <p className="event-date-label"> You're signed up for {hdate.prettyPrint(new Date(Date.parse(this.state.attendee.Event.date)), {showTime: true})}. </p>
+              <p className="event-date-label"> You're signed up for {moment(this.state.attendee.Event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')}. </p>
               <div className="date-time-select">
                 <Select
                   className="date-select"
