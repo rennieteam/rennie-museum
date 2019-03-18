@@ -80,11 +80,15 @@ class BookingForm extends Component {
 
   showForm = (e) => {
     let form = document.getElementsByClassName('booking-form-container')[0];
+    const backdrop = document.querySelector('.backdrop');
+    const backDropClassList = backdrop.classList;
     let classList = form.classList;
     if(classList.contains('hidden')){
       classList.remove('hidden');
+      backDropClassList.toggle('hidden');
     } else {
       classList.add('hidden');
+      backDropClassList.toggle('hidden');
     };
   };
 
@@ -229,7 +233,9 @@ class BookingForm extends Component {
   renderForm = () => {
     let singleCount = this.state.name || this.state.email ? 1 : 0;
     return(
-      <div className="booking-form-cta" >
+      <div>
+
+      <div className="booking-form-cta">
         <div className="book-form-header">
           <button onClick={this.showForm} className="cta-button">
             <span className="cta-button-text">tours</span>
@@ -318,6 +324,8 @@ class BookingForm extends Component {
             </div>
           </div>
         </div>
+      </div>
+      <div className="backdrop hidden" onClick={this.showForm} />
       </div>
     )
   }
