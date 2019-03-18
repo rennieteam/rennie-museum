@@ -200,7 +200,7 @@ class BookingForm extends Component {
       } else {
         url = config.productionUrl;
       };
-      let d = hdate.prettyPrint(new Date(Date.parse(this.state.selectedEvent.date)), {showTime: true});
+      let d = moment(this.state.selectedEvent.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')
       body.eventDate = d;
       axios.post(`${url}/api/attendees`, body)
         .then((result) => {

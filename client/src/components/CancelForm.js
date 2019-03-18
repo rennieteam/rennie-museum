@@ -103,13 +103,6 @@ class CancelForm extends Component {
   selectDate = (selectedDate) => {
     this.setState({ selectedDate, selectedTime: null, EventId: null, message: '' });
     let filteredEvents = this.state.events.filter((event) => {
-      // if(event.id === this.state.attendee.EventId){
-      //   return true;
-      // } else {
-      //   // let d = new Date(event.date)
-      //   let d = moment(event.date).tz('America/Los_Angeles').startOf('day').format()
-      //   return d === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
-      // };
       let d = moment(event.date).tz('America/Los_Angeles').startOf('day').format()
       return d === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
     });
