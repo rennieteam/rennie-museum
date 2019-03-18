@@ -138,6 +138,10 @@ if ( ! function_exists( 'twentynineteen_setup' ) ) :
 			)
 		);
 
+		$default_hue     = twentynineteen_get_default_hue();
+		$saturation      = apply_filters( 'twentynineteen_custom_colors_saturation', 100 );
+		$lightness       = apply_filters( 'twentynineteen_custom_colors_lightness', 33 );
+		$lightness_hover = apply_filters( 'twentynineteen_custom_colors_lightness_hover', 23 );
 		// Editor color palette.
 		add_theme_support(
 			'editor-color-palette',
@@ -145,12 +149,12 @@ if ( ! function_exists( 'twentynineteen_setup' ) ) :
 				array(
 					'name'  => __( 'Primary', 'twentynineteen' ),
 					'slug'  => 'primary',
-					'color' => twentynineteen_hsl_hex( 'default' === get_theme_mod( 'primary_color' ) ? 199 : get_theme_mod( 'primary_color_hue', 199 ), 100, 33 ),
+					'color' => twentynineteen_hsl_hex( 'default' === get_theme_mod( 'primary_color' ) ? $default_hue : get_theme_mod( 'primary_color_hue', $default_hue ), $saturation, $lightness ),
 				),
 				array(
 					'name'  => __( 'Secondary', 'twentynineteen' ),
 					'slug'  => 'secondary',
-					'color' => twentynineteen_hsl_hex( 'default' === get_theme_mod( 'primary_color' ) ? 199 : get_theme_mod( 'primary_color_hue', 199 ), 100, 23 ),
+					'color' => twentynineteen_hsl_hex( 'default' === get_theme_mod( 'primary_color' ) ? $default_hue : get_theme_mod( 'primary_color_hue', $default_hue ), $saturation, 23 ),
 				),
 				array(
 					'name'  => __( 'Dark Gray', 'twentynineteen' ),
@@ -272,16 +276,16 @@ add_action( 'enqueue_block_editor_assets', 'twentynineteen_editor_customizer_sty
  */
 function twentynineteen_colors_css_wrap() {
 
-	// Only include custom colors in customizer or frontend.
-	if ( ( ! is_customize_preview() && 'default' === get_theme_mod( 'primary_color', 'default' ) ) || is_admin() ) {
+	// Only bother if we haven't customized the color.
+	if ( 'default' === get_theme_mod( 'primary_color', 'default' ) && ! twentynineteen_has_custom_default_hue() ) {
 		return;
 	}
 
 	require_once get_parent_theme_file_path( '/inc/color-patterns.php' );
 
-	$primary_color = 199;
+	$primary_color = twentynineteen_get_default_hue();
 	if ( 'default' !== get_theme_mod( 'primary_color', 'default' ) ) {
-		$primary_color = get_theme_mod( 'primary_color_hue', 199 );
+		$primary_color = get_theme_mod( 'primary_color_hue', $primary_color );
 	}
 	?>
 
@@ -292,73 +296,10 @@ function twentynineteen_colors_css_wrap() {
 }
 add_action( 'wp_head', 'twentynineteen_colors_css_wrap' );
 
-
-// Register Custom Post Type
-function create_exhibits() {
-
-	$labels = array(
-		'name'                  => _x( 'Exhibits', 'Post Type General Name', 'text_domain' ),
-		'singular_name'         => _x( 'Exhibit', 'Post Type Singular Name', 'text_domain' ),
-		'menu_name'             => __( 'Exhibits', 'text_domain' ),
-		'name_admin_bar'        => __( 'Exhibits', 'text_domain' ),
-		'archives'              => __( 'Exhibits', 'text_domain' ),
-		'attributes'            => __( 'Item Attributes', 'text_domain' ),
-		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
-		'all_items'             => __( 'All Items', 'text_domain' ),
-		'add_new_item'          => __( 'Add New Item', 'text_domain' ),
-		'add_new'               => __( 'Add New', 'text_domain' ),
-		'new_item'              => __( 'New Item', 'text_domain' ),
-		'edit_item'             => __( 'Edit Item', 'text_domain' ),
-		'update_item'           => __( 'Update Item', 'text_domain' ),
-		'view_item'             => __( 'View Item', 'text_domain' ),
-		'view_items'            => __( 'View Items', 'text_domain' ),
-		'search_items'          => __( 'Search Item', 'text_domain' ),
-		'not_found'             => __( 'Not found', 'text_domain' ),
-		'not_found_in_trash'    => __( 'Not found in Trash', 'text_domain' ),
-		'featured_image'        => __( 'Featured Image', 'text_domain' ),
-		'set_featured_image'    => __( 'Set featured image', 'text_domain' ),
-		'remove_featured_image' => __( 'Remove featured image', 'text_domain' ),
-		'use_featured_image'    => __( 'Use as featured image', 'text_domain' ),
-		'insert_into_item'      => __( 'Insert into item', 'text_domain' ),
-		'uploaded_to_this_item' => __( 'Uploaded to this item', 'text_domain' ),
-		'items_list'            => __( 'Items list', 'text_domain' ),
-		'items_list_navigation' => __( 'Items list navigation', 'text_domain' ),
-		'filter_items_list'     => __( 'Filter items list', 'text_domain' ),
-	);
-	$rewrite = array(
-		'slug'                  => 'exhibits',
-		'with_front'            => true,
-		'pages'                 => true,
-		'feeds'                 => false,
-	);
-	$args = array(
-		'label'                 => __( 'Exhibit', 'text_domain' ),
-		'description'           => __( 'Rennie Museum Exhibits', 'text_domain' ),
-		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' ),
-		'taxonomies'            => array( 'post_format' ),
-		'hierarchical'          => false,
-		'public'                => true,
-		'show_ui'               => true,
-		'show_in_menu'          => true,
-		'menu_position'         => 5,
-		'menu_icon'             => 'dashicons-admin-customizer',
-		'show_in_admin_bar'     => true,
-		'show_in_nav_menus'     => true,
-		'can_export'            => true,
-		'has_archive'           => true,
-		'exclude_from_search'   => false,
-		'publicly_queryable'    => true,
-		'rewrite'               => $rewrite,
-		'capability_type'       => 'page',
-		'show_in_rest'       => true,
-    'rest_base'          => 'exhibits',
-		'rest_controller_class' => 'WP_REST_Posts_Controller',
-	);
-	register_post_type( 'exhibits', $args );
-
-}
-add_action( 'init', 'create_exhibits', 0 );
+/**
+ * Default color filters.
+ */
+require get_template_directory() . '/inc/color-filters.php';
 
 /**
  * SVG Icons class.
