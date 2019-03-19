@@ -106,7 +106,14 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
   if(subscribe){
     const mailChimp = new Mailchimp(config.mailchimp.key);
     mailChimp.post(`lists/${config.mailchimp.listId}`, {
-      members: [{email_address: data.email, status: 'subscribed'}]
+      members: [{
+        email_address: data.email, 
+        status: 'subscribed', 
+        merge_fields: {
+          FNAME: data.name,
+          LNAME: ''
+        }
+      }]
     })
     .then(result => console.log(result))
     .catch(error => console.log(error))
