@@ -113,6 +113,9 @@ button:focus {
     .events-index-container .admin-event .event-time,
     .events-index-container .admin-event .event-info {
       margin: 0; }
+    .events-index-container .admin-event .event-info {
+      border-bottom: 1px solid lightgrey;
+      padding: 5px 0; }
     .events-index-container .admin-event .event-date {
       font-weight: 600; }
     .events-index-container .admin-event .event-time {
@@ -269,8 +272,103 @@ button:focus {
   max-width: 640px;
   position: relative;
   flex-direction: column;
-  min-width: 400px;
+  min-width: 600px;
   min-height: 350px; }
+  .form-outer-container .hidden {
+    display: none; }
+  .form-outer-container .add-guest-form {
+    position: absolute;
+    background: #FFFFFF;
+    left: 0;
+    width: 80%;
+    right: 0;
+    margin: 0 auto;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    top: 25%;
+    z-index: 1; }
+    .form-outer-container .add-guest-form .close-form {
+      font-size: 12px;
+      position: absolute;
+      top: 15px;
+      right: 15px; }
+      .form-outer-container .add-guest-form .close-form:hover {
+        cursor: pointer; }
+    .form-outer-container .add-guest-form .title {
+      font-weight: 600; }
+    .form-outer-container .add-guest-form .infobox {
+      width: 100%;
+      height: max-content;
+      border-bottom: 1px solid #DA291C;
+      border-top: 1px solid #DA291C;
+      margin-bottom: 30px; }
+      .form-outer-container .add-guest-form .infobox .info {
+        font-size: 12px; }
+    .form-outer-container .add-guest-form .guest-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+      width: 100%; }
+      .form-outer-container .add-guest-form .guest-inputs .guest-container {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        height: max-content;
+        margin-bottom: 10px;
+        grid-column: span 2; }
+        .form-outer-container .add-guest-form .guest-inputs .guest-container .fas {
+          font-size: 10px; }
+        .form-outer-container .add-guest-form .guest-inputs .guest-container input {
+          width: calc(50% - 10px);
+          margin-right: 10px;
+          height: 30px;
+          padding-left: 8px;
+          font-size: 10px;
+          border-radius: 2px;
+          border: 1px solid #A4A6A8; }
+          .form-outer-container .add-guest-form .guest-inputs .guest-container input::placeholder {
+            text-transform: capitalize; }
+          .form-outer-container .add-guest-form .guest-inputs .guest-container input:focus {
+            outline: none; }
+      .form-outer-container .add-guest-form .guest-inputs .form-action {
+        grid-column: span 1;
+        height: 30px;
+        background: #DA291C;
+        color: white;
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center; }
+        .form-outer-container .add-guest-form .guest-inputs .form-action:hover {
+          cursor: pointer; }
+      .form-outer-container .add-guest-form .guest-inputs .message {
+        font-size: 12px;
+        color: #DA291C; }
+      .form-outer-container .add-guest-form .guest-inputs .override,
+      .form-outer-container .add-guest-form .guest-inputs .notify,
+      .form-outer-container .add-guest-form .guest-inputs .message {
+        grid-column: span 2;
+        display: flex; }
+        .form-outer-container .add-guest-form .guest-inputs .override label,
+        .form-outer-container .add-guest-form .guest-inputs .notify label,
+        .form-outer-container .add-guest-form .guest-inputs .message label {
+          font-size: 12px;
+          margin-left: 10px; }
+      .form-outer-container .add-guest-form .guest-inputs .attendee-input {
+        grid-column: span 1;
+        height: 30px;
+        padding-left: 10px;
+        width: 100%; }
+      .form-outer-container .add-guest-form .guest-inputs .add-guest {
+        grid-column: span 2;
+        margin: 10px 0;
+        width: max-content; }
+        .form-outer-container .add-guest-form .guest-inputs .add-guest:hover {
+          cursor: pointer; }
+        .form-outer-container .add-guest-form .guest-inputs .add-guest i,
+        .form-outer-container .add-guest-form .guest-inputs .add-guest span {
+          font-size: 12px; }
 
 .loading-container {
   justify-content: center;
@@ -356,6 +454,12 @@ button:focus {
     width: 100%;
     display: flex;
     flex-direction: column; }
+    .admin-edit-container .edit-form .add-guest {
+      margin-top: 10px; }
+      .admin-edit-container .edit-form .add-guest .fas {
+        font-size: 12px; }
+      .admin-edit-container .edit-form .add-guest:hover {
+        cursor: pointer; }
     .admin-edit-container .edit-form .notify-select,
     .admin-edit-container .edit-form .publish-select {
       display: flex;
@@ -390,7 +494,9 @@ button:focus {
       margin-left: 5px;
       width: 50px; }
     .admin-edit-container .edit-form .total-attending {
-      margin: 10px 0; }
+      margin: 3px 0; }
+    .admin-edit-container .edit-form .remaining-spots {
+      margin-bottom: 10px; }
     .admin-edit-container .edit-form .attendees-header {
       margin-bottom: 5px; }
     .admin-edit-container .edit-form .attendee-container {
@@ -400,10 +506,37 @@ button:focus {
       padding: 10px;
       margin-bottom: 5px;
       border-bottom: 1px solid #DA291C;
-      position: relative; }
+      position: relative;
+      padding-bottom: 40px; }
+      .admin-edit-container .edit-form .attendee-container .new-guest-input-container {
+        display: grid;
+        width: 100%;
+        height: 30px;
+        grid-template-columns: repeat(5, 1fr);
+        grid-column-gap: 10px; }
+        .admin-edit-container .edit-form .attendee-container .new-guest-input-container .new-guest-input {
+          grid-column: span 2;
+          width: 100%;
+          padding-left: 10px; }
+        .admin-edit-container .edit-form .attendee-container .new-guest-input-container .cancel-add-guest {
+          grid-column: span 1;
+          font-size: 14px; }
+          .admin-edit-container .edit-form .attendee-container .new-guest-input-container .cancel-add-guest:hover {
+            cursor: pointer; }
+      .admin-edit-container .edit-form .attendee-container .add-new-guest {
+        position: absolute;
+        bottom: 10px;
+        font-size: 12px;
+        color: #DA291C; }
+        .admin-edit-container .edit-form .attendee-container .add-new-guest:hover {
+          cursor: pointer; }
+      .admin-edit-container .edit-form .attendee-container .icon-container {
+        margin: 10px 0; }
+        .admin-edit-container .edit-form .attendee-container .icon-container .admin-added {
+          margin-right: 15px; }
       .admin-edit-container .edit-form .attendee-container .attendee-remove {
         position: absolute;
-        right: 15px;
+        right: 10px;
         top: 15px; }
         .admin-edit-container .edit-form .attendee-container .attendee-remove:hover {
           cursor: pointer; }
@@ -423,9 +556,26 @@ button:focus {
         color: #A4A6A8;
         margin-bottom: 5px; }
       .admin-edit-container .edit-form .attendee-container .guests-label {
-        font-size: 14px; }
-      .admin-edit-container .edit-form .attendee-container .guest-container .guest-name {
-        font-size: 14px; }
+        font-size: 14px;
+        margin: 10px 0; }
+      .admin-edit-container .edit-form .attendee-container .guest-container {
+        display: flex;
+        margin-bottom: 10px;
+        border-bottom: thin lightgrey solid; }
+        .admin-edit-container .edit-form .attendee-container .guest-container .guest-name {
+          font-size: 14px; }
+        .admin-edit-container .edit-form .attendee-container .guest-container .remove {
+          text-decoration: line-through;
+          text-decoration-color: #DA291C; }
+        .admin-edit-container .edit-form .attendee-container .guest-container .guest-cancel-remove {
+          color: #DA291C;
+          font-size: 12px; }
+        .admin-edit-container .edit-form .attendee-container .guest-container .remove-guest-icon,
+        .admin-edit-container .edit-form .attendee-container .guest-container .guest-cancel-remove {
+          margin-left: auto; }
+          .admin-edit-container .edit-form .attendee-container .guest-container .remove-guest-icon:hover,
+          .admin-edit-container .edit-form .attendee-container .guest-container .guest-cancel-remove:hover {
+            cursor: pointer; }
 
 .create-event-form {
   padding: 30px;

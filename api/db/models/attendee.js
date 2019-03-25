@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     email: DataTypes.STRING,
     guests: DataTypes.JSON,
     EventId: DataTypes.INTEGER,
-    hash: DataTypes.STRING
+    hash: DataTypes.STRING,
+    overrideCount: DataTypes.BOOLEAN,
+    adminAdded: DataTypes.BOOLEAN
   });
 
   Attendee.associate = (models) => {
