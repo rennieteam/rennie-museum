@@ -4,6 +4,7 @@ const Attendee = db.Attendee;
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
 const hdate = require('human-date');
+const countHelper = require('../../helpers/countHelper');
 
 const config = require('../../config');
 
@@ -191,6 +192,8 @@ const eventRouter = function (app) {
       options.numberOfAttendees = req.body.numberOfAttendees
     };
 
+    let { guestsRemoval, guestsAddition, EventId, count} = req.body;
+
     Attendee.findAll({
       where: {
         id: req.body.removal
@@ -211,7 +214,50 @@ const eventRouter = function (app) {
           }
         })
       };
-    }).then(() => {
+    }).then(async () => {
+      if(Object.keys(guestsRemoval).length){
+        for(let key in guestsRemoval){
+          let result = await Attendee.findOne({
+            where: {
+              id: parseInt(key)
+            }
+          });
+          if(result){
+            let g = await result.dataValues.guests.filter((guest, index) => {
+              return !guestsRemoval[key][index]
+            });
+            await result.update({
+              guests: g
+            })
+          };
+        };
+      };
+    }).then(async () => {
+      if(Object.keys(guestsAddition).length){
+        let event = await Events.findOne({
+          where: { id: EventId },
+          include: [
+            { model: Attendee, as: 'attendees' }
+          ]
+        });
+  
+        let spots = await event.dataValues.numberOfAttendees - countHelper(event.dataValues);
+        if(count > spots){
+          res.json({ tooMany: true });
+        } else {
+          for(let key in guestsAddition){
+            let attendee = await Attendee.findOne({ where: {id: parseInt(key)}});
+            let g = attendee.dataValues.guests;
+            guestsAddition[attendee.dataValues.id].forEach((guest) => {
+              g.push(guest);
+            });
+            await attendee.update({
+              guests: g
+            })
+          };
+        }
+      };
+    }).then(async () => {
       let filter = {
         where: { id: parseInt(req.params['eventId']) },
         include: [
@@ -219,21 +265,19 @@ const eventRouter = function (app) {
         ]
       };
 
-      Events.findOne(filter).then((event) => {
-        if(event){
-          event.update(options).then(result => {
-            if(req.body.notify){
-              event.dataValues.attendees.forEach((attendee) => {
-                mailerHelper(attendee.dataValues, false, false, false, true);
-              });
-            };
-            splitPayload(req, res, result);
-          })
-          .catch(error => console.log(error));
-        } else {
-          res.sendStatus(400);
-        };
-      }).catch(error => res.json(error));
+      let event = await Events.findOne(filter);
+      if(event){
+        await event.update(options).then((result) => {
+          if(req.body.notify){
+            event.dataValues.attendees.forEach((attendee) => {
+              mailerHelper(attendee.dataValues, false, false, false, true);
+            });
+          };
+          splitPayload(req, res, result);
+        })
+      } else {
+        res.sendStatus(400);
+      };
     })
     .catch(error => {
       console.log(error);

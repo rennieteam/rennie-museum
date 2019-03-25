@@ -62,15 +62,27 @@ class EventIndex extends Component {
             let formattedDate = moment(event.date).tz('America/Los_Angeles');
             let count = this.props.calculateCount(event);
             let max = event.numberOfAttendees;
-            let attendeeCount = event.attendees.length;
+            let regularAttendees = event.attendees.filter((attendee) => {
+              return !attendee.overrideCount;
+            });
             let status = event.published ? 'published' : 'draft';
+            let ovGuest = 0;
+            let overrideAttendees = event.attendees.filter((attendee) => {
+              if(attendee.overrideCount){
+                ovGuest += attendee.guests.length;
+                return attendee;
+              };
+            });
             return(
               <div className="admin-event" key={event.id}>
                 <p className="event-date"> {formattedDate.format('MMMM Do, YYYY')} </p>
                 <p className="event-time"> {formattedDate.format('h:mm a')} </p>
                 <p className="event-info"> Capacity: {count}/{max} </p>
-                <p className="event-info"> Primary Attendees: {attendeeCount} </p>
-                <p className="event-info"> Guests: {count - attendeeCount} </p>
+                <p className="event-info"> Primary Attendees: {regularAttendees.length} </p>
+                <p className="event-info"> Guests: {count - regularAttendees.length} </p>
+                <p className="event-info"> Primary Overrides: {overrideAttendees.length} </p>
+                <p className="event-info"> Guest Overrides: {ovGuest} </p>
+                <p className="event-info"> Total: {ovGuest + count + overrideAttendees.length} </p>
                 <a className="event-edit" href={`#edit=${event.id}`}> Edit </a>
                 {
                   count >= max ? <div className="full-label"> Full </div> : '' 

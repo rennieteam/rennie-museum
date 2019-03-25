@@ -179,6 +179,11 @@ button {
       margin: 0;
     }
 
+    .event-info {
+      border-bottom: 1px solid lightgrey;
+      padding: 5px 0;
+    }
+
     .event-date {
       font-weight: 600;
     }
@@ -402,8 +407,145 @@ button {
   max-width: $max-width/2;
   position: relative;
   flex-direction: column;
-  min-width: 400px;
+  min-width: 600px;
   min-height: 350px;
+
+  .hidden {
+    display: none;
+  }
+
+  .add-guest-form {
+    position: absolute;
+    background: $white;
+    left: 0;
+    width: 80%;
+    right: 0;
+    margin: 0 auto;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    padding: $pad;
+    top: 25%;
+    z-index: 1;
+
+    .close-form {
+      font-size: 12px;
+      position: absolute;
+      top: 15px;
+      right: 15px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .title {
+      font-weight: 600;
+    }
+
+    .infobox {
+      width: 100%;
+      height: max-content;
+      border-bottom: 1px solid $primary;
+      border-top: 1px solid $primary;
+      margin-bottom: $pad;
+
+      .info {
+        font-size: 12px;
+      }
+    }
+
+    .guest-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 10px;
+      grid-row-gap: 10px;
+      width: 100%;
+
+      .guest-container {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        height: max-content;
+        margin-bottom: 10px;
+        grid-column: span 2;
+
+        .fas {
+          font-size: 10px;
+        }
+
+        input {
+          width: calc(50% - 10px);
+          margin-right: 10px;
+          height: $pad;
+          padding-left: 8px;
+          font-size: 10px;
+          border-radius: 2px;
+          border: 1px solid $grey;
+
+          &::placeholder {
+            text-transform: capitalize;
+          }
+
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+
+      .form-action {
+        grid-column: span 1;
+        height: $pad;
+        background: $primary;
+        color: white;
+        font-size: 12px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .message {
+        font-size: 12px;
+        color: $primary;
+      }
+
+      .override,
+      .notify,
+      .message {
+        grid-column: span 2;
+        display: flex;
+
+        label {
+          font-size: 12px;
+          margin-left: 10px;
+        }
+      }
+
+      .attendee-input {
+        grid-column: span 1;
+        height: $pad;
+        padding-left: 10px;
+        width: 100%;
+      }
+
+      .add-guest {
+        grid-column: span 2;
+        margin: 10px 0;
+        width: max-content;
+
+        &:hover {
+          cursor: pointer;
+        }
+
+        i,
+        span {
+          font-size: 12px;
+        }
+      }
+    }
+  }
 }
 
 .loading-container {
@@ -525,6 +667,18 @@ button {
     display: flex;
     flex-direction: column;
 
+    .add-guest {
+      margin-top: 10px;
+
+      .fas {
+        font-size: 12px;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
     .notify-select,
     .publish-select {
       display: flex;
@@ -575,7 +729,11 @@ button {
     }
 
     .total-attending {
-      margin: 10px 0;
+      margin: 3px 0;
+    }
+
+    .remaining-spots {
+      margin-bottom: 10px;
     }
 
     .attendees-header {
@@ -590,10 +748,53 @@ button {
       margin-bottom: 5px;
       border-bottom: 1px solid $primary;
       position: relative;
+      padding-bottom: 40px;
+
+      .new-guest-input-container {
+        display: grid;
+        width: 100%;
+        height: $pad;
+        grid-template-columns: repeat(5, 1fr);
+        grid-column-gap: 10px;
+
+        .new-guest-input {
+          grid-column: span 2;
+          width: 100%;
+          padding-left: 10px;
+        }
+
+        .cancel-add-guest {
+          grid-column: span 1;
+          font-size: $small;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .add-new-guest {
+        position: absolute;
+        bottom: 10px;
+        font-size: $smallest;
+        color: $primary;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .icon-container {
+        margin: 10px 0;
+
+        .admin-added {
+          margin-right: 15px;
+        }
+      }
 
       .attendee-remove {
         position: absolute;
-        right: 15px;
+        right: 10px;
         top: 15px;
 
         &:hover {
@@ -628,11 +829,35 @@ button {
 
       .guests-label {
         font-size: $small;
+        margin: 10px 0;
       }
 
       .guest-container {
+        display: flex;
+        margin-bottom: 10px;
+        border-bottom: thin lightgrey solid;
+
         .guest-name {
           font-size: $small;
+        }
+
+        .remove {
+          text-decoration: line-through;
+          text-decoration-color: $primary;
+        }
+
+        .guest-cancel-remove {
+          color: $primary;
+          font-size: $smallest;
+        }
+
+        .remove-guest-icon,
+        .guest-cancel-remove {
+          margin-left: auto;
+
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
     }
