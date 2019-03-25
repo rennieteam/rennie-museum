@@ -45,10 +45,15 @@ class CancelForm extends Component {
         if(new Date(result.data.Event) < new Date()){
           this.setState({ eventClosed: true });
         };
-        this.setState({attendee: result.data, guests: result.data.guests, selectedEvent: result.data.Event, isLoading: false});
+        this.setState({attendee: result.data, guests: result.data.guests, selectedEvent: result.data.Event });
+        setTimeout(() => {
+          this.setState({ isLoading: false });
+        }, 500);
       })
       .catch((error) => {
-        this.setState({ isLoading: false });
+        setTimeout(() => {
+          this.setState({isLoading: false});
+        }, 500);
       })
   };
 
@@ -96,7 +101,7 @@ class CancelForm extends Component {
       EventId: selectedTime.value.id
     });
     if(insufficientSpots){
-      this.setMessage('You have too many guests.')
+      this.setMessage('Not enough spots.')
     };
   };
 
@@ -104,7 +109,7 @@ class CancelForm extends Component {
     this.setState({ selectedDate, selectedTime: null, EventId: null, message: '' });
     let filteredEvents = this.state.events.filter((event) => {
       let d = moment(event.date).tz('America/Los_Angeles').startOf('day').format()
-      return d === selectedDate.value && this.props.calculateCount(event) < event.numberOfAttendees;
+      return d === selectedDate.value && this.props.calculateCount(event) <= event.numberOfAttendees;
     });
     let timeOptions = [];
     filteredEvents.forEach((event) => {
@@ -216,7 +221,16 @@ class CancelForm extends Component {
       options.eventDate = formattedDate;
       axios.put(`${url}/api/attendee/${this.state.attendee.id}`, options)
         .then((result) => {
-          this.setState({ updateSuccess: true });
+          console.log(result);
+          if(result.data.tooMany){
+            this.setMessage('Sorry, insufficient spots.');
+          } else if(result.data.full){
+            this.setMessage('Sorry, this time is full.');
+          } else if(result.data.past){
+            this.setMessage('Sorry, this event has passed.');
+          } else {
+            this.setState({ updateSuccess: true });
+          };
         })
         .catch((error) => {
           this.setMessage('Sorry, we could not update your booking at this time.');

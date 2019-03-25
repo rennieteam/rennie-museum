@@ -3,6 +3,7 @@ import axios from 'axios';
 import config from './../config';
 import qs from 'query-string';
 import DateTimePicker from 'react-datetime-picker';
+import AddGuestForm from './AddGuestForm';
 import { Ghost } from 'react-kawaii';
 import moment from 'moment-timezone';
 
@@ -26,7 +27,10 @@ class EventShow extends Component {
       notify: false,
       waiverList: [],
       noEvent: false,
-      published: null
+      published: null,
+      guestsRemoval: {},
+      guestsAddition: {},
+      overrideTracker: {}
     };
   };
 
@@ -84,15 +88,35 @@ class EventShow extends Component {
     };
     options.notify = this.state.notify;
     options.published = this.state.published;
+    options.guestsRemoval = this.state.guestsRemoval;
+
+    let guestError = false;
+    let count = 0;
+
+    let filteredAdditions = Object.assign({}, this.state.guestsAddition);
+
+    for(let attendee in filteredAdditions){
+      let f = filteredAdditions[attendee].filter((guest) => {
+        if(!guest.name && guest.email){
+          guestError = true;
+        } else if(guest.name && !this.state.overrideTracker[attendee]){
+          count++;
+        };
+        return guest.name || guest.email;
+      });
+      filteredAdditions[attendee] = f;
+    };
 
     let checkDateDupe = this.props.events.find((event) => {
       return Date.parse(event.date) === Date.parse(this.state.date);
     });
 
     if(this.state.numberOfAttendees < this.state.eventCount){
-      this.setState({ message: 'Capacity too low.' })
+      this.setState({ message: 'Capacity too low.' });
     } else if(checkDateDupe){
-      this.setState({ message: 'Date and time already exists.' })
+      this.setState({ message: 'Date and time already exists.' });
+    } else if(guestError){
+      this.setState({ message: 'Guest names are required.'});
     } else {
       let removal = this.state.attendeesRemoval;
       for(let attendee in removal){
@@ -102,6 +126,9 @@ class EventShow extends Component {
       };
       options.numberOfAttendees = this.state.numberOfAttendees;
       options.date = this.state.date;
+      options.guestsAddition = filteredAdditions;
+      options.EventId = this.state.event.id;
+      options.count = count;
       let url;
       if(process.env.NODE_ENV){
         url = config[process.env.NODE_ENV];
@@ -110,9 +137,26 @@ class EventShow extends Component {
       };
       axios.put(`${url}/api/event/${this.state.event.id}`, options)
         .then((result) => {
-          this.props.updateEvents(result.data);
-          let attendees = result.data.update.attendees;
-          this.setState({event: result.data.update, attendees: attendees, date: null, editDate: false, newDate: null, modifyDate: false, attendeesRemoval: [], message: 'Event Updated', error: null})
+          if(result.data.tooMany){
+            this.setState({ message: 'Insufficient spots.' });
+          } else {
+            this.props.updateEvents(result.data);
+            let attendees = result.data.update.attendees;
+            this.setState({
+              event: result.data.update,
+              attendees: attendees,
+              date: null,
+              editDate: false,
+              newDate: null,
+              modifyDate: false,
+              attendeesRemoval: [], 
+              message: 'Event Updated',
+              error: null,
+              guestsRemoval: {},
+              guestsAddition: {},
+              overrideTracker: {}
+            });
+          };
         })
         .catch((error) => {
           this.setState({message: 'Unable to update event'})
@@ -120,37 +164,123 @@ class EventShow extends Component {
     }
   };
 
-  renderGuests = (guest, index) => {
+  markGuestForRemoval = (attendeeId, index) => {
+    let guestsRemoval = Object.assign({}, this.state.guestsRemoval);
+    if(guestsRemoval[attendeeId] === undefined){
+      guestsRemoval[attendeeId] = {};
+      guestsRemoval[attendeeId][index] = true;
+    } else if(guestsRemoval[attendeeId][index]) {
+      delete guestsRemoval[attendeeId][index];
+    } else {
+      guestsRemoval[attendeeId][index] = true;
+    };
+    this.setState({ guestsRemoval });
+  };
+
+  renderGuests = (guest, index, attendeeId) => {
     let email = '';
     if(guest.email){
       email = ` - ${guest.email}`;
     };
+    let markedForRemove = this.state.guestsRemoval[attendeeId] && this.state.guestsRemoval[attendeeId][index];
     return(
       <div className="guest-container" key={index}>
-        <span className="guest-name"> {index + 1}. {guest.name}{email} </span>
+        <span className={markedForRemove ? 'guest-name remove' : 'guest-name'}> {index + 1}. {guest.name}{email} </span>
+        {
+          markedForRemove ? 
+          <span className="guest-cancel-remove" onClick={() => this.markGuestForRemoval(attendeeId, index)}> Cancel remove </span>
+          :
+          <i className="fas fa-times remove-guest-icon" onClick={() => this.markGuestForRemoval(attendeeId, index)} /> 
+        }
       </div>
     )
   };
 
+  addNewGuest = (attendeeId, overrideCount) => {
+    let guestsAddition = Object.assign({}, this.state.guestsAddition);
+    let overrideTracker = Object.assign({}, this.state.overrideTracker);
+    if(guestsAddition[attendeeId] === undefined){
+      guestsAddition[attendeeId] = [];
+    };
+    guestsAddition[attendeeId].push({name: '', email: ''});
+    if(overrideCount){
+      overrideTracker[attendeeId] = true;
+    };
+    this.setState({ guestsAddition, overrideTracker });
+  };
+
+  handleNewGuestChange = (event, attendeeId, index) => {
+    let guestsAddition = Object.assign({}, this.state.guestsAddition);
+    guestsAddition[attendeeId][index][event.target.name] = event.target.value;
+    this.setState({ guestsAddition });
+  };
+
+  cancelNewGuest = (attendeeId, index) => {
+    let guestsAddition = Object.assign({}, this.state.guestsAddition);
+    let overrideTracker = Object.assign({}, this.state.overrideTracker);
+    guestsAddition[attendeeId].splice(index, 1);
+    if(!guestsAddition[attendeeId].length){
+      delete guestsAddition[attendeeId];
+      delete overrideTracker[attendeeId];
+    };
+    this.setState({ guestsAddition, overrideTracker });
+  };
+
   renderAttendee = (attendee, index) => {
+    let attendeeId = attendee.id;
     return(
       <div className="attendee-container" key={index}>
-        <span className={`name name-${this.state.attendeesRemoval[attendee.id]}`}> {attendee.name} </span>
+        <span className={`name name-${this.state.attendeesRemoval[attendeeId]}`}> {attendee.name} </span>
         <span className="email"> {attendee.email} </span>
+        <div className="icon-container">
+          {
+            attendee.adminAdded ? <i className="fas fa-exclamation-circle admin-added" /> : ''
+          }
+          {
+            attendee.overrideCount ? <i className="fas fa-user-times override-icon" /> : ''
+          }
+        </div>
         {
           attendee.guests.length ? <span className="guests-label"> Guests: </span> : ''
         }
         {
           attendee.guests.map((guest, index) => {
-            return this.renderGuests(guest, index);
+            return this.renderGuests(guest, index, attendeeId);
           })
         }
         {
-          this.state.attendeesRemoval[attendee.id] ? 
-            <span className="attendee-remove cancel-remove" onClick={() => this.markAttendeeForRemoval(attendee.id)}> Cancel Remove </span>
+          this.state.attendeesRemoval[attendeeId] ? 
+            <span className="attendee-remove cancel-remove" onClick={() => this.markAttendeeForRemoval(attendeeId)}> Cancel Remove </span>
             :
-            <i className="fas fa-times attendee-remove" onClick={() => this.markAttendeeForRemoval(attendee.id)}/>
+            <i className="fas fa-times attendee-remove" onClick={() => this.markAttendeeForRemoval(attendeeId)}/>
         }
+        {
+          this.state.guestsAddition[attendeeId] ? 
+          this.state.guestsAddition[attendeeId].map((guest, index) => {
+            return(
+            <div className="new-guest-input-container" key={index}>
+              <input 
+                className="new-guest-input"
+                placeholder="Name*"
+                onChange={(event) => this.handleNewGuestChange(event, attendeeId, index)}
+                value={this.state.guestsAddition[attendeeId][index].name}
+                name='name'
+              />
+              <input 
+                className="new-guest-input"
+                placeholder="Email"
+                onChange={(event) => this.handleNewGuestChange(event, attendeeId, index)}
+                value={this.state.guestsAddition[attendeeId][index].email}
+                name='email'
+              />
+              <i className="fas fa-times cancel-add-guest" onClick={() => this.cancelNewGuest(attendeeId, index)}/>
+            </div>
+            )
+          })
+          :
+          ''
+        }
+        <span className="add-new-guest" onClick={() => this.addNewGuest(attendee.id, attendee.overrideCount) }> Add Guest </span>
       </div>
     )
   };
@@ -193,6 +323,7 @@ class EventShow extends Component {
             /> 
           </p>
           <p className="event-info total-attending"> Total Attending: {this.state.eventCount} </p>
+          <p className="event-info remaining-spots"> Remaining Spots: {this.state.event.numberOfAttendees - this.state.eventCount} </p>
           <p className="event-info attendees-header"> Attendees: </p>
           {
             this.state.attendees.map((attendee, index) => {
@@ -201,6 +332,10 @@ class EventShow extends Component {
               )
             })
           }
+          <div className="add-guest" onClick={this.toggleAddGuest}>
+            <i className="fas fa-plus" />
+            <span> Add Attendee </span>
+          </div>
           {this.renderPublishPrompt()}
           {this.renderNotifyPrompt()}
         </div>
@@ -425,6 +560,15 @@ class EventShow extends Component {
     )
   };
 
+  toggleAddGuest = () => {
+    let form = document.querySelector('.add-guest-form');
+    if(form.classList.contains('hidden')){
+      form.classList.remove('hidden');
+    } else {
+      form.classList.add('hidden');
+    };
+  };
+
   renderLoading = () => {
     return (
       <div className="form-outer-container loading-container" id="form-outer-container">
@@ -436,6 +580,12 @@ class EventShow extends Component {
   renderFound = () => {
     return(
       <div className="form-outer-container" id="form-outer-container">
+        <AddGuestForm 
+          event={this.state.event}
+          eventCount={this.state.eventCount}
+          toggleAddGuest={this.toggleAddGuest}
+          updateEvents={this.props.updateEvents}
+        />
         <i className="menu-toggle fas fa-ellipsis-v" onClick={this.toggleMenu}/>
         {this.renderMenu()}
         {this.renderForm()}

@@ -11,6 +11,7 @@ const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
 const countHelper = require('../../helpers/countHelper');
 const hdate = require('human-date');
+const moment = require('moment-timezone');
 
 const corsOptions = {
   origin: (origin, callback) => {
@@ -56,6 +57,7 @@ const attendeeRouter = function (app) {
   });
   
   app.post('/api/attendees', (req, res) => {
+    console.log(req.body);
     let date = new Date();
     let hash = crypto.createHmac('sha256', secret).update(`${date}${req.body.email}`).digest('hex');
     let options = req.body;
@@ -80,7 +82,7 @@ const attendeeRouter = function (app) {
           },
           include: [{ model: Attendee, as: 'attendees' }]
         }).then((result) => {
-          if(!result.dataValues.published){
+          if(!result.dataValues.published && !options.adminAdded){
             payload.success = false;
             payload.publishError = true;
             res.json(payload);
@@ -107,7 +109,7 @@ const attendeeRouter = function (app) {
               payload.success = false;
               res.json(payload)
             });
-          } else if(req.body.guests.length + 1 > result.dataValues.numberOfAttendees - countHelper(result.dataValues)){
+          } else if(!req.body.overrideCount && req.body.guests.length + 1 > result.dataValues.numberOfAttendees - countHelper(result.dataValues)){
             Event.findAll(
               {
                 order: [
@@ -135,29 +137,78 @@ const attendeeRouter = function (app) {
               .then((result) => {
                 payload.success = true;
                 result.dataValues.eventDate = req.body.eventDate;
-                if(process.env.NODE_ENV !== 'test'){
-                  mailerHelper(result.dataValues, req.body.subscribe);
+                if(req.body.adminAdded){
+                  if(req.body.notifyAttendee){
+                    mailerHelper(result.dataValues, false);
+                  };
+                } else {
+                  if(process.env.NODE_ENV !== 'test'){
+                    mailerHelper(result.dataValues, req.body.subscribe);
+                  };
                 };
-                Event.findAll(
-                  {
-                    order: [
-                      ['date', 'ASC']
-                    ],
-                    where: {
-                      date: {
-                        $gt: new Date()
+
+                if(req.body.adminAdded){
+                  Event.findAll(
+                    {
+                      order: [
+                        ['date', 'ASC']
+                      ],
+                      where: {
+                        date: {
+                          $gt: new Date()
+                        }
                       },
-                      published: true
-                    },
-                    include: [{
-                      model: Attendee,
-                      as: 'attendees'
-                    }]
-                  }
-                ).then((events) => {
-                  payload.events = events;
-                  res.json(payload);
-                });
+                      include: [{
+                        model: Attendee,
+                        as: 'attendees'
+                      }]
+                    }
+                  ).then((evt) => {
+                    payload.active = evt;
+                  }).then(() => {
+                    Event.findAll(
+                      {
+                        order: [
+                          ['date', 'ASC']
+                        ],
+                        where: {
+                          date: {
+                            $lte: new Date()
+                          }
+                        },
+                        include: [{
+                          model: Attendee,
+                          as: 'attendees'
+                        }]
+                      }
+                    ).then((pastEvents) => {
+                      payload.archived = pastEvents;
+                    }).then(() => {
+                      res.json(payload);
+                    })
+                  });
+                } else {
+                  Event.findAll(
+                    {
+                      order: [
+                        ['date', 'ASC']
+                      ],
+                      where: {
+                        date: {
+                          $gt: new Date()
+                        },
+                        published: true
+                      },
+                      include: [{
+                        model: Attendee,
+                        as: 'attendees'
+                      }]
+                    }
+                  ).then((events) => {
+                    payload.events = events;
+                    res.json(payload);
+                  })
+                };
               })
               .catch(error => res.json(error))
           };
@@ -203,21 +254,60 @@ const attendeeRouter = function (app) {
     let options = {};
     options.guests = req.body.guests;
     options.EventId = req.body.EventId;
+    let count = req.body.guests.length + 1;
+    let evtCount;
+    let numberOfAttendees;
+    let evtDate;
+    let payload = { success: false };
 
-    Attendee.update(
-      options,
-      { returning: true, where: {id: req.params['attendeeId']} }
-    )
-    .then(([result, [updatedAttendee]]) => {
-      updatedAttendee.dataValues.eventDate = req.body.eventDate;
-      if(process.env.NODE_ENV !== 'test'){
-        mailerHelper(updatedAttendee.dataValues, false, false, false, true);
+    Event.findOne({
+      where: { id: parseInt(req.body.EventId) },
+      include: [{
+        model: Attendee,
+        as: 'attendees'
+      }]
+    })
+    .then((result) => {
+      evtDate = result.dataValues.date;
+      evtCount = countHelper(result.dataValues);
+      numberOfAttendees = result.dataValues.numberOfAttendees;
+    })
+    .then(() => {
+      if(evtCount >= numberOfAttendees){
+        payload.full = true;
+      } else if(numberOfAttendees - evtCount < count){
+        payload.tooMany = true;
+      } else if(new Date(evtDate) < new Date()) {
+        payload.past = true;
+      } else {
+        payload.success = true;
       };
-      res.json(updatedAttendee);
     })
-    .catch((error) => {
-      console.log(error)
+    .then(() => {
+      if(payload.success){
+        Attendee.update(
+          options,
+          { returning: true, where: {id: req.params['attendeeId']} }
+        )
+        .then(([result, [updatedAttendee]]) => {
+          updatedAttendee.dataValues.eventDate = req.body.eventDate;
+          if(process.env.NODE_ENV !== 'test'){
+            mailerHelper(updatedAttendee.dataValues, false, false, false, true);
+          };
+          payload.updatedAttendee = updatedAttendee;
+          res.json(payload);
+        })
+        .catch((error) => {
+          res.json(error);
+        })
+      } else {
+        res.json(payload);
+      };
     })
+    .catch(error => {
+      res.json(error);
+    })
+
   });
 
   app.options('/api/attendee/:attendeeId', cors(corsOptions));
