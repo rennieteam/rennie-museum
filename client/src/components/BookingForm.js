@@ -26,7 +26,10 @@ class BookingForm extends Component {
       subscribe: false,
       disableAddGuest: false,
       disableAddMoreGuests: false,
-      fullyBooked: false
+      fullyBooked: false,
+      designation: null,
+      designationOptions: [],
+      designation: null
     };
   };
 
@@ -36,6 +39,9 @@ class BookingForm extends Component {
     };
     if(this.props.dateOptions !== prevProps.dateOptions){
       this.setState({ dateOptions: this.props.dateOptions });
+    };
+    if(this.props.designationOptions !== prevProps.designationOptions){
+      this.setState({ designationOptions: this.props.designationOptions});
     };
   };
 
@@ -75,6 +81,11 @@ class BookingForm extends Component {
         guests: []
       });
     };
+  };
+
+
+  selectDesignation = (designation) => {
+    this.setState({ designation });
   };
 
   showForm = (e) => {
@@ -202,11 +213,12 @@ class BookingForm extends Component {
       };
       let d = moment(this.state.selectedEvent.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')
       body.eventDate = d;
+      body.designation = this.state.designation;
       axios.post(`${url}/api/attendees`, body)
         .then((result) => {
           if(result.data.success){
             this.props.initializeData(result.data.events);
-            this.setState({ name: '', email: '', selectedDate: null, guests: [{name: '', email: ''}], subscribe: false, selectedTime: null, selectedEvent: {} })
+            this.setState({ name: '', email: '', selectedDate: null, guests: [{name: '', email: ''}], subscribe: false, selectedTime: null, selectedEvent: {}, designation: null })
             this.setMessage('Thank you for booking.');
           } else if(result.data.full){
             this.setState({ selectedTime: null, selectedEvent: {} });
@@ -258,7 +270,6 @@ class BookingForm extends Component {
                 />
                 <Select
                   className="time-select"
-                  // placeholder="Time"
                   placeholder={this.state.fullyBooked ? "Fully Booked" : "Time"}
                   value={this.state.selectedTime}
                   onChange={this.selectTime}
@@ -284,6 +295,15 @@ class BookingForm extends Component {
                   name="email"
                   value={this.state.email}
                   onChange={this.handleAttendeeInfo}
+                />
+              </div>
+              <div className="designation-container">
+                <Select 
+                  placeholder="Please select one:"
+                  className="designation-select"
+                  options={this.state.designationOptions}
+                  value={this.state.designation}
+                  onChange={this.selectDesignation}
                 />
               </div>
               <div className="subscribe-container">

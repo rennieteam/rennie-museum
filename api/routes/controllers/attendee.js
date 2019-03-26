@@ -57,12 +57,16 @@ const attendeeRouter = function (app) {
   });
   
   app.post('/api/attendees', (req, res) => {
-    console.log(req.body);
     let date = new Date();
     let hash = crypto.createHmac('sha256', secret).update(`${date}${req.body.email}`).digest('hex');
     let options = req.body;
     let payload = {};
     options.hash = hash;
+    if(req.body.designation){
+      options.DesignationId = req.body.designation.value;
+    } else {
+      options.DesignationId = 1;
+    };
 
     Attendee.findOne({
       where: {

@@ -1,6 +1,7 @@
 const db = require('./../../db/models/index');
 const Events = db.Event;
 const Attendee = db.Attendee;
+const Designations = db.Designation;
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
 const hdate = require('human-date');
@@ -136,8 +137,9 @@ const eventRouter = function (app) {
     })
   });
 
-  app.get('/api/coming_events', (req, res) => {
-    Events.findAll(
+  app.get('/api/coming_events', async (req, res) => {
+    let payload = {};
+    let events = await Events.findAll(
       {
         order: [
           ['date', 'ASC']
@@ -153,8 +155,26 @@ const eventRouter = function (app) {
           as: 'attendees'
         }]
       }
-    )
-    .then(evt => res.json(evt));
+    );
+    let designations = await Designations.findAll();
+    payload.events = events;
+    payload.designations = designations;
+
+    res.json(payload);
+
+
+    // payload.events = events;
+    // res.json(payload)
+
+    // Designations.findAll()
+    //   .then((designations) => {
+    //     payload.designations = designations;
+    //   })
+    //   .then(() => {
+    //     res.json(payload);
+    //   })
+
+    // .then(evt => res.json(evt));
   });
 
   app.post('/api/events', (req, res) => {
