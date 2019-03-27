@@ -18,7 +18,8 @@ class App extends Component {
       events: [],
       active: [],
       archived: [],
-      toggleActive: true
+      toggleActive: true,
+      designations: []
     };
   };
 
@@ -31,7 +32,7 @@ class App extends Component {
     };
     axios.get(`${url}/api/events/`)
       .then((result) => {
-        this.setState({ events: result.data.active, active: result.data.active, archived: result.data.archived });
+        this.setState({ events: result.data.active, active: result.data.active, archived: result.data.archived, designations: result.data.designations });
       })
       .catch((error) => {
       })
@@ -110,7 +111,8 @@ class App extends Component {
                 path="/" 
                 render={(props) => 
                   <EventShow 
-                    {...props} 
+                    {...props}
+                    designations={this.state.designations}
                     setMessage={this.setMessage} 
                     updateEvents={this.updateEvents} 
                     calculateCount={this.calculateCount} 

@@ -1,6 +1,7 @@
 const db = require('./../../db/models/index');
 const Events = db.Event;
 const Attendee = db.Attendee;
+const Designations = db.Designation;
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
 const hdate = require('human-date');
@@ -20,50 +21,28 @@ const corsOptions = {
 
 const eventRouter = function (app) {
 
-  const splitPayload = (req, res, update = {}) => {
+  const splitPayload = async (req, res, update = {}) => {
     let payload = {};
     payload.update = update;
-    Events.findAll(
-      {
-        order: [
-          ['date', 'ASC']
-        ],
-        where: {
-          date: {
-            $gt: new Date()
-          }
-        },
-        include: [{
-          model: Attendee,
-          as: 'attendees'
-        }]
-      }
-    )
-    .then((evt) => {
-      payload.active = evt;
-    }).then(() => {
-      Events.findAll(
-        {
-          order: [
-            ['date', 'ASC']
-          ],
-          where: {
-            date: {
-              $lte: new Date()
-            }
-          },
-          include: [{
-            model: Attendee,
-            as: 'attendees'
-          }]
-        }
-      ).then((pastEvents) => {
-        payload.archived = pastEvents;
-      })
-      .then(() => {
-        res.json(payload);
-      })
-    })
+    let designations = await Designations.findAll();
+    payload.designations = designations;
+
+    let activeEvents = await Events.findAll({
+      order: [['date', 'ASC']],
+      where: { date: {$gt: new Date()} },
+      include: [{ model: Attendee, as: 'attendees' }]
+    });
+
+    let pastEvents = await Events.findAll({
+      order: [['date', 'ASC']],
+      where: { date: {$lte: new Date()} },
+      include: [{ model: Attendee, as: 'attendees' }]
+    });
+
+    payload.active = activeEvents;
+    payload.archived = pastEvents;
+
+    res.json(payload);
   };
 
   app.get('/api/events', (req, res) => {
@@ -136,8 +115,9 @@ const eventRouter = function (app) {
     })
   });
 
-  app.get('/api/coming_events', (req, res) => {
-    Events.findAll(
+  app.get('/api/coming_events', async (req, res) => {
+    let payload = {};
+    let events = await Events.findAll(
       {
         order: [
           ['date', 'ASC']
@@ -153,8 +133,12 @@ const eventRouter = function (app) {
           as: 'attendees'
         }]
       }
-    )
-    .then(evt => res.json(evt));
+    );
+    let designations = await Designations.findAll();
+    payload.events = events;
+    payload.designations = designations;
+
+    res.json(payload);
   });
 
   app.post('/api/events', (req, res) => {

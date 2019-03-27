@@ -585,6 +585,7 @@ class EventShow extends Component {
           eventCount={this.state.eventCount}
           toggleAddGuest={this.toggleAddGuest}
           updateEvents={this.props.updateEvents}
+          designations={this.props.designations}
         />
         <i className="menu-toggle fas fa-ellipsis-v" onClick={this.toggleMenu}/>
         {this.renderMenu()}
