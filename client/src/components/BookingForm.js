@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import hdate from 'human-date';
 import validator from 'email-validator';
 import config from '../config.js';
 import moment from 'moment-timezone';
@@ -201,6 +200,8 @@ class BookingForm extends Component {
       this.setMessage(message)
     } else if(!guests.every(checkGuests)) {
       this.setMessage('Guest names are required.')
+    } else if(!this.state.designation) {
+      this.setMessage('Please select a designation.')
     } else {
       bodyParams.forEach((param) => {
         body[param] = this.state[param];
@@ -299,7 +300,7 @@ class BookingForm extends Component {
               </div>
               <div className="designation-container">
                 <Select 
-                  placeholder="Please select one:"
+                  placeholder="Please select a designation:"
                   className="designation-select"
                   options={this.state.designationOptions}
                   value={this.state.designation}
@@ -358,3 +359,7 @@ class BookingForm extends Component {
 };
 
 export default BookingForm;
+
+
+
+
