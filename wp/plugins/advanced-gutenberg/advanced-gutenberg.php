@@ -3,8 +3,8 @@
  * Plugin Name: Advanced Gutenberg
  * Plugin URI: https://www.joomunited.com/wordpress-products/advanced-gutenberg
  * Description: Enhanced tools for Gutenberg editor
- * Version: 1.10.7
- * Tested up to: 5.1.0
+ * Version: 1.10.8
+ * Tested up to: 5.1.1
  * Author: JoomUnited
  * Author URI: https://www.joomunited.com
  * License: GPL2
@@ -74,7 +74,7 @@ if (version_compare(PHP_VERSION, '5.3', '<')) {
 }
 
 if (! defined('ADVANCED_GUTENBERG_VERSION')) {
-    define('ADVANCED_GUTENBERG_VERSION', '1.10.7');
+    define('ADVANCED_GUTENBERG_VERSION', '1.10.8');
 }
 
 if (! defined('ADVANCED_GUTENBERG_PLUGIN')) {
