@@ -21,50 +21,28 @@ const corsOptions = {
 
 const eventRouter = function (app) {
 
-  const splitPayload = (req, res, update = {}) => {
+  const splitPayload = async (req, res, update = {}) => {
     let payload = {};
     payload.update = update;
-    Events.findAll(
-      {
-        order: [
-          ['date', 'ASC']
-        ],
-        where: {
-          date: {
-            $gt: new Date()
-          }
-        },
-        include: [{
-          model: Attendee,
-          as: 'attendees'
-        }]
-      }
-    )
-    .then((evt) => {
-      payload.active = evt;
-    }).then(() => {
-      Events.findAll(
-        {
-          order: [
-            ['date', 'ASC']
-          ],
-          where: {
-            date: {
-              $lte: new Date()
-            }
-          },
-          include: [{
-            model: Attendee,
-            as: 'attendees'
-          }]
-        }
-      ).then((pastEvents) => {
-        payload.archived = pastEvents;
-      })
-      .then(() => {
-        res.json(payload);
-      })
-    })
+    let designations = await Designations.findAll();
+    payload.designations = designations;
+
+    let activeEvents = await Events.findAll({
+      order: [['date', 'ASC']],
+      where: { date: {$gt: new Date()} },
+      include: [{ model: Attendee, as: 'attendees' }]
+    });
+
+    let pastEvents = await Events.findAll({
+      order: [['date', 'ASC']],
+      where: { date: {$lte: new Date()} },
+      include: [{ model: Attendee, as: 'attendees' }]
+    });
+
+    payload.active = activeEvents;
+    payload.archived = pastEvents;
+
+    res.json(payload);
   };
 
   app.get('/api/events', (req, res) => {
@@ -161,20 +139,6 @@ const eventRouter = function (app) {
     payload.designations = designations;
 
     res.json(payload);
-
-
-    // payload.events = events;
-    // res.json(payload)
-
-    // Designations.findAll()
-    //   .then((designations) => {
-    //     payload.designations = designations;
-    //   })
-    //   .then(() => {
-    //     res.json(payload);
-    //   })
-
-    // .then(evt => res.json(evt));
   });
 
   app.post('/api/events', (req, res) => {

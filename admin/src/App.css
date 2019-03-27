@@ -28,7 +28,8 @@ button:focus {
   grid-row-gap: 30px;
   grid-template-columns: repeat(12, 1fr);
   max-width: 1280px;
-  margin: 0 auto; }
+  margin: 0 auto;
+  padding-bottom: 100px; }
   .events-index-container .sorter-container {
     padding-bottom: 5px;
     grid-column: span 12;
@@ -273,7 +274,8 @@ button:focus {
   position: relative;
   flex-direction: column;
   min-width: 600px;
-  min-height: 350px; }
+  min-height: 350px;
+  margin-bottom: 100px; }
   .form-outer-container .hidden {
     display: none; }
   .form-outer-container .add-guest-form {
@@ -285,8 +287,10 @@ button:focus {
     margin: 0 auto;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     padding: 30px;
-    top: 25%;
+    bottom: 25%;
     z-index: 1; }
+    .form-outer-container .add-guest-form .designation-select {
+      margin-bottom: 15px; }
     .form-outer-container .add-guest-form .close-form {
       font-size: 12px;
       position: absolute;
