@@ -9,6 +9,8 @@ const path = require('path');
 
 const config = require('./config');
 
+const emailScheduler = require('./helpers/emailScheduler');
+
 // Routes
 const attendeeRouter = require("./routes/controllers/attendee");
 const eventRouter = require("./routes/controllers/event");
@@ -47,6 +49,8 @@ server.listen(port);
 
 attendeeRouter(app);
 eventRouter(app);
+
+emailScheduler();
 
 app.get('*', (req, res) => res.status(200).send());
 
