@@ -11,7 +11,6 @@ const config = require('./config');
 
 const emailScheduler = require('./helpers/emailScheduler');
 
-// Routes
 const attendeeRouter = require("./routes/controllers/attendee");
 const eventRouter = require("./routes/controllers/event");
 
@@ -39,12 +38,10 @@ const options = {
   ),
 };
 
-const server = http.createServer(app);
-const server2 = https.createServer(options, app).listen(8001, function(){
-  console.log('listening on port 8001')
-});
+const server = !process.env.NODE_ENV ? http.createServer(app) : https.createServer(options, app);
 
 app.set('port', port);
+
 server.listen(port);
 
 attendeeRouter(app);

@@ -95,7 +95,7 @@ const attendeeRouter = function (app) {
       payload.success = false;
       payload.publishError = true;
       res.json(payload);
-    } else if(parseInt(countHelper(event.dataValues)) === event.dataValues.numberOfAttendees){
+    } else if(!req.body.overrideCount && parseInt(countHelper(event.dataValues)) === event.dataValues.numberOfAttendees){
       payload.events = events;
       payload.full = true;
       payload.success = false;
@@ -165,6 +165,7 @@ const attendeeRouter = function (app) {
       },
       include: [{
         model: Event,
+        as: 'event'
       }]
     })
     .then(attendee => {
@@ -175,7 +176,7 @@ const attendeeRouter = function (app) {
       };
     })
     .catch((error) => {
-      console.log(error)
+      console.log(error);
     })
   });
 
