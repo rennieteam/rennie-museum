@@ -24,3 +24,4 @@ chrome-user-data
 *.swo
 api/config.js
 api/certificates/*
+api/config/config.json
