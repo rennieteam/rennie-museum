@@ -38,7 +38,7 @@ const options = {
   ),
 };
 
-const server = !process.env.NODE_ENV ? http.createServer(app) : https.createServer(options, app);
+const server = !process.env.NODE_ENV || process.env.NODE_ENV === 'development' ? http.createServer(app) : https.createServer(options, app);
 
 app.set('port', port);
 
