@@ -44,7 +44,7 @@ class AddGuestForm extends Component {
     });
     const checkGuests = guest => guest.name;
     let count = guests.length + 1;
-    if(this.props.eventCount < count && !this.state.overrideCount){
+    if(this.props.event.numberOfAttendees - this.props.eventCount < count && !this.state.overrideCount){
       this.setState({ message: 'Insufficient spots!' });
     } else if(!this.state.name || !this.state.email) {
       this.setState({ message: 'Attendee name and email are required!' })
