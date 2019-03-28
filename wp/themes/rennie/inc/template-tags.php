@@ -12,7 +12,7 @@ if ( ! function_exists( 'renniemuseum_posted_on' ) ) :
 	 * Prints HTML with meta information for the current post-date/time.
 	 */
 	function renniemuseum_posted_on() {
-		if(!is_page()){
+		if(!is_page() && !is_singular( 'exhibitions' )){
 			$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
 			if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
 				$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time><time class="updated" datetime="%3$s">%4$s</time>';
@@ -39,12 +39,14 @@ if ( ! function_exists( 'renniemuseum_posted_by' ) ) :
 	 * Prints HTML with meta information about theme author.
 	 */
 	function renniemuseum_posted_by() {
-		printf(
-			/* translators: 1: post author, only visible to screen readers. 3: author link. */
-			'<span class="byline entry-author">%1$s %2$s</span>',
-			__( 'By', 'renniemuseum' ),
-			esc_html( get_the_author() )
-		);
+		if(!is_singular( 'exhibitions' )) {
+			printf(
+				/* translators: 1: post author, only visible to screen readers. 3: author link. */
+				'<span class="byline entry-author">%1$s %2$s</span>',
+				__( 'By', 'renniemuseum' ),
+				esc_html( get_the_author() )
+			);
+		}
 	}
 endif;
 
