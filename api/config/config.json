@@ -1,23 +1,27 @@
 {
   "development": {
-    "username": "josh",
-    "password": null,
+    "username": "paul",
+    "password": "password",
     "database": "booking_system_development",
     "host": "localhost",
     "dialect": "postgres"
   },
   "test": {
-    "username": "josh",
-    "password": null,
+    "username": "rennie",
+    "password": "boblikesart",
     "database": "booking_system_test",
-    "host": "localhost",
+    "host": "rennie-booking-system-staging.ciqwdl3ozkc8.ca-central-1.rds.amazonaws.com",
     "dialect": "postgres"
   },
   "production": {
-    "username": "josh",
-    "password": null,
-    "database": "booking_system_production",
-    "host": "localhost",
-    "dialect": "postgres"
+    "username": "rennie",
+    "password": "boblikesart",
+    "database": "rennie-booking-test-db-1",
+    "host": "rennie-booking-test-db-1.ciqwdl3ozkc8.ca-central-1.rds.amazonaws.com",
+    "dialect": "postgres",
+    "port": 5432,
+    "dialectOptions": {
+      "ssl": "Amazon RDS"
+    }
   }
 }

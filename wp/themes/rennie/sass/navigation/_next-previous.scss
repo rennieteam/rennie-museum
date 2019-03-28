@@ -1,0 +1,157 @@
+/* Next/Previous navigation */
+
+// Singular navigation
+.post-navigation {
+	margin: calc(3 * 1rem) 0;
+
+	.nav-links {
+
+		margin: 0;
+		max-width: 250px;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		margin: 0 auto;
+
+
+		a {
+			display: flex;
+			align-items: center;
+
+			.meta-nav {
+				color: $color__text-light;
+				user-select: none;
+
+				&:before,
+				&:after {
+					display: none;
+					content: "—";
+					width: 2em;
+					color: $color__text-light;
+					height: 1em;
+				}
+			}
+
+			.post-title {
+				hyphens: auto;
+			}
+
+			&:hover {
+				color: $color__link-hover;
+			}
+		}
+
+		.nav-previous,
+		.nav-next {
+			font-size: 14px;
+			font-family: 'national', sans-serif;
+			display: flex;
+			align-items: center;
+		}
+
+		.nav-previous {
+			order: 2;
+
+			span {
+				margin: 0 0 0 3px;
+			}
+
+			@include media(desktop) {
+				order: 1;
+			}
+
+			.meta-nav {
+				&:before {
+					display: inline;
+				}
+			}
+		}
+
+		.nav-next {
+			order: 1;
+
+			span {
+				margin: 0 3px 0 0;
+			}
+
+			@include media(desktop) {
+				order: 2;
+				padding-left: $size__spacing-unit;
+			}
+
+			.meta-nav {
+				&:after {
+					display: inline;
+				}
+			}
+		}
+	}
+}
+
+// Index/archive navigation
+.pagination {
+	grid-column: span 1;
+
+	@include media(tablet) {
+		grid-column: span 2;
+	}
+
+	@include media(tablet) {
+		grid-column: span 3;
+	}
+
+	.nav-links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+
+		& > * {
+			display: flex;
+			align-items: center;
+			padding: 12px 1em;
+
+			&.dots,
+			&.prev {
+				padding-left: 0;
+			}
+
+			&.dots,
+			&.next {
+				padding-right: 0;
+			}
+		}
+
+		a:focus {
+			text-decoration: underline;
+			outline-offset: -1px;
+
+			&.prev,
+			&.next {
+				text-decoration: none;
+
+				.nav-prev-text,
+				.nav-next-text {
+					text-decoration: underline;
+				}
+			}
+		}
+
+		.nav-next-text,
+		.nav-prev-text {
+			display: none;
+		}
+
+		@include media(tablet) {
+			padding: 0;
+
+			.prev,
+			.next {
+				& > * {
+					display: inline-block;
+					vertical-align: text-bottom;
+				}
+			}
+		}
+	}
+}

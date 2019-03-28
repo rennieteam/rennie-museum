@@ -14,9 +14,6 @@ module.exports = {
       email: {
         type: Sequelize.STRING
       },
-      event_id: {
-        type: Sequelize.INTEGER
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
@@ -24,7 +21,15 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
+      EventId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Events',
+          key: 'id'
+        },
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
