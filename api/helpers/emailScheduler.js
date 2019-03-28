@@ -14,17 +14,14 @@ module.exports = async () => {
   
     let events = await Event.findAll({
       where: {
-        date: { $gte: startSearch, $lte: endSearch }
+        date: { $gte: startSearch, $lte: endSearch },
+        published: true
       },
       include: [{ model: Attendee, as: 'attendees' }]
     });
   
-    let filteredEvents = await events.filter((event) => {
-      return event.published;
-    });
-  
-    if(filteredEvents.length){
-      filteredEvents.forEach((event) => {
+    if(events.length){
+      events.forEach((event) => {
         event.attendees.forEach((attendee) => {
           mailerHelper(attendee, false, false, false, false, true);
         })
