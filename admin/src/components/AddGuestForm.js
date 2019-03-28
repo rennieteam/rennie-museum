@@ -72,10 +72,10 @@ class AddGuestForm extends Component {
         body[param] = this.state[param];
       });
       let url;
-      if(process.env.NODE_ENV === 'development'){
-        url = config.development;
+      if(process.env.NODE_ENV){
+        url = config[process.env.NODE_ENV];
       } else {
-        url = config.production;
+        url = config.development;
       };
       let d = moment(this.props.event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a');
       body.guests = guests;

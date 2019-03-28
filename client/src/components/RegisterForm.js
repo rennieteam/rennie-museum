@@ -27,10 +27,10 @@ class RegisterForm extends Component {
         this.setState({ message: 'Please enter a valid email.' })
       } else {
         let url;
-        if(process.env.NODE_ENV === 'development'){
-          url = config.developmentUrl;
+        if(process.env.NODE_ENV){
+          url = config[process.env.NODE_ENV]
         } else {
-          url = config.productionUrl;
+          url = config.development;
         };
         axios.post(`${url}/api/attendee/register`, this.state)
           .then((result) => {

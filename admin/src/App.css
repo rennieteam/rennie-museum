@@ -287,7 +287,7 @@ button:focus {
     margin: 0 auto;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
     padding: 30px;
-    bottom: 25%;
+    top: 50%;
     z-index: 1; }
     .form-outer-container .add-guest-form .designation-select {
       margin-bottom: 15px; }

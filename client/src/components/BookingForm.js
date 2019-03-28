@@ -207,10 +207,10 @@ class BookingForm extends Component {
         body[param] = this.state[param];
       });
       let url;
-      if(process.env.NODE_ENV === 'development'){
-        url = config.developmentUrl;
+      if(process.env.NODE_ENV){
+        url = config[process.env.NODE_ENV]
       } else {
-        url = config.productionUrl;
+        url = config.development;
       };
       let d = moment(this.state.selectedEvent.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')
       body.eventDate = d;

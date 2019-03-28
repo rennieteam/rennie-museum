@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import qs from 'query-string';
 import Select from 'react-select';
-import hdate from 'human-date';
 import moment from 'moment-timezone';
 
 
@@ -35,10 +34,10 @@ class CancelForm extends Component {
   componentDidMount = () => {
     let q = qs.parse(this.props.location.hash);
     let url;
-    if(process.env.NODE_ENV === 'development'){
-      url = config.developmentUrl;
+    if(process.env.NODE_ENV){
+      url = config[process.env.NODE_ENV]
     } else {
-      url = config.productionUrl;
+      url = config.development;
     };
     axios.get(`${url}/api/attendee/${q.cancel}`)
       .then((result) => {
@@ -64,11 +63,10 @@ class CancelForm extends Component {
     if(this.props.dateOptions !== prevProps.dateOptions){
       if(this.state.attendee.id){
         let event = this.props.events.find((event) => {
-          return event.id === this.state.attendee.Event.id;
+          return event.id === this.state.attendee.event.id;
         });
         if(event){
           let eventCount = this.props.calculateCount(event);
-          // let date = hdate.prettyPrint(new Date(Date.parse(this.state.attendee.Event.date)));
           let date = moment(event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY');
           let dateIndex = this.props.dateOptions.findIndex((el) => {return el.label === date});
           this.setState({ dateOptions: this.props.dateOptions, eventCount});
@@ -120,7 +118,7 @@ class CancelForm extends Component {
     this.setState({ timeOptions })
     if(this.state.initialLoad){
       let timeIndex = timeOptions.findIndex((time) => {
-        return time.value.id === this.state.attendee.Event.id;
+        return time.value.id === this.state.attendee.event.id;
       });
       this.selectTime(timeOptions[timeIndex]);
       this.setState({ initialLoad: false });
@@ -129,10 +127,10 @@ class CancelForm extends Component {
 
   cancelBooking = () => {
     let url;
-    if(process.env.NODE_ENV === 'development'){
-      url = config.developmentUrl;
+    if(process.env.NODE_ENV){
+      url = config[process.env.NODE_ENV]
     } else {
-      url = config.productionUrl;
+      url = config.development;
     };
     axios.delete(`${url}/api/attendee/${this.state.attendee.id}`)
       .then((result) => {
@@ -204,7 +202,7 @@ class CancelForm extends Component {
       return guest.name || guest.email;
     });
     options.guests = guests;
-    options.EventId = this.state.EventId ? this.state.EventId : this.state.attendee.Event.id;
+    options.EventId = this.state.EventId ? this.state.EventId : this.state.attendee.event.id;
     options.attendee = this.state.attendee;
     if(this.state.selectedDate && !this.state.selectedTime){
       this.setMessage('Please select a time.');
@@ -212,10 +210,10 @@ class CancelForm extends Component {
       this.setMessage('Guest names are required.');
     } else {
       let url;
-      if(process.env.NODE_ENV === 'development'){
-        url = config.developmentUrl;
+      if(process.env.NODE_ENV){
+        url = config[process.env.NODE_ENV]
       } else {
-        url = config.productionUrl;
+        url = config.development;
       };
       let formattedDate = moment(this.state.selectedEvent.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')
       options.eventDate = formattedDate;
@@ -275,7 +273,7 @@ class CancelForm extends Component {
           <div className="booking-form">
             <div className="form-body" onClick={this.stopProp}>
               <h2 className="form-greeting"> Hi {this.state.attendee.name}! </h2>
-              <p className="event-date-label"> You're signed up for {moment(this.state.attendee.Event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')}. </p>
+              <p className="event-date-label"> You're signed up for {moment(this.state.attendee.event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')}. </p>
               {
                 this.state.selectedEvent.published ?
                   <div className="date-time-select">

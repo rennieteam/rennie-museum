@@ -3,7 +3,7 @@ const mandrillTransport = require('nodemailer-mandrill-transport');
 const Mailchimp = require('mailchimp-api-v3');
 const config = require('../config.js');
 const template = require('./htmlMailTemplate');
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 
 let transport = nodemailer.createTransport(mandrillTransport({
@@ -12,7 +12,7 @@ let transport = nodemailer.createTransport(mandrillTransport({
   }
 }));
 
-module.exports = (data = null, subscribe = false, forCancel = false, forRemove = false, forUpdate = false) => {
+module.exports = (data = null, subscribe = false, forCancel = false, forRemove = false, forUpdate = false, forAutomate = false) => {
   let message, subject, staffSubject;
   let emailStaff = false;
   let guests = '';
@@ -57,6 +57,22 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     <p ${style}> All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
     <p ${style}> If you need to edit your booking, please <i>click <a ${anchorStyle} href="${config.cancelLink + data.hash}">here</a>. </i> </p>
     <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</a> </p>
+    <p ${style}> We look forward to welcoming you! </p>
+    <p ${style}> <strong>rennie museum</strong> </p>
+    `;
+  } else if(forAutomate) {
+    subject = 'rennie Tour Reminder';
+    let automateGuests;
+    if(data.guests){
+      if(data.guests.length === 0){
+        automateGuests = '1 guest';
+      } else {
+        automateGuests = `${data.guests.length + 1} guests`;
+      };
+    };
+    message = `
+    <p ${style}> This is a reminder of your confirmed visit to the rennie museum for ${automateGuests} on ${moment(data.eventDate).tz('America/Los_Angeles').format('MMMM Do YYYY [at] hh:mm a')}. All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
+    <p ${style}> If you are unable to keep your appointment, please manage your booking <a ${anchorStyle} href="${config.cancelLink + data.hash}">here</a>.</p>
     <p ${style}> We look forward to welcoming you! </p>
     <p ${style}> <strong>rennie museum</strong> </p>
     `;
