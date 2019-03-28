@@ -61,7 +61,7 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     <p ${style}> <strong>rennie museum</strong> </p>
     `;
   } else if(forAutomate) {
-    subject = 'Booking Reminder';
+    subject = 'rennie Tour Reminder';
     let automateGuests;
     if(data.guests){
       if(data.guests.length === 0){
