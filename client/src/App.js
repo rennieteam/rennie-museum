@@ -47,10 +47,10 @@ class App extends Component {
 
   componentDidMount = () => {
     let url;
-    if(process.env.NODE_ENV === 'development'){
-      url = config.developmentUrl;
+    if(process.env.NODE_ENV){
+      url = config[process.env.NODE_ENV]
     } else {
-      url = config.productionUrl;
+      url = config.development;
     };
     axios.get(`${url}/api/coming_events`)
       .then((results) => {

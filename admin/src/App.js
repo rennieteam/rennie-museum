@@ -28,7 +28,7 @@ class App extends Component {
     if(process.env.NODE_ENV){
       url = config[process.env.NODE_ENV];
     } else {
-      url = config.production;
+      url = config.development;
     };
     axios.get(`${url}/api/events/`)
       .then((result) => {

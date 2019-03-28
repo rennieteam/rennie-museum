@@ -59,7 +59,7 @@ class CreateEventForm extends Component {
       if(process.env.NODE_ENV){
         url = config[process.env.NODE_ENV];
       } else {
-        url = config.production;
+        url = config.development;
       };
       axios.post(`${url}/api/events`, this.state)
         .then((result) => {

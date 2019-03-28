@@ -34,10 +34,10 @@ class CancelForm extends Component {
   componentDidMount = () => {
     let q = qs.parse(this.props.location.hash);
     let url;
-    if(process.env.NODE_ENV === 'development'){
-      url = config.developmentUrl;
+    if(process.env.NODE_ENV){
+      url = config[process.env.NODE_ENV]
     } else {
-      url = config.productionUrl;
+      url = config.development;
     };
     axios.get(`${url}/api/attendee/${q.cancel}`)
       .then((result) => {
@@ -127,10 +127,10 @@ class CancelForm extends Component {
 
   cancelBooking = () => {
     let url;
-    if(process.env.NODE_ENV === 'development'){
-      url = config.developmentUrl;
+    if(process.env.NODE_ENV){
+      url = config[process.env.NODE_ENV]
     } else {
-      url = config.productionUrl;
+      url = config.development;
     };
     axios.delete(`${url}/api/attendee/${this.state.attendee.id}`)
       .then((result) => {
@@ -210,10 +210,10 @@ class CancelForm extends Component {
       this.setMessage('Guest names are required.');
     } else {
       let url;
-      if(process.env.NODE_ENV === 'development'){
-        url = config.developmentUrl;
+      if(process.env.NODE_ENV){
+        url = config[process.env.NODE_ENV]
       } else {
-        url = config.productionUrl;
+        url = config.development;
       };
       let formattedDate = moment(this.state.selectedEvent.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')
       options.eventDate = formattedDate;

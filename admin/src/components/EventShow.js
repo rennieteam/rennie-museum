@@ -133,7 +133,7 @@ class EventShow extends Component {
       if(process.env.NODE_ENV){
         url = config[process.env.NODE_ENV];
       } else {
-        url = config.production;
+        url = config.development;
       };
       axios.put(`${url}/api/event/${this.state.event.id}`, options)
         .then((result) => {
@@ -473,7 +473,7 @@ class EventShow extends Component {
     if(process.env.NODE_ENV){
       url = config[process.env.NODE_ENV];
     } else {
-      url = config.production;
+      url = config.development;
     };
     axios.delete(`${url}/api/event/${this.state.event.id}`)
       .then((result) => {
