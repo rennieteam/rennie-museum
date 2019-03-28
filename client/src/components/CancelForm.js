@@ -276,29 +276,33 @@ class CancelForm extends Component {
             <div className="form-body" onClick={this.stopProp}>
               <h2 className="form-greeting"> Hi {this.state.attendee.name}! </h2>
               <p className="event-date-label"> You're signed up for {moment(this.state.attendee.Event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')}. </p>
-              <div className="date-time-select">
-                <Select
-                  className="date-select"
-                  placeholder="Date"
-                  value={this.state.selectedDate}
-                  onChange={this.selectDate}
-                  options={this.state.dateOptions}
-                />
-                <Select
-                  className="time-select"
-                  placeholder="Time"
-                  value={this.state.selectedTime}
-                  onChange={this.selectTime}
-                  options={this.state.timeOptions}
-                  isDisabled={!this.state.selectedDate}
-                />
-                {/*  */}
-                {
-                  this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
-                }
-              </div>
               {
-                !this.state.disableAddGuest ?
+                this.state.selectedEvent.published ?
+                  <div className="date-time-select">
+                    <Select
+                      className="date-select"
+                      placeholder="Date"
+                      value={this.state.selectedDate}
+                      onChange={this.selectDate}
+                      options={this.state.dateOptions}
+                    />
+                    <Select
+                      className="time-select"
+                      placeholder="Time"
+                      value={this.state.selectedTime}
+                      onChange={this.selectTime}
+                      options={this.state.timeOptions}
+                      isDisabled={!this.state.selectedDate}
+                    />
+                    {
+                      this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
+                    }
+                  </div>
+                :
+                  <div> This booking is currently not available to edit. Please try again later. </div>
+              }
+              {
+                !this.state.disableAddGuest && this.state.selectedEvent.published ?
                   <div className="guests-container">
                     {
                       this.state.guests.map( (guest,index) => this.guestInput(guest,index) )
@@ -316,10 +320,15 @@ class CancelForm extends Component {
               {
                 this.state.message ? <div className="message-container"> {this.state.message} </div> : ''
               }
-              <div className="submit-prompt-container" id="cancel-submit-prompt-container">
-                <button className="submit-button" onClick={this.handleUpdate}> Update Booking </button>
-                <button className="submit-button" onClick={this.cancelBooking}> Cancel Booking </button>
-              </div>
+              {
+                this.state.selectedEvent.published ?
+                  <div className="submit-prompt-container" id="cancel-submit-prompt-container">
+                    <button className="submit-button" onClick={this.handleUpdate}> Update Booking </button>
+                    <button className="submit-button" onClick={this.cancelBooking}> Cancel Booking </button>
+                  </div>
+                :
+                  ''
+              }
             </div>
           </div>
         </div>
