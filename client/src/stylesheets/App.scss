@@ -44,6 +44,68 @@ button,
   box-sizing: border-box;
 }
 
+// styles overrides for Select 
+
+.css-d8oujb,
+.css-ln5n5c {
+  display: none;
+}
+
+.css-1hwfws3 {
+  position: absolute;
+  width: 80%;
+  overflow: visible;
+}
+
+.css-1wy0on6 {
+  position: absolute;
+  right: 0;
+}
+
+// dropdown container
+.css-15k3avv {
+  width: max-content;
+
+  .css-11unzgr {
+    div {
+      font-size: $small;
+    }
+  }
+}
+
+.css-bl6clz {
+  display: none !important;
+}
+
+.css-vj8t7z,
+.css-2o5izw,
+.css-162g8z5 {
+  height: $pad !important;
+  min-height: initial !important;
+  border-radius: 2 !important;
+  border: 1px solid $grey !important;
+
+  // class below is text inside select
+  .css-xp4uvy,
+  .css-1492t68 {
+    font-size: $small;
+    font-weight: lighter;
+    font-family: $serif;
+  }
+
+  // shifts svg more to the right
+  .css-1ep9fjw,
+  .css-1uq0kb5 {
+    padding: 8px 3px 8px 8px;
+  }
+
+  svg {
+    height: 10px !important;
+    width: 10px !important;
+    fill: $grey;
+  }
+}
+
 .event {
   width: max-content;
   height: max-content;
@@ -370,6 +432,35 @@ button,
 
           .attendee-name-input {
             margin-right: 10px;
+          }
+
+          input {
+            width: calc(100% / 2);
+            height: 100%;
+            padding-left: 8px;
+            font-size: $small;
+            border-radius: 2px;
+            border: 1px solid $grey;
+
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+
+        .designation-container {
+          height: $pad;
+          margin-bottom: 10px;
+          display: flex;
+    
+          .css-10nd86i {
+            width: calc(100%/2 - 5px);
+
+            .css-1492t68 {
+              font-size: $small;
+              font-weight: lighter;
+              font-family: $serif;
+            }
           }
 
           input {
