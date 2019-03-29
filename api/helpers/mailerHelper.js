@@ -71,7 +71,7 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
       };
     };
     message = `
-    <p ${style}> This is a reminder of your confirmed visit to the rennie museum for ${automateGuests} on ${moment(data.eventDate).tz('America/Los_Angeles').format('MMMM Do YYYY [at] hh:mm a')}. All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
+    <p ${style}> This is a reminder of your confirmed visit to the rennie museum for ${automateGuests} on ${data.eventDate}. All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
     <p ${style}> If you are unable to keep your appointment, please manage your booking <a ${anchorStyle} href="${config.cancelLink + data.hash}">here</a>.</p>
     <p ${style}> We look forward to welcoming you! </p>
     <p ${style}> <strong>rennie museum</strong> </p>
