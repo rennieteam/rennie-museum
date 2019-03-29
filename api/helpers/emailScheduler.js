@@ -24,6 +24,7 @@ module.exports = async () => {
     if(events.length){
       events.forEach((event) => {
         event.attendees.forEach((attendee) => {
+          attendee.eventDate = moment(event.date).tz('America/Los_Angeles').format('MMMM Do YYYY [at] hh:mm a');
           mailerHelper(attendee, false, false, false, false, true);
         })
       })
