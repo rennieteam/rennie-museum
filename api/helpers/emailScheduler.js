@@ -1,4 +1,4 @@
-const schedule = require('node-schedule-tz');
+const schedule = require('node-schedule');
 const moment = require('moment-timezone');
 const db = require('../db/models/index');
 const Event = db.Event;
@@ -6,7 +6,8 @@ const Attendee = db.Attendee;
 const mailerHelper = require('./mailerHelper');
 
 module.exports = async () => {
-  const automatedMailer = schedule.scheduleJob('0 0 8 * * *', 'America/Los_Angeles' ,async function(){
+
+  const automatedMailer = schedule.scheduleJob('0 0 16 * * *' ,async function(){
     let start = moment().startOf('day');
     let end = moment().endOf('day');
     let startSearch = moment(start).add(2, 'days');
@@ -27,7 +28,7 @@ module.exports = async () => {
         })
       })
     };
-
   });
+
 
 };
