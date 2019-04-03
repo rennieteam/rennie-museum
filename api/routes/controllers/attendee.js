@@ -260,18 +260,29 @@ const attendeeRouter = function (app) {
     Attendee.findOne({
       where: { id: parseInt(req.params['attendeeId'])},
       include: [{
-        model: Event
+        model: Event,
+        as: 'event'
       }]
-    }).then((result) => {
+    }).then( async (result) => {
       let options = {};
-      options.email = result.dataValues.email;
-      options.name = result.dataValues.name;
-      options.guests = result.dataValues.guests;
-      options.eventDate = moment(result.dataValues.Event.dataValues.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a');
+      options.email = result.email;
+      options.name = result.name;
+      options.guests = result.guests;
+      options.eventDate = moment(result.event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a');
       mailerHelper(options, false, true, false, false);
-      result.destroy();
+      let d = await AttendeeDesignation.findOne({
+        where: {
+          AttendeeId: parseInt(req.params['attendeeId'])
+        }
+      });
+      if(d){
+        d.destroy().then(() => { result.destroy() });
+      } else {
+        result.destroy();
+      };
       res.json(result);
     }).catch(error => {
+      console.log(error);
       res.json(error);
     });
   });
