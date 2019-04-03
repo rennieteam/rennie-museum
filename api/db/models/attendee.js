@@ -14,20 +14,16 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Attendee.associate = (models) => {
-    Attendee.hasOne(models.Designation, {
-      foreignKey: 'DesignationId',
-      as: 'designation'
-    });
-  };
-  
-  Attendee.associate = (models) => {
     Attendee.belongsTo(models.Event, {
       onDelete: "CASCADE",
       foreignKey: 'EventId',
       as: 'event'
     });
+
+    Attendee.belongsTo(models.Designation, {
+      foreignKey: 'DesignationId'
+    })
   };
-  
   
   return Attendee;
 };

@@ -7,10 +7,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Designation.associate = (models) => {
-    Designation.hasMany(models.Attendee, {
-      foreignKey: 'DesignationId',
-      as:'designation'
-    });
+    Designation.belongsToMany(models.Attendee, { through: models.AttendeeDesignation });
   };
 
   return Designation;
