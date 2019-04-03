@@ -118,8 +118,8 @@ class EventSorter extends Component {
 
   filterEvents = (payload) => {
     let url;
-    if(process.env.NODE_ENV){
-      url = config[process.env.NODE_ENV];
+    if(process.env.REACT_APP_ENV){
+      url = config[process.env.REACT_APP_ENV];
     } else {
       url = config.development;
     };
@@ -148,8 +148,8 @@ class EventSorter extends Component {
     this.props.sortPublished(null);
     this.setState({ selectedYear: null, selectedMonth: null, selectedDate: null, sort: 'asc', dateSort: true, capSort: false });
     let url;
-    if(process.env.NODE_ENV){
-      url = config[process.env.NODE_ENV];
+    if(process.env.REACT_APP_ENV){
+      url = config[process.env.REACT_APP_ENV];
     } else {
       url = config.development;
     };
