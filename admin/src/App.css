@@ -273,7 +273,7 @@ button:focus {
   max-width: 640px;
   position: relative;
   flex-direction: column;
-  min-width: 600px;
+  min-width: 50%;
   min-height: 350px;
   margin-bottom: 100px; }
   .form-outer-container .hidden {
@@ -456,8 +456,12 @@ button:focus {
     margin: auto auto; }
   .admin-edit-container .edit-form {
     width: 100%;
-    display: flex;
-    flex-direction: column; }
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px; }
+    .admin-edit-container .edit-form .react-datetime-picker {
+      grid-column-start: 2;
+      grid-column-end: 4; }
     .admin-edit-container .edit-form .add-guest {
       margin-top: 10px; }
       .admin-edit-container .edit-form .add-guest .fas {
@@ -478,6 +482,9 @@ button:focus {
         margin-right: 10px; }
     .admin-edit-container .edit-form .notify-select {
       margin-bottom: 30px; }
+    .admin-edit-container .edit-form .event-header,
+    .admin-edit-container .edit-form .event-info {
+      grid-column: span 4; }
     .admin-edit-container .edit-form .event-header {
       font-size: 20px;
       font-weight: normal;
@@ -486,6 +493,8 @@ button:focus {
       padding-bottom: 10px; }
     .admin-edit-container .edit-form .event-info {
       margin: 0; }
+    .admin-edit-container .edit-form .designation-count {
+      grid-column: span 2; }
     .admin-edit-container .edit-form .edit-date {
       font-size: 12px;
       color: #DA291C;
@@ -501,17 +510,26 @@ button:focus {
       margin: 3px 0; }
     .admin-edit-container .edit-form .remaining-spots {
       margin-bottom: 10px; }
-    .admin-edit-container .edit-form .attendees-header {
-      margin-bottom: 5px; }
+    .admin-edit-container .edit-form .attendees-header,
+    .admin-edit-container .edit-form .designations-header {
+      font-weight: 600; }
+    .admin-edit-container .edit-form .update-options-container {
+      grid-column: span 4;
+      display: flex;
+      width: 100%;
+      flex-direction: column; }
     .admin-edit-container .edit-form .attendee-container {
+      grid-column: span 2;
       width: 100%;
       display: flex;
       flex-direction: column;
       padding: 10px;
       margin-bottom: 5px;
-      border-bottom: 1px solid #DA291C;
+      border: 1px solid #DA291C;
       position: relative;
       padding-bottom: 40px; }
+      .admin-edit-container .edit-form .attendee-container .designation {
+        font-size: 14px; }
       .admin-edit-container .edit-form .attendee-container .new-guest-input-container {
         display: grid;
         width: 100%;

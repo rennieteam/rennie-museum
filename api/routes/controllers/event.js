@@ -2,6 +2,7 @@ const db = require('./../../db/models/index');
 const Events = db.Event;
 const Attendee = db.Attendee;
 const Designations = db.Designation;
+const AttendeeDesignation = db.AttendeeDesignation;
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
 const hdate = require('human-date');
@@ -27,10 +28,11 @@ const eventRouter = function (app) {
     let designations = await Designations.findAll();
     payload.designations = designations;
 
+
     let activeEvents = await Events.findAll({
-      order: [['date', 'ASC']],
+      order: [ ['date', 'ASC'] ],
       where: { date: {$gt: new Date()} },
-      include: [{ model: Attendee, as: 'attendees' }]
+      include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
     });
 
     let pastEvents = await Events.findAll({

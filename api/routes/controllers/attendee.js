@@ -1,6 +1,7 @@
 const db = require('./../../db/models/index');
 const Event = db.Event;
 const Attendee = db.Attendee;
+const AttendeeDesignation = db.AttendeeDesignation;
 const nodemailer = require("nodemailer");
 const mandrillTransport = require('nodemailer-mandrill-transport');
 const config = require('../../config');
@@ -111,6 +112,11 @@ const attendeeRouter = function (app) {
           let defaultEvents;
           let activeEvents;
           let pastEvents;
+
+          AttendeeDesignation.create({
+            DesignationId: req.body.designation.value,
+            AttendeeId: result.dataValues.id
+          });
 
           payload.success = true;
           result.dataValues.eventDate = req.body.eventDate;

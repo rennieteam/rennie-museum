@@ -27,9 +27,6 @@ class EventSorter extends Component {
   };
 
   componentDidUpdate = (prevProps) => {
-    const monthNames = ["January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
-    ];
     if(this.props.events !== prevProps.events){
       let yearBuffer = {};
       let yearOptions = [];
@@ -38,16 +35,17 @@ class EventSorter extends Component {
       let dateBuffer = {};
       let dateOptions = [];
       this.props.events.forEach((event) => {
-        let date = moment(event.date).tz('America/Los_Angeles').toDate();
-        let year = date.getFullYear();
-        let month = date.getMonth();
-        let day = date.getDate();
+        let date = moment(event.date).tz('America/Los_Angeles');
+        let year = date.format('YYYY');
+        let month = date.format('MMMM');
+        let monthVal = date.format('M') - 1;
+        let day = date.format('D');
         if(yearBuffer[year] === undefined){
           yearOptions.push({ value: year, label: year, for: 'Year' });
           yearBuffer[year] = true;
         };
         if(monthBuffer[month] === undefined){
-          monthOptions.push({ value: month, label: monthNames[month], for: 'Month' });
+          monthOptions.push({ value: monthVal, label: month, for: 'Month' });
           monthBuffer[month] = true;
         };
         if(dateBuffer[day] === undefined){
