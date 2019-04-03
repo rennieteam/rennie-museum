@@ -27,8 +27,8 @@ class RegisterForm extends Component {
         this.setState({ message: 'Please enter a valid email.' })
       } else {
         let url;
-        if(process.env.NODE_ENV){
-          url = config[process.env.NODE_ENV]
+        if(process.env.REACT_APP_ENV){
+          url = config[process.env.REACT_APP_ENV];
         } else {
           url = config.development;
         };
