@@ -192,13 +192,19 @@ const eventRouter = function (app) {
         });
       };
       return results;
-    }).then((results) => {
+    }).then(async (results) => {
       if(results.length){
-        Attendee.destroy({
+        let d = await AttendeeDesignation.destroy({
+          where: {
+            AttendeeId: req.body.removal
+          }
+        });
+
+        let a = await Attendee.destroy({
           where: {
             id: req.body.removal
           }
-        })
+        });
       };
     }).then(async () => {
       if(Object.keys(guestsRemoval).length){
