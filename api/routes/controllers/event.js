@@ -38,7 +38,7 @@ const eventRouter = function (app) {
     let pastEvents = await Events.findAll({
       order: [['date', 'ASC']],
       where: { date: {$lte: new Date()} },
-      include: [{ model: Attendee, as: 'attendees' }]
+      include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
     });
 
     payload.active = activeEvents;
@@ -68,7 +68,8 @@ const eventRouter = function (app) {
         },
         include: [{
           model: Attendee,
-          as: 'attendees'
+          as: 'attendees',
+          include: [{ model: Designations }]
         }]
       }
     )
@@ -101,7 +102,8 @@ const eventRouter = function (app) {
           },
           include: [{
             model: Attendee,
-            as: 'attendees'
+            as: 'attendees',
+            include: [{ model: Designations }]
           }]
         }
       ).then((pastEvents) => {
@@ -150,20 +152,6 @@ const eventRouter = function (app) {
     }).catch(error => {
       console.log(error)
     })
-  });
-
-  app.get('/api/event/:eventId', (req, res) => {
-    Events.findOne({
-      where: {
-        id: parseInt(req.params['eventId'])
-      },
-      include: [{
-        model: Attendee,
-        as: 'attendees'
-      }]
-    })
-    .then(evt => res.json(evt))
-    .catch(error => res.send(error))
   });
 
   app.put('/api/event/:eventId', (req, res) => {
