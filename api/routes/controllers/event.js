@@ -268,15 +268,29 @@ const eventRouter = function (app) {
   // this line needed to enable CORS pre-flight for delete method
   app.options('/api/event/:eventId', cors(corsOptions));
 
-  app.delete('/api/event/:eventId', cors(corsOptions), (req, res) => {
+  app.delete('/api/event/:eventId', cors(corsOptions), async (req, res) => {
 
-    Events.destroy({
-      where: {
-        id: parseInt(req.params['eventId'])
-      }
-    }).then((result) => {
+    let event = await Events.findOne({
+      where: { id: parseInt(req.params['eventId']) },
+      include: [{ model: Attendee, as: 'attendees' }]
+    });
+
+    let ids = [];
+
+    event.attendees.forEach((attendee) => {
+      ids.push(attendee.id);
+    });
+
+    AttendeeDesignation.destroy({
+      where: { AttendeeId:  ids }
+    }).then(() => {
+      event.destroy();
+    }).then(() => {
       splitPayload(req, res);
-    }).catch(err => console.log(err))
+    }).catch((error) => {
+      console.log(error);
+      res.json(error);
+    });
   });
 }
 
