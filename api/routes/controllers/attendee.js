@@ -2,6 +2,7 @@ const db = require('./../../db/models/index');
 const Event = db.Event;
 const Attendee = db.Attendee;
 const AttendeeDesignation = db.AttendeeDesignation;
+const Designations = db.Designation;
 const nodemailer = require("nodemailer");
 const mandrillTransport = require('nodemailer-mandrill-transport');
 const config = require('../../config');
@@ -129,13 +130,13 @@ const attendeeRouter = function (app) {
             activeEvents = await Event.findAll({
               order: [['date', 'ASC']],
               where: { date: { $gt: new Date() } },
-              include: [{ model: Attendee, as: 'attendees' }]
+              include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
             });
 
             pastEvents = await Event.findAll({
               order: [['date', 'ASC']],
               where: { date: { $lte: new Date() } },
-              include: [{ model: Attendee, as: 'attendees' }]
+              include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
             });
 
             payload.active = activeEvents;
@@ -149,7 +150,7 @@ const attendeeRouter = function (app) {
             defaultEvents = await Event.findAll({
               order: [['date', 'ASC']],
               where: { date: { $gt: new Date() }, published: true },
-              include: [{ model: Attendee, as: 'attendees' }]
+              include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
             });
 
             payload.events = defaultEvents;
