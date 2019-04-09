@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import config from './../config';
 import axios from 'axios';
 import moment from 'moment-timezone';
+import Select from 'react-select';
 
 let defaultState = {
   guests: [{name: '', email: ''}],
@@ -9,13 +10,22 @@ let defaultState = {
   email: '',
   overrideCount: false,
   notifyAttendee: false,
-  message: ''
+  message: '',
+  designation: null
 };
 
 class AddGuestForm extends Component {
   constructor(props) {
     super(props);
     this.state = defaultState;
+  };
+
+  componentDidMount = () => {
+    let designationOptions = [];
+    this.props.designations.forEach((designation) => {
+      designationOptions.push({ value: designation.id, label: designation.name });
+    });
+    this.setState({ designationOptions });
   };
 
   handleChange = (event) => {
@@ -37,6 +47,10 @@ class AddGuestForm extends Component {
     this.setState({ guests });
   };
 
+  handleDesignation = (designation) => {
+    this.setState({ designation });
+  };
+
   handleSubmit = () => {
     let body = {};
     let guests = this.state.guests.filter((guest) => {
@@ -50,22 +64,25 @@ class AddGuestForm extends Component {
       this.setState({ message: 'Attendee name and email are required!' })
     } else if(!guests.every(checkGuests)){
       this.setState({ message: 'Guest names are required!' });
+    } else if(!this.state.designation) {
+      this.setState({ message: 'Please select a designation. '});
     } else {
       body.EventId = this.props.event.id;
       ['name', 'email', 'overrideCount'].forEach((param) => {
         body[param] = this.state[param];
       });
       let url;
-      if(process.env.NODE_ENV === 'development'){
-        url = config.development;
+      if(process.env.REACT_APP_ENV){
+        url = config[process.env.REACT_APP_ENV];
       } else {
-        url = config.production;
+        url = config.development;
       };
       let d = moment(this.props.event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a');
       body.guests = guests;
       body.eventDate = d;
       body.adminAdded = true;
       body.notifyAttendee = this.state.notifyAttendee;
+      body.designation = this.state.designation;
       axios.post(`${url}/api/attendees`, body)
         .then((result) => {
           if(result.data.success){
@@ -140,8 +157,14 @@ class AddGuestForm extends Component {
         <p className="title"> Add Attendee </p>
         <div className="infobox">
           <p className="info"> Remaining Spots: {this.props.event.numberOfAttendees - this.props.eventCount} </p>
-
         </div>
+        <Select 
+          className="designation-select"
+          placeholder="Please select a designation."
+          options={this.state.designationOptions}
+          onChange={this.handleDesignation}
+          value={this.state.designation}
+        />
         <div className="guest-inputs">
           <input 
             className="attendee-input" 
@@ -185,7 +208,7 @@ class AddGuestForm extends Component {
             <label> Notify Attendee </label>
           </div>
           <div className="form-action" onClick={this.handleSubmit}>
-            Add Guest
+            Add Attendee
           </div>
           <div className="form-action" onClick={this.cancelForm}>
             Cancel

@@ -9,15 +9,21 @@ module.exports = (sequelize, DataTypes) => {
     EventId: DataTypes.INTEGER,
     hash: DataTypes.STRING,
     overrideCount: DataTypes.BOOLEAN,
-    adminAdded: DataTypes.BOOLEAN
+    adminAdded: DataTypes.BOOLEAN,
+    DesignationId: DataTypes.INTEGER
   });
 
   Attendee.associate = (models) => {
     Attendee.belongsTo(models.Event, {
       onDelete: "CASCADE",
-      foreignKey: 'EventId'
+      foreignKey: 'EventId',
+      as: 'event'
     });
-  };
 
+    Attendee.belongsTo(models.Designation, {
+      foreignKey: 'DesignationId'
+    })
+  };
+  
   return Attendee;
 };

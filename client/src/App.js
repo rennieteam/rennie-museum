@@ -19,6 +19,7 @@ class App extends Component {
       timeOptions: [],
       selectedDate: null,
       guests: [{name: '', email: ''}],
+      designationOptions: []
     };
   };
 
@@ -36,19 +37,29 @@ class App extends Component {
     this.setState({ dateOptions });
   };
 
+  setDesignationOptions = (data) => {
+    let designationOptions = Object.assign([], this.state.designationOptions);
+    data.forEach((d) => {
+      designationOptions.push({ value: d.id, label: d.name });
+    });
+    this.setState({ designationOptions });
+  };
+
   componentDidMount = () => {
     let url;
-    if(process.env.NODE_ENV === 'development'){
-      url = config.developmentUrl;
+    if(process.env.REACT_APP_ENV){
+      url = config[process.env.REACT_APP_ENV];
     } else {
-      url = config.productionUrl;
+      url = config.development;
     };
     axios.get(`${url}/api/coming_events`)
       .then((results) => {
-        this.initializeData(results.data);
-      }).catch(error => {
-        console.log(error);
+        this.setDesignationOptions(results.data.designations);
+        this.initializeData(results.data.events);
       })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   updateEvents = events => this.setState({ events });
@@ -78,7 +89,7 @@ class App extends Component {
       <div className="App">
         <Route 
           path="/"
-          render={(props) => <BookingForm {...props} initializeData={this.initializeData} updateEvents={this.updateEvents} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions} />} />
+          render={(props) => <BookingForm {...props} designationOptions={this.state.designationOptions} initializeData={this.initializeData} updateEvents={this.updateEvents} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions} />} />
         {
           'cancel' in q ? <Route path="/" render={(props) => <CancelForm {...props} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions}  /> } /> : '' 
         }

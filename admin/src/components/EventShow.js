@@ -130,10 +130,10 @@ class EventShow extends Component {
       options.EventId = this.state.event.id;
       options.count = count;
       let url;
-      if(process.env.NODE_ENV){
-        url = config[process.env.NODE_ENV];
+      if(process.env.REACT_APP_ENV){
+        url = config[process.env.REACT_APP_ENV];
       } else {
-        url = config.production;
+        url = config.development;
       };
       axios.put(`${url}/api/event/${this.state.event.id}`, options)
         .then((result) => {
@@ -228,10 +228,12 @@ class EventShow extends Component {
 
   renderAttendee = (attendee, index) => {
     let attendeeId = attendee.id;
+    let designation = attendee.Designation ? attendee.Designation.name : 'n/a';
     return(
       <div className="attendee-container" key={index}>
         <span className={`name name-${this.state.attendeesRemoval[attendeeId]}`}> {attendee.name} </span>
         <span className="email"> {attendee.email} </span>
+        <span className="designation"> Designation: {designation} </span>
         <div className="icon-container">
           {
             attendee.adminAdded ? <i className="fas fa-exclamation-circle admin-added" /> : ''
@@ -290,6 +292,28 @@ class EventShow extends Component {
   };
 
   changeDate = date => this.setState({ date });
+
+  renderDesignationInfo = () => {
+    let count = {};
+    this.props.designations.forEach((d) => {
+      count[d.id] = 0;
+    });
+    this.state.attendees.forEach((attendee) => {
+      if(attendee.DesignationId !== null){
+        let n = attendee.guests.length + 1;
+        count[attendee.DesignationId] += n;
+      };
+    });
+    return(
+      this.props.designations.map((designation) => {
+        return (
+          <div className="designation-count" key={designation.id}>
+            {designation.name}: {count[designation.id]}
+          </div>
+        )
+      })
+    );
+  };
   
   renderForm = () => {
     if(this.state.isLoading){
@@ -324,6 +348,8 @@ class EventShow extends Component {
           </p>
           <p className="event-info total-attending"> Total Attending: {this.state.eventCount} </p>
           <p className="event-info remaining-spots"> Remaining Spots: {this.state.event.numberOfAttendees - this.state.eventCount} </p>
+          <p className="event-info designations-header"> Designations: </p>
+          {this.renderDesignationInfo()}
           <p className="event-info attendees-header"> Attendees: </p>
           {
             this.state.attendees.map((attendee, index) => {
@@ -332,12 +358,14 @@ class EventShow extends Component {
               )
             })
           }
-          <div className="add-guest" onClick={this.toggleAddGuest}>
-            <i className="fas fa-plus" />
-            <span> Add Attendee </span>
+          <div className="update-options-container">
+            <div className="add-guest" onClick={this.toggleAddGuest}>
+              <i className="fas fa-plus" />
+              <span> Add Attendee </span>
+            </div>
+            {this.renderPublishPrompt()}
+            {this.renderNotifyPrompt()}
           </div>
-          {this.renderPublishPrompt()}
-          {this.renderNotifyPrompt()}
         </div>
       )
     }
@@ -470,10 +498,10 @@ class EventShow extends Component {
 
   deleteBooking = () => {
     let url;
-    if(process.env.NODE_ENV){
-      url = config[process.env.NODE_ENV];
+    if(process.env.REACT_APP_ENV){
+      url = config[process.env.REACT_APP_ENV];
     } else {
-      url = config.production;
+      url = config.development;
     };
     axios.delete(`${url}/api/event/${this.state.event.id}`)
       .then((result) => {
@@ -585,6 +613,7 @@ class EventShow extends Component {
           eventCount={this.state.eventCount}
           toggleAddGuest={this.toggleAddGuest}
           updateEvents={this.props.updateEvents}
+          designations={this.props.designations}
         />
         <i className="menu-toggle fas fa-ellipsis-v" onClick={this.toggleMenu}/>
         {this.renderMenu()}

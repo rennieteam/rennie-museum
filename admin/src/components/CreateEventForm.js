@@ -56,10 +56,10 @@ class CreateEventForm extends Component {
       this.setState({ message: `Number of spots can't be zero or blank.`, error: true });
     } else {
       let url;
-      if(process.env.NODE_ENV){
-        url = config[process.env.NODE_ENV];
+      if(process.env.REACT_APP_ENV){
+        url = config[process.env.REACT_APP_ENV];
       } else {
-        url = config.production;
+        url = config.development;
       };
       axios.post(`${url}/api/events`, this.state)
         .then((result) => {

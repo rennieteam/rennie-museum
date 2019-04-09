@@ -54,6 +54,7 @@ button {
   grid-template-columns: repeat(12, 1fr);
   max-width: $max-width;
   margin: 0 auto;
+  padding-bottom: 100px;
 
   .sorter-container {
     padding-bottom: 5px;
@@ -172,6 +173,7 @@ button {
     .draft {
       color: grey;
     }
+
 
     .event-date,
     .event-time,
@@ -407,8 +409,9 @@ button {
   max-width: $max-width/2;
   position: relative;
   flex-direction: column;
-  min-width: 600px;
+  min-width: 50%;
   min-height: 350px;
+  margin-bottom: 100px;
 
   .hidden {
     display: none;
@@ -423,8 +426,12 @@ button {
     margin: 0 auto;
     box-shadow: 0 2px 6px rgba(0,0,0,0.3);
     padding: $pad;
-    top: 25%;
+    top: 50%;
     z-index: 1;
+
+    .designation-select {
+      margin-bottom: 15px;
+    }
 
     .close-form {
       font-size: 12px;
@@ -664,8 +671,15 @@ button {
 
   .edit-form {
     width: 100%;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+
+    .react-datetime-picker {
+      grid-column-start: 2;
+      grid-column-end: 4;
+
+    }
 
     .add-guest {
       margin-top: 10px;
@@ -699,6 +713,11 @@ button {
       margin-bottom: $pad;
     }
 
+    .event-header,
+    .event-info {
+      grid-column: span 4;
+    }
+
     .event-header {
       font-size: $medium;
       font-weight: normal;
@@ -709,6 +728,10 @@ button {
 
     .event-info {
       margin: 0;
+    }
+
+    .designation-count {
+      grid-column: span 2;
     }
 
     .edit-date {
@@ -736,19 +759,32 @@ button {
       margin-bottom: 10px;
     }
 
-    .attendees-header {
-      margin-bottom: 5px;
+    .attendees-header,
+    .designations-header {
+      font-weight: 600;
+    }
+
+    .update-options-container {
+      grid-column: span 4;
+      display: flex;
+      width: 100%;
+      flex-direction: column;
     }
 
     .attendee-container {
+      grid-column: span 2;
       width: 100%;
       display: flex;
       flex-direction: column;
       padding: 10px;
       margin-bottom: 5px;
-      border-bottom: 1px solid $primary;
+      border: 1px solid $primary;
       position: relative;
       padding-bottom: 40px;
+
+      .designation {
+        font-size: $small;
+      }
 
       .new-guest-input-container {
         display: grid;

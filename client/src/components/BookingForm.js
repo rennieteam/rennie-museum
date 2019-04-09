@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import hdate from 'human-date';
 import validator from 'email-validator';
 import config from '../config.js';
 import moment from 'moment-timezone';
@@ -26,7 +25,10 @@ class BookingForm extends Component {
       subscribe: false,
       disableAddGuest: false,
       disableAddMoreGuests: false,
-      fullyBooked: false
+      fullyBooked: false,
+      designation: null,
+      designationOptions: [],
+      designation: null
     };
   };
 
@@ -36,6 +38,9 @@ class BookingForm extends Component {
     };
     if(this.props.dateOptions !== prevProps.dateOptions){
       this.setState({ dateOptions: this.props.dateOptions });
+    };
+    if(this.props.designationOptions !== prevProps.designationOptions){
+      this.setState({ designationOptions: this.props.designationOptions});
     };
   };
 
@@ -75,6 +80,11 @@ class BookingForm extends Component {
         guests: []
       });
     };
+  };
+
+
+  selectDesignation = (designation) => {
+    this.setState({ designation });
   };
 
   showForm = (e) => {
@@ -190,23 +200,26 @@ class BookingForm extends Component {
       this.setMessage(message)
     } else if(!guests.every(checkGuests)) {
       this.setMessage('Guest names are required.')
+    } else if(!this.state.designation) {
+      this.setMessage('Please select a designation.')
     } else {
       bodyParams.forEach((param) => {
         body[param] = this.state[param];
       });
       let url;
-      if(process.env.NODE_ENV === 'development'){
-        url = config.developmentUrl;
+      if(process.env.REACT_APP_ENV){
+        url = config[process.env.REACT_APP_ENV];
       } else {
-        url = config.productionUrl;
+        url = config.development;
       };
       let d = moment(this.state.selectedEvent.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')
       body.eventDate = d;
+      body.designation = this.state.designation;
       axios.post(`${url}/api/attendees`, body)
         .then((result) => {
           if(result.data.success){
             this.props.initializeData(result.data.events);
-            this.setState({ name: '', email: '', selectedDate: null, guests: [{name: '', email: ''}], subscribe: false, selectedTime: null, selectedEvent: {} })
+            this.setState({ name: '', email: '', selectedDate: null, guests: [{name: '', email: ''}], subscribe: false, selectedTime: null, selectedEvent: {}, designation: null })
             this.setMessage('Thank you for booking.');
           } else if(result.data.full){
             this.setState({ selectedTime: null, selectedEvent: {} });
@@ -258,7 +271,6 @@ class BookingForm extends Component {
                 />
                 <Select
                   className="time-select"
-                  // placeholder="Time"
                   placeholder={this.state.fullyBooked ? "Fully Booked" : "Time"}
                   value={this.state.selectedTime}
                   onChange={this.selectTime}
@@ -284,6 +296,15 @@ class BookingForm extends Component {
                   name="email"
                   value={this.state.email}
                   onChange={this.handleAttendeeInfo}
+                />
+              </div>
+              <div className="designation-container">
+                <Select 
+                  placeholder="Please select a designation:"
+                  className="designation-select"
+                  options={this.state.designationOptions}
+                  value={this.state.designation}
+                  onChange={this.selectDesignation}
                 />
               </div>
               <div className="subscribe-container">
@@ -338,3 +359,7 @@ class BookingForm extends Component {
 };
 
 export default BookingForm;
+
+
+
+

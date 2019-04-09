@@ -550,6 +550,7 @@
 		list-style-type: none;
 		padding-left: 0;
 
+
 		.blocks-gallery-image:last-child,
 		.blocks-gallery-item:last-child {
 			margin-bottom: 16px;
@@ -566,23 +567,15 @@
 	}
 
 	//! Captions
-
-	.wp-block-audio ,
-	.wp-block-video ,
-	.wp-block-image ,
 	.wp-block-gallery .blocks-gallery-image ,
 	.wp-block-gallery .blocks-gallery-item  {
 		&:hover {
 			figcaption {
 				transform: translateY(0%);
-
 			}
 		}
 	}
 
-	.wp-block-audio figcaption,
-	.wp-block-video figcaption,
-	.wp-block-image figcaption,
 	.wp-block-gallery .blocks-gallery-image figcaption,
 	.wp-block-gallery .blocks-gallery-item figcaption {
 		color: #000;

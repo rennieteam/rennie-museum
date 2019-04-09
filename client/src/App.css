@@ -20,6 +20,57 @@ button:hover,
   color: black;
   box-sizing: border-box; }
 
+.css-d8oujb,
+.css-ln5n5c {
+  display: none; }
+
+.css-1hwfws3 {
+  position: absolute;
+  width: 80%;
+  overflow: visible; }
+
+.css-1wy0on6 {
+  position: absolute;
+  right: 0; }
+
+.css-15k3avv {
+  width: max-content; }
+  .css-15k3avv .css-11unzgr div {
+    font-size: 14px; }
+
+.css-bl6clz {
+  display: none !important; }
+
+.css-vj8t7z,
+.css-2o5izw,
+.css-162g8z5 {
+  height: 30px !important;
+  min-height: initial !important;
+  border-radius: 2 !important;
+  border: 1px solid #A4A6A8 !important; }
+  .css-vj8t7z .css-xp4uvy,
+  .css-vj8t7z .css-1492t68,
+  .css-2o5izw .css-xp4uvy,
+  .css-2o5izw .css-1492t68,
+  .css-162g8z5 .css-xp4uvy,
+  .css-162g8z5 .css-1492t68 {
+    font-size: 14px;
+    font-weight: lighter;
+    font-family: Antwerp; }
+  .css-vj8t7z .css-1ep9fjw,
+  .css-vj8t7z .css-1uq0kb5,
+  .css-2o5izw .css-1ep9fjw,
+  .css-2o5izw .css-1uq0kb5,
+  .css-162g8z5 .css-1ep9fjw,
+  .css-162g8z5 .css-1uq0kb5 {
+    padding: 8px 3px 8px 8px; }
+  .css-vj8t7z svg,
+  .css-2o5izw svg,
+  .css-162g8z5 svg {
+    height: 10px !important;
+    width: 10px !important;
+    fill: #A4A6A8; }
+
 .event {
   width: max-content;
   height: max-content;
@@ -106,8 +157,7 @@ button:hover,
   top: 0;
   bottom: 0;
   left: 0;
-  right: 0;
-  background: #DA291C; }
+  right: 0; }
 
 .booking-form-cta .no-booking-found,
 .booking-form-cta .loading-container,
@@ -614,6 +664,40 @@ button:hover,
         .booking-form-cta .cancel-edit-modal .booking-form .form-body .attendee-info input:focus,
         .cancel-edit-container .booking-form-container .booking-form .form-body .attendee-info input:focus,
         .cancel-edit-container .cancel-edit-modal .booking-form .form-body .attendee-info input:focus {
+          outline: none; }
+    .booking-form-cta .booking-form-container .booking-form .form-body .designation-container,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .designation-container,
+    .cancel-edit-container .booking-form-container .booking-form .form-body .designation-container,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .designation-container {
+      height: 30px;
+      margin-bottom: 10px;
+      display: flex; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .designation-container .css-10nd86i,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .designation-container .css-10nd86i,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .designation-container .css-10nd86i,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .designation-container .css-10nd86i {
+        width: calc(100%/2 - 5px); }
+        .booking-form-cta .booking-form-container .booking-form .form-body .designation-container .css-10nd86i .css-1492t68,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .designation-container .css-10nd86i .css-1492t68,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .designation-container .css-10nd86i .css-1492t68,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .designation-container .css-10nd86i .css-1492t68 {
+          font-size: 14px;
+          font-weight: lighter;
+          font-family: Antwerp; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .designation-container input,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .designation-container input,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .designation-container input,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .designation-container input {
+        width: calc(100% / 2);
+        height: 100%;
+        padding-left: 8px;
+        font-size: 14px;
+        border-radius: 2px;
+        border: 1px solid #A4A6A8; }
+        .booking-form-cta .booking-form-container .booking-form .form-body .designation-container input:focus,
+        .booking-form-cta .cancel-edit-modal .booking-form .form-body .designation-container input:focus,
+        .cancel-edit-container .booking-form-container .booking-form .form-body .designation-container input:focus,
+        .cancel-edit-container .cancel-edit-modal .booking-form .form-body .designation-container input:focus {
           outline: none; }
     .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container,
     .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container,

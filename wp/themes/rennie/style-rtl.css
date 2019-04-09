@@ -1270,7 +1270,7 @@ body.page .main-navigation {
   margin-right: 30px;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 920px) {
   .main-navigation > div {
     position: relative;
   }
@@ -1283,7 +1283,7 @@ body.page .main-navigation {
   display: none;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 920px) {
   .main-navigation #navToggle {
     display: block;
     background: none;
@@ -1394,7 +1394,7 @@ body.page .main-navigation {
   margin-left: 0;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 920px) {
   .main-navigation .main-menu {
     visibility: hidden;
     transform-origin: top;
@@ -4189,17 +4189,11 @@ body.page .main-navigation {
   color: #fff;
 }
 
-.entry .entry-content .wp-block-audio:hover figcaption,
-.entry .entry-content .wp-block-video:hover figcaption,
-.entry .entry-content .wp-block-image:hover figcaption,
 .entry .entry-content .wp-block-gallery .blocks-gallery-image:hover figcaption,
 .entry .entry-content .wp-block-gallery .blocks-gallery-item:hover figcaption {
   transform: translateY(0%);
 }
 
-.entry .entry-content .wp-block-audio figcaption,
-.entry .entry-content .wp-block-video figcaption,
-.entry .entry-content .wp-block-image figcaption,
 .entry .entry-content .wp-block-gallery .blocks-gallery-image figcaption,
 .entry .entry-content .wp-block-gallery .blocks-gallery-item figcaption {
   color: #000;

@@ -1,6 +1,8 @@
 const db = require('./../../db/models/index');
 const Events = db.Event;
 const Attendee = db.Attendee;
+const Designations = db.Designation;
+const AttendeeDesignation = db.AttendeeDesignation;
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
 const hdate = require('human-date');
@@ -20,50 +22,29 @@ const corsOptions = {
 
 const eventRouter = function (app) {
 
-  const splitPayload = (req, res, update = {}) => {
+  const splitPayload = async (req, res, update = {}) => {
     let payload = {};
     payload.update = update;
-    Events.findAll(
-      {
-        order: [
-          ['date', 'ASC']
-        ],
-        where: {
-          date: {
-            $gt: new Date()
-          }
-        },
-        include: [{
-          model: Attendee,
-          as: 'attendees'
-        }]
-      }
-    )
-    .then((evt) => {
-      payload.active = evt;
-    }).then(() => {
-      Events.findAll(
-        {
-          order: [
-            ['date', 'ASC']
-          ],
-          where: {
-            date: {
-              $lte: new Date()
-            }
-          },
-          include: [{
-            model: Attendee,
-            as: 'attendees'
-          }]
-        }
-      ).then((pastEvents) => {
-        payload.archived = pastEvents;
-      })
-      .then(() => {
-        res.json(payload);
-      })
-    })
+    let designations = await Designations.findAll();
+    payload.designations = designations;
+
+
+    let activeEvents = await Events.findAll({
+      order: [ ['date', 'ASC'] ],
+      where: { date: {$gt: new Date()} },
+      include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
+    });
+
+    let pastEvents = await Events.findAll({
+      order: [['date', 'ASC']],
+      where: { date: {$lte: new Date()} },
+      include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
+    });
+
+    payload.active = activeEvents;
+    payload.archived = pastEvents;
+
+    res.json(payload);
   };
 
   app.get('/api/events', (req, res) => {
@@ -87,7 +68,8 @@ const eventRouter = function (app) {
         },
         include: [{
           model: Attendee,
-          as: 'attendees'
+          as: 'attendees',
+          include: [{ model: Designations }]
         }]
       }
     )
@@ -120,7 +102,8 @@ const eventRouter = function (app) {
           },
           include: [{
             model: Attendee,
-            as: 'attendees'
+            as: 'attendees',
+            include: [{ model: Designations }]
           }]
         }
       ).then((pastEvents) => {
@@ -136,8 +119,9 @@ const eventRouter = function (app) {
     })
   });
 
-  app.get('/api/coming_events', (req, res) => {
-    Events.findAll(
+  app.get('/api/coming_events', async (req, res) => {
+    let payload = {};
+    let events = await Events.findAll(
       {
         order: [
           ['date', 'ASC']
@@ -153,8 +137,12 @@ const eventRouter = function (app) {
           as: 'attendees'
         }]
       }
-    )
-    .then(evt => res.json(evt));
+    );
+    let designations = await Designations.findAll();
+    payload.events = events;
+    payload.designations = designations;
+
+    res.json(payload);
   });
 
   app.post('/api/events', (req, res) => {
@@ -164,20 +152,6 @@ const eventRouter = function (app) {
     }).catch(error => {
       console.log(error)
     })
-  });
-
-  app.get('/api/event/:eventId', (req, res) => {
-    Events.findOne({
-      where: {
-        id: parseInt(req.params['eventId'])
-      },
-      include: [{
-        model: Attendee,
-        as: 'attendees'
-      }]
-    })
-    .then(evt => res.json(evt))
-    .catch(error => res.send(error))
   });
 
   app.put('/api/event/:eventId', (req, res) => {
@@ -206,13 +180,19 @@ const eventRouter = function (app) {
         });
       };
       return results;
-    }).then((results) => {
+    }).then(async (results) => {
       if(results.length){
-        Attendee.destroy({
+        let d = await AttendeeDesignation.destroy({
+          where: {
+            AttendeeId: req.body.removal
+          }
+        });
+
+        let a = await Attendee.destroy({
           where: {
             id: req.body.removal
           }
-        })
+        });
       };
     }).then(async () => {
       if(Object.keys(guestsRemoval).length){
@@ -288,15 +268,29 @@ const eventRouter = function (app) {
   // this line needed to enable CORS pre-flight for delete method
   app.options('/api/event/:eventId', cors(corsOptions));
 
-  app.delete('/api/event/:eventId', cors(corsOptions), (req, res) => {
+  app.delete('/api/event/:eventId', cors(corsOptions), async (req, res) => {
 
-    Events.destroy({
-      where: {
-        id: parseInt(req.params['eventId'])
-      }
-    }).then((result) => {
+    let event = await Events.findOne({
+      where: { id: parseInt(req.params['eventId']) },
+      include: [{ model: Attendee, as: 'attendees' }]
+    });
+
+    let ids = [];
+
+    event.attendees.forEach((attendee) => {
+      ids.push(attendee.id);
+    });
+
+    AttendeeDesignation.destroy({
+      where: { AttendeeId:  ids }
+    }).then(() => {
+      event.destroy();
+    }).then(() => {
       splitPayload(req, res);
-    }).catch(err => console.log(err))
+    }).catch((error) => {
+      console.log(error);
+      res.json(error);
+    });
   });
 }
 
