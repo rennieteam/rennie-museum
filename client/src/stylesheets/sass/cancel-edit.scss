@@ -1,0 +1,131 @@
+@import 'vars.scss';
+
+.cancel-edit-container,
+.register-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(208,208,206,0.9);
+  z-index: 1;
+
+  .cancel-edit-modal {
+    border-radius: 2px;
+    width: max-content;
+    background: $white;
+  }
+
+  .register-modal {
+    padding: $pad;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: $white;
+    border-radius: 2px;
+    max-width: 470px;
+
+    .register-masthead {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: $pad;
+
+      .logo {
+        height: 12px;
+        width: auto;
+      }
+
+      .close-register-button {
+        font-size: $smallest;
+        text-decoration: none;
+        cursor: pointer;
+        color: $black;
+      }
+    }
+
+    .register-header {
+      margin: 0;
+      font-size: $medium;
+      font-family: $serif;
+      font-weight: normal;
+      margin-bottom: 15px;
+    }
+
+    .register-text {
+      font-family: $serif;
+      color: $dark-grey;
+      font-size: $small;
+      margin: 0 0 $pad 0;
+      line-height: 22px;
+      font-weight: 300;
+    }
+
+    .register-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 15px;
+      grid-row-gap: 10px;
+      margin-bottom: $pad;
+      width: 100%;
+
+      .email-input {
+        grid-column: span 2;
+      }
+
+      .name-input {
+        grid-column: span 1;
+        width: 100%;
+      }
+
+      .email-input,
+      .name-input {
+        height: $pad;
+        padding-left: 8px;
+        border: 1px solid $grey;
+        border-radius: 2px;
+        font-family: $serif;
+        font-size: $small;
+
+        ::placeholder {
+          color: $grey;
+          font-family: $serif;
+        }
+      }
+    }
+
+    .register-button {
+      height: $pad;
+      font-size: $smallest;
+      color: $white;
+      background: $primary;
+      padding: 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      border-radius: 2px;
+      font-family: $serif;
+      width: max-content;
+      margin: 0 auto;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .register-message {
+      font-style: italic;
+      position: absolute;
+      left: $pad;
+      bottom: 5px;
+      font-size: $smallest;
+      color: $primary;
+    }
+
+
+  }
+}

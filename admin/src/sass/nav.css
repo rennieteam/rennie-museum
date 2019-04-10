@@ -1,0 +1,10 @@
+.admin-nav {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
+  .admin-nav-item {
+    text-decoration: none;
+    margin: 10px;
+    font-size: 24px;
+    color: #000000; }

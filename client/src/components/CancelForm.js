@@ -219,7 +219,6 @@ class CancelForm extends Component {
       options.eventDate = formattedDate;
       axios.put(`${url}/api/attendee/${this.state.attendee.id}`, options)
         .then((result) => {
-          console.log(result);
           if(result.data.tooMany){
             this.setMessage('Sorry, insufficient spots.');
           } else if(result.data.full){
