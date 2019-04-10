@@ -1,10 +1,10 @@
 'use strict';
 
 let types = [
-  {name: 'Tour'},
-  {name: 'Lunch & Learn'},
-  {name: 'Rennie Coffee'},
-  {name: 'Other'}
+  {name: 'tour', default: true},
+  {name: 'lunch & learn', default: true},
+  {name: 'rennie coffee', default: true},
+  {name: 'other', default: true}
 ];
 
 const db = require('../models/index');
