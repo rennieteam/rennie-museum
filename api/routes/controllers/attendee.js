@@ -12,7 +12,6 @@ const secret = 'abc';
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
 const countHelper = require('../../helpers/countHelper');
-const hdate = require('human-date');
 const moment = require('moment-timezone');
 
 const corsOptions = {
@@ -25,18 +24,7 @@ const corsOptions = {
   }
 };
 
-let transport = nodemailer.createTransport(mandrillTransport({
-  auth: {
-    apiKey: config.mandrill.key
-  }
-}));
-
 const attendeeRouter = function (app) {
-  app.get('/api/attendees', (req, res) => {
-    Attendee.findAll().then((attendees) => {
-      res.json(attendees);
-    })
-  });
 
   app.post('/api/attendee/register', (req, res) => {
     const mailChimp = new Mailchimp(config.mailchimp.key);
@@ -167,13 +155,8 @@ const attendeeRouter = function (app) {
 
   app.get('/api/attendee/:attendeeHash', (req, res) => {
     Attendee.findOne({
-      where: {
-        hash: req.params['attendeeHash']
-      },
-      include: [{
-        model: Event,
-        as: 'event'
-      }]
+      where: { hash: req.params['attendeeHash'] },
+      include: [{ model: Event, as: 'event' }]
     })
     .then(attendee => {
       if(attendee){
@@ -184,56 +167,35 @@ const attendeeRouter = function (app) {
     })
     .catch((error) => {
       console.log(error);
+      res.json(error);
     })
   });
 
-  app.get('/api/attendee/:attendeeId', (req, res) => {
-    Attendee.findAll({
-      where: {
-        id: parseInt(req.params['attendeeId'])
-      }
-    }).then(attendee => res.json(attendee));
-  });
-
-  app.put('/api/attendee/:attendeeId', (req, res) => {
+  app.put('/api/attendee/:attendeeId', async (req, res) => {
     let options = {};
     options.guests = req.body.guests;
     options.EventId = req.body.EventId;
     let count = req.body.guests.length + 1;
-    let evtCount;
-    let numberOfAttendees;
-    let evtDate;
     let payload = { success: false };
 
-    Event.findOne({
+    let event = await Event.findOne({
       where: { id: parseInt(req.body.EventId) },
-      include: [{
-        model: Attendee,
-        as: 'attendees'
-      }]
-    })
-    .then((result) => {
-      evtDate = result.dataValues.date;
-      evtCount = countHelper(result.dataValues);
-      numberOfAttendees = result.dataValues.numberOfAttendees;
-    })
-    .then(() => {
-      if(evtCount >= numberOfAttendees){
-        payload.full = true;
-      } else if(numberOfAttendees - evtCount < count){
-        payload.tooMany = true;
-      } else if(new Date(evtDate) < new Date()) {
-        payload.past = true;
-      } else {
-        payload.success = true;
-      };
-    })
-    .then(() => {
-      if(payload.success){
-        Attendee.update(
-          options,
-          { returning: true, where: {id: req.params['attendeeId']} }
-        )
+      include: [{ model: Attendee, as: 'attendees' }]
+    });
+
+    let evtDate = event.date;
+    let evtCount = countHelper(event);
+    let numberOfAttendees = event.numberOfAttendees;
+
+    if(evtCount >= numberOfAttendees){
+      payload.full = true;
+    } else if(numberOfAttendees - evtCount < count){
+      payload.tooMany = true;
+    } else if(new Date(evtDate) < new Date()) {
+      payload.past = true;
+    } else {
+      payload.success = true;
+      Attendee.update(options, { returning: true, where: { id: parseInt(req.params['attendeeId']) }})
         .then(([result, [updatedAttendee]]) => {
           updatedAttendee.dataValues.eventDate = req.body.eventDate;
           if(process.env.NODE_ENV !== 'test'){
@@ -243,16 +205,12 @@ const attendeeRouter = function (app) {
           res.json(payload);
         })
         .catch((error) => {
+          console.log(error);
           res.json(error);
-        })
-      } else {
-        res.json(payload);
-      };
-    })
-    .catch(error => {
-      res.json(error);
-    })
+        });
+    };
 
+    res.json(payload);
   });
 
   app.options('/api/attendee/:attendeeId', cors(corsOptions));

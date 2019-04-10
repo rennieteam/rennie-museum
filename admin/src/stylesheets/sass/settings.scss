@@ -1,0 +1,90 @@
+@import 'vars.scss';
+
+.settings-container {
+  width: 50%;
+  margin: 0 auto;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  padding: $pad;
+  grid-gap: $grid-gap;
+
+  .settings-option {
+    grid-column: span 1;
+    border: 1px solid $primary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50px;
+  }
+
+  .option-form {
+    position: absolute;
+    padding: $pad;
+    border: 1px solid black;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 25vh;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: $grid-gap;
+
+    .close {
+      position: absolute;
+      top: $pad;
+      right: $pad;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .form-header {
+      margin: 0;
+      grid-column: span 3;
+    }
+
+    .form-item {
+      grid-column: span 1;
+      background: $primary;
+      color: $white;
+      font-weight: 600;
+      padding: 10px;
+      position: relative;
+
+      .delete-item {
+        position: absolute;
+        right: 10px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .form-message {
+      grid-column: span 3;
+      color: $primary;
+    }
+
+    .form-inputs {
+      grid-column: span 3;
+
+      .name-input {
+        width: 25%;
+        height: $pad;
+      }
+
+      .create-button {
+        width: 25%;
+        height: $pad;
+        margin-left: 10px;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

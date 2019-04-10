@@ -8,6 +8,7 @@ import CreateEventForm from './components/CreateEventForm';
 import EventIndex from './components/EventIndex';
 import EventShow from './components/EventShow';
 import NavBar from './components/NavBar';
+import Settings from './components/Settings';
 import axios from 'axios';
 
 class App extends Component {
@@ -19,7 +20,8 @@ class App extends Component {
       active: [],
       archived: [],
       toggleActive: true,
-      designations: []
+      designations: [],
+      eventTypes: []
     };
   };
 
@@ -32,10 +34,20 @@ class App extends Component {
     };
     axios.get(`${url}/api/events/`)
       .then((result) => {
-        this.setState({ events: result.data.active, active: result.data.active, archived: result.data.archived, designations: result.data.designations });
+        this.setState({ 
+          events: result.data.active,
+          active: result.data.active,
+          archived: result.data.archived,
+          designations: result.data.designations,
+          eventTypes: result.data.eventTypes
+        });
       })
       .catch((error) => {
       })
+  };
+
+  updateEventTypes = (eventTypes) => {
+    this.setState({ eventTypes });
   };
 
   activeSwitch = () => {
@@ -116,8 +128,16 @@ class App extends Component {
                     setMessage={this.setMessage} 
                     updateEvents={this.updateEvents} 
                     calculateCount={this.calculateCount} 
-                    events={this.state.events} /> } />) ;
-    };
+                    events={this.state.events} /> } />);
+    } else if('settings' in hash){
+      return (<Route 
+        path="/" 
+        render={(props) => 
+          <Settings 
+            {...props}
+            updateEventTypes={this.updateEventTypes}
+            eventTypes={this.state.eventTypes} /> } />);
+    }
   };
 
   render() {
