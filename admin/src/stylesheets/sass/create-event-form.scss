@@ -1,0 +1,84 @@
+@import 'vars.scss';
+
+.create-event-form {
+  padding: $pad;
+  border: 1px $grey solid;
+  width: max-content;
+  margin: 0 auto;
+  position: relative;
+
+  .create-header {
+    font-size: $medium;
+    font-weight: normal;
+    margin: 0 0 20px 0;
+    border-bottom: thin $primary solid;
+    padding-bottom: 10px;
+  }
+
+  .publish-checkbox-container {
+    margin-bottom: $pad;
+    width: 100%;
+    display: flex;
+
+    label {
+      font-size: $small;
+      margin-right: 10px;
+    }
+  }
+
+  .react-datetime-picker {
+    margin-bottom: 10px;
+    width: 100%;
+
+    .react-datetime-picker__inputGroup__hour {
+      margin-left: 10px;
+    }
+
+    &__wrapper {
+      width: 100%;
+    }
+
+    &__calendar {
+      bottom: inital;
+      top: 0;
+    }
+
+    &__clock {
+      display: none;
+    }
+  }
+
+  .spots-container {
+    margin-bottom: 10px;
+    height: $pad;
+
+    label {
+      font-size: $small;
+      margin-right: 10px;
+    }
+
+    input {
+      height: 100%;
+      padding-left: 10px;
+    }
+  }
+
+  .create-form-message {
+    font-family: $serif;
+    color: $primary;
+    font-style: italic;
+    font-size: $small;
+  }
+
+  .create-button {
+    padding: 0 10px;
+    border: none;
+    background: $primary;
+    color: $white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: $pad;
+    font-size: $smallest;
+  }
+}

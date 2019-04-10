@@ -13,6 +13,7 @@ class NavBar extends Component {
       <div className="admin-nav" id="admin-nav">
         <a className="admin-nav-item" href="#index"> Events </a>
         <a className="admin-nav-item" href="#newEvent"> New Event </a>
+        <a className="admin-nav-item" href="#settings"> Settings </a>
       </div>
     );
   }
