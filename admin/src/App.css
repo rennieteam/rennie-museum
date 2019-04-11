@@ -708,7 +708,8 @@ button:focus {
     margin: 0;
     padding: 0; }
   .waiver-container {
-    padding-top: 0 !important; }
+    padding-top: 0 !important;
+    height: 100vh; }
   .wrap {
     margin: 0; }
     .wrap h2,
