@@ -13,3 +13,9 @@
     display: none;
   }
 }
+
+// hide recaptcha
+.grecaptcha-badge {
+  display: none;
+  visibility: hidden;
+}

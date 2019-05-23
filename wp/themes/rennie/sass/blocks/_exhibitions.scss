@@ -1,0 +1,15 @@
+.exhibitions {
+  .post-thumbnail {
+    margin-bottom: 15px;
+  }
+
+  .entry-header {
+    margin-top: 0;
+  }
+
+  .entry-title {
+    &:before {
+      display: none;
+    }
+  }
+}
