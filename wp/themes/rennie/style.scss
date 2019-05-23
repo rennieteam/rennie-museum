@@ -103,8 +103,20 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /* Blocks */
 
 @import "sass/blocks/blocks";
+@import "sass/blocks/exhibitions";
 
 /* Media */
 
 @import "sass/media/media";
 @import "sass/helpers/helpers";
+
+
+.backdrop {
+	background: red;
+	&.hidden {
+		display: none;
+		position: fixed;
+		width: 0;
+		height: 0;
+	}
+}
