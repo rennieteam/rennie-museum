@@ -11,7 +11,7 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('exhibition-show'); ?>>
 
 
 	<div class="entry-content">
@@ -31,12 +31,15 @@
 			)
 		);
 
-		wp_link_pages(
-			array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'renniemuseum' ),
-				'after'  => '</div>',
-			)
-		);
+		if(!is_singular( 'exhibitions' )) {
+			wp_link_pages(
+				array(
+					'before' => '<div class="page-links">' . __( 'Pages:', 'renniemuseum' ),
+					'after'  => '</div>',
+				)
+			);
+		}
+
 		?>
 	</div><!-- .entry-content -->
 </article><!-- #post-${ID} -->
