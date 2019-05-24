@@ -266,6 +266,7 @@ function create_exhibitions() {
 		'name_admin_bar'        => __( 'exhibitions', 'text_domain' ),
 		'archives'              => __( 'exhibitions', 'text_domain' ),
 		'attributes'            => __( 'Item Attributes', 'text_domain' ),
+		'parent_item'           => __( 'Parent Item:', 'textdomain' ),
 		'parent_item_colon'     => __( 'Parent Item:', 'text_domain' ),
 		'all_items'             => __( 'All Items', 'text_domain' ),
 		'add_new_item'          => __( 'Add New Item', 'text_domain' ),
@@ -290,8 +291,8 @@ function create_exhibitions() {
 	);
 	$rewrite = array(
 		'slug'                  => 'exhibitions',
-		'with_front'            => true,
-		'pages'                 => true,
+		'with_front'            => false,
+		'pages'                 => false,
 		'feeds'                 => false,
 	);
 
@@ -299,8 +300,7 @@ function create_exhibitions() {
 		'label'                 => __( 'Exhibitions', 'text_domain' ),
 		'description'           => __( 'Rennie Museum Exhibitions', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' ),
-		'taxonomies'            => array( 'post_format' ),
+		'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes'),
 		'hierarchical'          => true,
 		'public'                => true,
 		'show_ui'               => true,
@@ -310,7 +310,7 @@ function create_exhibitions() {
 		'show_in_admin_bar'     => true,
 		'show_in_nav_menus'     => true,
 		'can_export'            => true,
-		'has_archive'           => true,
+		'has_archive'           => false,
 		'exclude_from_search'   => false,
 		'publicly_queryable'    => true,
 		'rewrite'               => $rewrite,
