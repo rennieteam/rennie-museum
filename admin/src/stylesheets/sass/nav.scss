@@ -1,0 +1,15 @@
+@import 'vars.scss';
+
+.admin-nav {
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &-item {
+    text-decoration: none;
+    margin: 10px;
+    font-size: $large;
+    color: $black;
+  }
+}

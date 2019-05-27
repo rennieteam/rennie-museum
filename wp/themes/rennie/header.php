@@ -19,6 +19,15 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 	<?php wp_head(); ?>
 
+	<link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_template_directory_uri(); ?>/favicon/apple-touch-icon.png?v=2">
+	<link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_template_directory_uri(); ?>/favicon/favicon-32x32.png?v=2">
+	<link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_template_directory_uri(); ?>/favicon/favicon-16x16.png?v=2">
+	<link rel="manifest" href="<?php echo get_template_directory_uri(); ?>/favicon/site.webmanifest">
+	<link rel="mask-icon" href="<?php echo get_template_directory_uri(); ?>/favicon/safari-pinned-tab.svg" color="#da291c">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="theme-color" content="#ffffff">
+
+
 	<meta name="pinterest" content="nopin">
 
 	<script type="text/javascript" async="" src="https://www.google-analytics.com/ga.js"></script>
@@ -45,7 +54,7 @@
 		</header><!-- #masthead -->
 
 	<div id="content" class="site-content">
-		<?php if ( is_singular() && !is_front_page() ) : ?>
+		<?php if ( is_singular() && !is_front_page() && !is_page('Exhibitions') ) : ?>
 			<div class="site-featured-image">
 				<?php
 					renniemuseum_post_thumbnail();

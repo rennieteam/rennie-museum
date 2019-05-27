@@ -1,0 +1,114 @@
+.cancel-edit-container,
+.register-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(208, 208, 206, 0.9);
+  z-index: 1; }
+  .cancel-edit-container .cancel-edit-modal,
+  .register-container .cancel-edit-modal {
+    border-radius: 2px;
+    width: max-content;
+    background: #FFFFFF; }
+  .cancel-edit-container .register-modal,
+  .register-container .register-modal {
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    background: #FFFFFF;
+    border-radius: 2px;
+    max-width: 470px; }
+    .cancel-edit-container .register-modal .register-masthead,
+    .register-container .register-modal .register-masthead {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px; }
+      .cancel-edit-container .register-modal .register-masthead .logo,
+      .register-container .register-modal .register-masthead .logo {
+        height: 12px;
+        width: auto; }
+      .cancel-edit-container .register-modal .register-masthead .close-register-button,
+      .register-container .register-modal .register-masthead .close-register-button {
+        font-size: 12px;
+        text-decoration: none;
+        cursor: pointer;
+        color: #000000; }
+    .cancel-edit-container .register-modal .register-header,
+    .register-container .register-modal .register-header {
+      margin: 0;
+      font-size: 20px;
+      font-family: Antwerp;
+      font-weight: normal;
+      margin-bottom: 15px; }
+    .cancel-edit-container .register-modal .register-text,
+    .register-container .register-modal .register-text {
+      font-family: Antwerp;
+      color: #333333;
+      font-size: 14px;
+      margin: 0 0 30px 0;
+      line-height: 22px;
+      font-weight: 300; }
+    .cancel-edit-container .register-modal .register-inputs,
+    .register-container .register-modal .register-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-column-gap: 15px;
+      grid-row-gap: 10px;
+      margin-bottom: 30px;
+      width: 100%; }
+      .cancel-edit-container .register-modal .register-inputs .email-input,
+      .register-container .register-modal .register-inputs .email-input {
+        grid-column: span 2; }
+      .cancel-edit-container .register-modal .register-inputs .name-input,
+      .register-container .register-modal .register-inputs .name-input {
+        grid-column: span 1;
+        width: 100%; }
+      .cancel-edit-container .register-modal .register-inputs .email-input,
+      .cancel-edit-container .register-modal .register-inputs .name-input,
+      .register-container .register-modal .register-inputs .email-input,
+      .register-container .register-modal .register-inputs .name-input {
+        height: 30px;
+        padding-left: 8px;
+        border: 1px solid #A4A6A8;
+        border-radius: 2px;
+        font-family: Antwerp;
+        font-size: 14px; }
+        .cancel-edit-container .register-modal .register-inputs .email-input ::placeholder,
+        .cancel-edit-container .register-modal .register-inputs .name-input ::placeholder,
+        .register-container .register-modal .register-inputs .email-input ::placeholder,
+        .register-container .register-modal .register-inputs .name-input ::placeholder {
+          color: #A4A6A8;
+          font-family: Antwerp; }
+    .cancel-edit-container .register-modal .register-button,
+    .register-container .register-modal .register-button {
+      height: 30px;
+      font-size: 12px;
+      color: #FFFFFF;
+      background: #DA291C;
+      padding: 0 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: none;
+      border-radius: 2px;
+      font-family: Antwerp;
+      width: max-content;
+      margin: 0 auto; }
+      .cancel-edit-container .register-modal .register-button:hover,
+      .register-container .register-modal .register-button:hover {
+        cursor: pointer; }
+    .cancel-edit-container .register-modal .register-message,
+    .register-container .register-modal .register-message {
+      font-style: italic;
+      position: absolute;
+      left: 30px;
+      bottom: 5px;
+      font-size: 12px;
+      color: #DA291C; }

@@ -299,7 +299,7 @@ class BookingForm extends Component {
                 />
               </div>
               <div className="designation-container">
-                <Select 
+                <Select
                   placeholder="Please select a designation:"
                   className="designation-select"
                   options={this.state.designationOptions}

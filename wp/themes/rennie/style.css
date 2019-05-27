@@ -1268,6 +1268,8 @@ body.page .main-navigation {
 
 .main-navigation > div #root {
   margin-left: 30px;
+  width: 120px;
+  height: 120px;
 }
 
 @media only screen and (max-width: 920px) {
@@ -1297,6 +1299,7 @@ body.page .main-navigation {
   display: flex;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 .main-navigation .main-menu:focus {
@@ -2211,6 +2214,10 @@ body.page .main-navigation {
 }
 
 .singular .site-content {
+  padding-top: 120px;
+}
+
+.archive .site-content {
   padding-top: 120px;
 }
 
@@ -3382,7 +3389,7 @@ body.page .main-navigation {
 
 @media only screen and (min-width: 768px) {
   .hfeed .entry .entry-header {
-    margin: calc(3 * 1rem) calc(10% + 60px) calc(1rem / 2);
+    margin: 0 calc(10% + 60px) calc(1rem / 2);
   }
 }
 
@@ -4530,6 +4537,18 @@ body.page .main-navigation {
   color: #FFF;
 }
 
+.exhibitions .post-thumbnail {
+  margin-bottom: 15px;
+}
+
+.exhibitions .entry-header {
+  margin-top: 0;
+}
+
+.exhibitions .entry-title:before {
+  display: none;
+}
+
 /* Media */
 .page-content .wp-smiley,
 .entry-content .wp-smiley,
@@ -4724,4 +4743,16 @@ svg {
   .mobile-only {
     display: none;
   }
+}
+
+.grecaptcha-badge {
+  display: none;
+  visibility: hidden;
+}
+
+.backdrop.hidden {
+  display: none;
+  position: fixed;
+  width: 0;
+  height: 0;
 }

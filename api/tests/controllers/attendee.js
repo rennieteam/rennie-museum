@@ -8,19 +8,6 @@ const Attendee = db.Attendee;
 const Event = db.Event;
 const testConfig = require('../../testconfig.js');
 
-describe('GET /api/attendees', function(){
-  it('responds with json', function(done){
-    request(app)
-      .get('/api/attendees')
-      .set('Accept', 'application/json')
-      .expect('Content-Type', /json/)
-      .expect(200)
-      .end(function(err, res){
-        if(err) return done(err);
-        done();
-      });
-  });
-});
 
 describe('POST /api/attendees', function(){
   Attendee.create({EventId: 1, name: 'Chester', email: 'chester@rennie.com', guests: []}).then(() => {

@@ -472,17 +472,27 @@ class EventShow extends Component {
       };
       iteration.push(list);
       iteration.push(emptyList);
-    } else if(list.length <= 20){
-      let x = list.slice(0, 10);
-      let y = list.slice(10, 20);
-      let remainder = 10 - y.length;
-      if(remainder){
-        Array.from({ length: remainder }).forEach(() => {
-          y.push('');
-        });
+    } else {
+      let count = Math.ceil(list.length / 10);
+      let position = 0;
+      for(let x = 0; x < count; x ++){
+        let set = [];
+        for(let y = 0; y < 10; y++){
+          if(list[position]){
+            set.push(list[position]);
+            position++;
+          } else {
+            break;
+          }
+        }
+        iteration.push(set);
       };
-      iteration.push(x);
-      iteration.push(y);
+      let remainder = (count * 10) - list.length;
+      if(remainder){
+        for(let x = 0; x < remainder; x++){
+          iteration[count-1].push('');
+        };
+      };
     };
 
     return(

@@ -1268,6 +1268,8 @@ body.page .main-navigation {
 
 .main-navigation > div #root {
   margin-right: 30px;
+  width: 120px;
+  height: 120px;
 }
 
 @media only screen and (max-width: 920px) {
@@ -1297,6 +1299,7 @@ body.page .main-navigation {
   display: flex;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 .main-navigation .main-menu:focus {
@@ -1520,6 +1523,17 @@ body.page .main-navigation {
   /* Nested sub-menu dashes */
 }
 
+.main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu {
+  display: block;
+  right: 0;
+  margin-top: 0;
+  opacity: 1;
+  width: auto;
+  min-width: 100%;
+  /* Non-mobile position */
+  /* Nested sub-menu dashes */
+}
+
 .main-navigation .main-menu .menu-item-has-children:not(.off-canvas):focus-within > .sub-menu {
   display: block;
   right: 0;
@@ -1532,6 +1546,21 @@ body.page .main-navigation {
 }
 
 @media only screen and (min-width: 768px) {
+  .main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu {
+    display: block;
+    margin-top: 0;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    left: auto;
+    top: auto;
+    bottom: auto;
+    height: auto;
+    min-width: -moz-max-content;
+    min-width: -webkit-max-content;
+    min-width: max-content;
+    transform: none;
+  }
   .main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu {
     display: block;
     margin-top: 0;
@@ -1571,6 +1600,13 @@ body.page .main-navigation {
   position: absolute;
 }
 
+.main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu.hidden-links {
+  right: 0;
+  width: 100%;
+  display: table;
+  position: absolute;
+}
+
 .main-navigation .main-menu .menu-item-has-children:not(.off-canvas):focus-within > .sub-menu.hidden-links {
   right: 0;
   width: 100%;
@@ -1579,6 +1615,12 @@ body.page .main-navigation {
 }
 
 @media only screen and (min-width: 768px) {
+  .main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu.hidden-links {
+    left: 0;
+    right: auto;
+    display: block;
+    width: max-content;
+  }
   .main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu.hidden-links {
     left: 0;
     right: auto;
@@ -1597,8 +1639,22 @@ body.page .main-navigation {
   display: none;
 }
 
+.main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu .submenu-expand {
+  display: none;
+}
+
 .main-navigation .main-menu .menu-item-has-children:not(.off-canvas):focus-within > .sub-menu .submenu-expand {
   display: none;
+}
+
+.main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu .sub-menu {
+  display: block;
+  margin-top: inherit;
+  position: relative;
+  width: 100%;
+  right: 0;
+  opacity: 1;
+  /* Non-mobile position */
 }
 
 .main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu .sub-menu {
@@ -1626,6 +1682,10 @@ body.page .main-navigation {
     float: none;
     max-width: 100%;
   }
+  .main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu .sub-menu {
+    float: none;
+    max-width: 100%;
+  }
   .main-navigation .main-menu .menu-item-has-children:not(.off-canvas):focus-within > .sub-menu .sub-menu {
     float: none;
     max-width: 100%;
@@ -1636,8 +1696,19 @@ body.page .main-navigation {
   counter-reset: submenu;
 }
 
+.main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu .sub-menu {
+  counter-reset: submenu;
+}
+
 .main-navigation .main-menu .menu-item-has-children:not(.off-canvas):focus-within > .sub-menu .sub-menu {
   counter-reset: submenu;
+}
+
+.main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu .sub-menu > li > a::before {
+  font-family: "Antwerp", serif;
+  font-weight: normal;
+  content: "– " counters(submenu, "– ", none);
+  counter-increment: submenu;
 }
 
 .main-navigation .main-menu .menu-item-has-children:not(.off-canvas)[focus-within] > .sub-menu .sub-menu > li > a::before {
@@ -2205,6 +2276,10 @@ body.page .main-navigation {
 }
 
 .singular .site-content {
+  padding-top: 120px;
+}
+
+.archive .site-content {
   padding-top: 120px;
 }
 
@@ -3376,7 +3451,7 @@ body.page .main-navigation {
 
 @media only screen and (min-width: 768px) {
   .hfeed .entry .entry-header {
-    margin: calc(3 * 1rem) calc(10% + 60px) calc(1rem / 2);
+    margin: 0 calc(10% + 60px) calc(1rem / 2);
   }
 }
 
@@ -4518,6 +4593,18 @@ body.page .main-navigation {
   color: #FFF;
 }
 
+.exhibitions .post-thumbnail {
+  margin-bottom: 15px;
+}
+
+.exhibitions .entry-header {
+  margin-top: 0;
+}
+
+.exhibitions .entry-title:before {
+  display: none;
+}
+
 /* Media */
 .page-content .wp-smiley,
 .entry-content .wp-smiley,
@@ -4712,4 +4799,20 @@ svg {
   .mobile-only {
     display: none;
   }
+}
+
+.grecaptcha-badge {
+  display: none;
+  visibility: hidden;
+}
+
+.backdrop {
+  background: red;
+}
+
+.backdrop.hidden {
+  display: none;
+  position: fixed;
+  width: 0;
+  height: 0;
 }

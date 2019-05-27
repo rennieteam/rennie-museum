@@ -1,0 +1,55 @@
+.create-event-form {
+  padding: 30px;
+  border: 1px #A4A6A8 solid;
+  width: max-content;
+  margin: 0 auto;
+  position: relative; }
+  .create-event-form .create-header {
+    font-size: 20px;
+    font-weight: normal;
+    margin: 0 0 20px 0;
+    border-bottom: thin #DA291C solid;
+    padding-bottom: 10px; }
+  .create-event-form .publish-checkbox-container {
+    margin-bottom: 30px;
+    width: 100%;
+    display: flex; }
+    .create-event-form .publish-checkbox-container label {
+      font-size: 14px;
+      margin-right: 10px; }
+  .create-event-form .react-datetime-picker {
+    margin-bottom: 10px;
+    width: 100%; }
+    .create-event-form .react-datetime-picker .react-datetime-picker__inputGroup__hour {
+      margin-left: 10px; }
+    .create-event-form .react-datetime-picker__wrapper {
+      width: 100%; }
+    .create-event-form .react-datetime-picker__calendar {
+      bottom: inital;
+      top: 0; }
+    .create-event-form .react-datetime-picker__clock {
+      display: none; }
+  .create-event-form .spots-container {
+    margin-bottom: 10px;
+    height: 30px; }
+    .create-event-form .spots-container label {
+      font-size: 14px;
+      margin-right: 10px; }
+    .create-event-form .spots-container input {
+      height: 100%;
+      padding-left: 10px; }
+  .create-event-form .create-form-message {
+    font-family: Antwerp;
+    color: #DA291C;
+    font-style: italic;
+    font-size: 14px; }
+  .create-event-form .create-button {
+    padding: 0 10px;
+    border: none;
+    background: #DA291C;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    font-size: 12px; }
