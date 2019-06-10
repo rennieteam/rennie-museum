@@ -173,3 +173,13 @@ if ( ! function_exists( 'renniemuseum_the_posts_navigation' ) ) :
 		);
 	}
 endif;
+
+
+if ( ! function_exists( 'renniemuseum_show_title' ) ) :
+	/**
+	 * Documentation for function.
+	 */
+	function renniemuseum_show_title() {
+		return is_singular() && !is_front_page() && !is_page('Exhibitions') && !('page-without-title.php' === get_page_template_slug( get_the_ID() ));
+	}
+endif;

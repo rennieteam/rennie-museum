@@ -54,7 +54,7 @@
 		</header><!-- #masthead -->
 
 	<div id="content" class="site-content">
-		<?php if ( is_singular() && !is_front_page() && !is_page('Exhibitions') ) : ?>
+		<?php if ( renniemuseum_show_title() ) : ?>
 			<div class="site-featured-image">
 				<?php
 					renniemuseum_post_thumbnail();
