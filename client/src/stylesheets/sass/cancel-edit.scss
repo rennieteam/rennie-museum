@@ -17,6 +17,10 @@
     border-radius: 2px;
     width: max-content;
     background: $white;
+
+    @media only screen and (max-width : $mobile-width){
+      width: 90%;
+    }
   }
 
   .register-modal {

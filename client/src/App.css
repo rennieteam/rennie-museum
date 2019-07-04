@@ -15,6 +15,10 @@
     border-radius: 2px;
     width: max-content;
     background: #FFFFFF; }
+    @media only screen and (max-width: 425px) {
+      .cancel-edit-container .cancel-edit-modal,
+      .register-container .cancel-edit-modal {
+        width: 90%; } }
   .cancel-edit-container .register-modal,
   .register-container .register-modal {
     padding: 30px;
