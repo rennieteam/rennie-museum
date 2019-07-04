@@ -279,7 +279,7 @@ class BookingForm extends Component {
                   noResultsText={'Fully Booked'}
                 />
                 {
-                  this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount - singleCount - this.guestCount()}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
+                  this.state.selectedEvent.id && !this.state.fullyBooked ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount - singleCount - this.guestCount()}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
                 }
               </div>
               <div className="attendee-info">
