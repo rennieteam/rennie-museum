@@ -20,8 +20,7 @@ class App extends Component {
       active: [],
       archived: [],
       toggleActive: true,
-      designations: [],
-      eventTypes: []
+      designations: []
     };
   };
 
@@ -38,16 +37,11 @@ class App extends Component {
           events: result.data.active,
           active: result.data.active,
           archived: result.data.archived,
-          designations: result.data.designations,
-          eventTypes: result.data.eventTypes
+          designations: result.data.designations
         });
       })
       .catch((error) => {
       })
-  };
-
-  updateEventTypes = (eventTypes) => {
-    this.setState({ eventTypes });
   };
 
   activeSwitch = () => {
@@ -135,8 +129,7 @@ class App extends Component {
         render={(props) => 
           <Settings 
             {...props}
-            updateEventTypes={this.updateEventTypes}
-            eventTypes={this.state.eventTypes} /> } />);
+           /> } />);
     }
   };
 
