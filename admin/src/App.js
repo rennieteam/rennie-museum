@@ -33,6 +33,7 @@ class App extends Component {
     };
     axios.get(`${url}/api/events/`)
       .then((result) => {
+        console.log(result)
         this.setState({ 
           events: result.data.active,
           active: result.data.active,
