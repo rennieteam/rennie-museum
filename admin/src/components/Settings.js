@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import CreateEventType from './CreateEventType';
 
 class Settings extends Component {
   constructor(props) {
@@ -29,14 +28,6 @@ class Settings extends Component {
     switch(this.state.option){
       case null:
         break;
-      case 'event type':
-        option = <CreateEventType 
-                    eventTypes={this.props.eventTypes} 
-                    renderItem={this.renderItem} 
-                    updateEventTypes={this.props.updateEventTypes}
-                    resetOption={this.resetOption}
-                  />;
-        break;
     };
     return option;
   };
@@ -48,7 +39,6 @@ class Settings extends Component {
   render() {
     return (
       <div className="settings-container">
-        <div className="settings-option" onClick={() => this.setOption('event type')}> new event type </div>
         <div className="settings-option"> new designation </div>
         <div className="settings-option"> attendees </div>
         {this.renderOption()}

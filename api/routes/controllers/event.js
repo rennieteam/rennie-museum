@@ -3,7 +3,6 @@ const Events = db.Event;
 const Attendee = db.Attendee;
 const Designations = db.Designation;
 const AttendeeDesignation = db.AttendeeDesignation;
-const EventTypes = db.EventType;
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
 const hdate = require('human-date');
@@ -28,8 +27,6 @@ const eventRouter = function (app) {
     let payload = {};
     payload.update = update;
     payload.designations = await Designations.findAll();
-    payload.eventTypes = await EventTypes.findAll();
-
 
     let activeEvents = await Events.findAll({
       order: [ ['date', 'ASC'] ],
@@ -51,29 +48,6 @@ const eventRouter = function (app) {
 
   app.get('/api/events', (req, res) => {
     splitPayload(req, res);
-  });
-
-  app.post('/api/events/new_type', async (req, res) => {
-    let payload = {};
-    let name = req.body.name.toLowerCase();
-    let t = await EventTypes.findAll({
-      where: {name: name}
-    });
-    if(t.length){
-      payload.error = 'Event type already exists.';
-      res.json(payload);
-    } else {
-      EventTypes.create({ name })
-        .then(async (result) => {
-          t.push(result);
-          payload.eventTypes = await EventTypes.findAll();
-          res.json(payload);
-        })
-        .catch((error) => {
-          console.log(error);
-          res.json(error);
-        })
-    };
   });
 
   app.post('/api/sort_events', async (req, res) => {
