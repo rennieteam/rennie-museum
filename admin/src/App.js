@@ -20,7 +20,8 @@ class App extends Component {
       active: [],
       archived: [],
       toggleActive: true,
-      designations: []
+      designations: [],
+      settings: []
     };
   };
 
@@ -39,6 +40,13 @@ class App extends Component {
           archived: result.data.archived,
           designations: result.data.designations
         });
+      })
+      .catch((error) => {
+      })
+
+    axios.get(`${url}/api/settings`)
+      .then((results) => {
+        this.setState({ settings: results.data })
       })
       .catch((error) => {
       })
@@ -125,11 +133,13 @@ class App extends Component {
                     events={this.state.events} /> } />);
     } else if('settings' in hash){
       return (<Route 
-        path="/" 
-        render={(props) => 
-          <Settings 
-            {...props}
-           /> } />);
+                path="/" 
+                render={(props) => 
+                  <Settings 
+                    {...props}
+                    settings={this.state.settings}
+                    
+                  /> } />);
     }
   };
 
