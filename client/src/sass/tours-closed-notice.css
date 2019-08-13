@@ -1,5 +1,7 @@
 .closed-notice {
   padding: 30px; }
+  .closed-notice p {
+    font-weight: normal; }
   .closed-notice a {
     color: #DA291C;
     font-style: italic; }
