@@ -13,6 +13,7 @@ const emailScheduler = require('./helpers/emailScheduler');
 
 const attendeeRouter = require("./routes/controllers/attendee");
 const eventRouter = require("./routes/controllers/event");
+const settingsRouter = require("./routes/controllers/setting");
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -46,6 +47,7 @@ server.listen(port);
 
 attendeeRouter(app);
 eventRouter(app);
+settingsRouter(app);
 
 emailScheduler();
 

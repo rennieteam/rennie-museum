@@ -19,7 +19,8 @@ class App extends Component {
       timeOptions: [],
       selectedDate: null,
       guests: [{name: '', email: ''}],
-      designationOptions: []
+      designationOptions: [],
+      toursOpen: null
     };
   };
 
@@ -45,7 +46,7 @@ class App extends Component {
     this.setState({ designationOptions });
   };
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
     let url;
     if(process.env.REACT_APP_ENV){
       url = config[process.env.REACT_APP_ENV];
@@ -58,7 +59,12 @@ class App extends Component {
         this.initializeData(results.data.events);
       })
       .catch(error => {
-        console.log(error);
+      });
+
+    axios.get(`${url}/api/settings/tours_open`)
+      .then((result) => {
+        let { toursOpen, toursClosedMessage } = result.data;
+        this.setState({ toursOpen, toursClosedMessage });
       });
   };
 
@@ -84,14 +90,31 @@ class App extends Component {
 
   render() {
     let q = qs.parse(this.props.location.hash);
-    
     return (
       <div className="App">
         <Route 
           path="/"
-          render={(props) => <BookingForm {...props} designationOptions={this.state.designationOptions} initializeData={this.initializeData} updateEvents={this.updateEvents} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions} />} />
+          render={(props) => <BookingForm 
+                                {...props} 
+                                designationOptions={this.state.designationOptions}
+                                initializeData={this.initializeData}
+                                updateEvents={this.updateEvents}
+                                calculateCount={this.calculateCount}
+                                events={this.state.events}
+                                dateOptions={this.state.dateOptions} 
+                                toursOpen={this.state.toursOpen}
+                                toursClosedMessage={this.state.toursClosedMessage}
+                                />} />
         {
-          'cancel' in q ? <Route path="/" render={(props) => <CancelForm {...props} calculateCount={this.calculateCount} events={this.state.events} dateOptions={this.state.dateOptions}  /> } /> : '' 
+          'cancel' in q ? <Route path="/" render={(props) => 
+            <CancelForm 
+              {...props}
+              calculateCount={this.calculateCount}
+              events={this.state.events}
+              dateOptions={this.state.dateOptions}
+              toursOpen={this.state.toursOpen}
+              toursClosedMessage={this.state.toursClosedMessage}
+            /> } /> : '' 
         }
         {
           'register' in q ? <Route path="/" component={RegisterForm} /> : ''

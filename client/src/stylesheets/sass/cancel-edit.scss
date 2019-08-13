@@ -19,6 +19,33 @@
     background: $white;
   }
 
+  .closed {
+    position: relative;
+    width: 40%;
+
+    .closed-notice {
+      width: 100%;
+      background: $white;
+      border-radius: 2px;
+    }
+
+    .close-button {
+      font-size: $smallest;
+      position: absolute;
+      top: $pad;
+      right: $pad;
+      text-decoration: none;
+    }
+
+    .logo {
+      height: 12px;
+      width: auto;
+      position: absolute;
+      top: $pad;
+      left: $pad;
+    }
+  }
+
   .register-modal {
     padding: $pad;
     display: flex;
