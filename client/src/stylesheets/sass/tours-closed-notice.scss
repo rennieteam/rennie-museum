@@ -1,0 +1,19 @@
+@import 'vars.scss';
+
+.closed-notice {
+
+  padding: $pad;
+
+  a {
+    color: $primary;
+    font-style: italic;
+  }
+
+  span {
+    font-weight: 600;
+  }
+
+  &-message {
+    margin-top: $pad;
+  }
+}
