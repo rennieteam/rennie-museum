@@ -5,6 +5,7 @@ import validator from 'email-validator';
 import config from '../config.js';
 import moment from 'moment-timezone';
 import ToursClosedNotice from './ToursClosedNotice';
+import FormHeader from './FormHeader';
 
 class BookingForm extends Component {
   constructor(props){
@@ -342,10 +343,7 @@ class BookingForm extends Component {
           </div>
           <div className="booking-form-container hidden">
             <div className="booking-form">
-              <div className="cta-header" onClick={this.stopProp}>
-                <p className="header-title"> Spring 2019: <br /> Collected Works </p>
-                <p className="sub-header"> Through June 15, 2019 </p>
-              </div>
+              <FormHeader stopProp={this.stopProp} line1='' line2='' />
               {
                 this.props.toursOpen && this.props.toursOpen.value ? this.renderBookingModule() : <ToursClosedNotice toursClosedMessage={this.props.toursClosedMessage} />
               }
