@@ -140,6 +140,13 @@ button:focus {
   border: 1px solid black; }
   .settings-container .non-toggle {
     flex-direction: column; }
+  .settings-container .settings-submit-status {
+    grid-column: span 1;
+    margin: 0;
+    height: max-content;
+    color: #DA291C;
+    text-transform: capitalize;
+    font-size: 14px; }
   .settings-container .setting {
     grid-column: span 1;
     background: rgba(0, 0, 0, 0.1);

@@ -15,6 +15,15 @@
     flex-direction: column;
   }
 
+  .settings-submit-status {
+    grid-column: span 1;
+    margin: 0;
+    height: max-content;
+    color: $primary;
+    text-transform: capitalize;
+    font-size: $small;
+  }
+
   .setting {
     grid-column: span 1;
     background: rgba(0,0,0,0.1);

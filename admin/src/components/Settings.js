@@ -6,7 +6,8 @@ class Settings extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      settings: [] 
+      settings: [],
+      submitStatus: ''
     };
   };
 
@@ -20,19 +21,25 @@ class Settings extends Component {
     };
   };
 
+  clearStatus = () => {
+    this.setState({ submitStatus: '' });
+  };
+
   toggleSwitch = (position) => {
     const newState = Object.assign({}, this.state);
     newState.settings[position].value = !this.state.settings[position].value;
     this.setState(newState);
+    this.clearStatus();
   };
-
+  
   handleContent = (event) => {
     let position = event.target.getAttribute('position');
     const newState = Object.assign({}, this.state);
     newState.settings[position].content = event.target.value;
     this.setState(newState);
+    this.clearStatus();
   };
-
+  
   handleUpdate = () => {
     let url;
     if(process.env.REACT_APP_ENV){
@@ -42,7 +49,10 @@ class Settings extends Component {
     };
     axios.post(`${url}/api/settings/update`, this.state)
       .then((result) => {
-        
+        this.setState({ submitStatus: 'settings updated.' });
+      })
+      .catch((error) => {
+        this.setState({ submitStatus: 'error: could not update.' })
       })
   };
 
@@ -63,6 +73,7 @@ class Settings extends Component {
           })
         }
         <button className="update-settings" onClick={this.handleUpdate}> Update </button>
+        <p className="settings-submit-status"> {this.state.submitStatus} </p>
       </div>
     );
   }
