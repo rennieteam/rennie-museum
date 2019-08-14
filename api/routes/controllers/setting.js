@@ -64,7 +64,7 @@ const settingsRouter = function (app) {
           res.json(settingError);
         });
     });
-    
+    res.sendStatus(200);
   });
 
 };
