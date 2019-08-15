@@ -4,6 +4,8 @@ import Select from 'react-select';
 import validator from 'email-validator';
 import config from '../config.js';
 import moment from 'moment-timezone';
+import ToursClosedNotice from './ToursClosedNotice';
+import FormHeader from './FormHeader';
 
 class BookingForm extends Component {
   constructor(props){
@@ -27,8 +29,7 @@ class BookingForm extends Component {
       disableAddMoreGuests: false,
       fullyBooked: false,
       designation: null,
-      designationOptions: [],
-      designation: null
+      designationOptions: []
     };
   };
 
@@ -242,110 +243,114 @@ class BookingForm extends Component {
     };
   };
 
-  renderForm = () => {
+  renderBookingModule = () => {
     let singleCount = this.state.name || this.state.email ? 1 : 0;
+    return (
+      <div className="form-body" onClick={this.stopProp}>
+        <h2 className="form-header"> Your booking details </h2>
+        <div className="date-time-select">
+          <Select
+            className="date-select"
+            placeholder="Date"
+            value={this.state.selectedDate}
+            onChange={this.selectDate}
+            options={this.state.dateOptions}
+          />
+          <Select
+            className="time-select"
+            placeholder={this.state.fullyBooked ? "Fully Booked" : "Time"}
+            value={this.state.selectedTime}
+            onChange={this.selectTime}
+            options={this.state.timeOptions}
+            isDisabled={!this.state.selectedDate || this.state.fullyBooked}
+            noResultsText={'Fully Booked'}
+          />
+          {
+            this.state.selectedEvent.id && !this.state.fullyBooked ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount - singleCount - this.guestCount()}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
+          }
+        </div>
+        <div className="attendee-info">
+          <input
+            className="attendee-name-input"
+            placeholder="Your Name*"
+            name="name"
+            value={this.state.name}
+            onChange={this.handleAttendeeInfo}
+          />
+          <input
+            className="attendee-email-input"
+            placeholder="Your Email*"
+            name="email"
+            value={this.state.email}
+            onChange={this.handleAttendeeInfo}
+          />
+        </div>
+        <div className="designation-container">
+          <Select
+            placeholder="Please select a designation:"
+            className="designation-select"
+            options={this.state.designationOptions}
+            value={this.state.designation}
+            onChange={this.selectDesignation}
+          />
+        </div>
+        <div className="subscribe-container">
+          <input
+            name="subscribe"
+            type="checkbox"
+            value={this.state.subscribe}
+            onChange={this.mailSubscribe}
+          />
+          <label className="subscribe-label" htmlFor="subscribe"> I want to receive the rennie museum newsletter </label>
+        </div>
+        {
+          !this.state.disableAddGuest ?
+            <div className="guests-container">
+              {
+                this.state.guests.map( (guest,index) => this.guestInput(guest,index) )
+              }
+              <div className="add-guest" onClick={this.addGuest}>
+                <i
+                  className="fas fa-plus"
+                />
+                <span> Add Guest </span>
+              </div>
+            </div>
+            :
+            ''
+        }
+        {
+          this.state.message ? <div className="message-container"> {this.state.message} </div> : ''
+        }
+        <div className="submit-prompt-container">
+          {
+            this.guestCount() + singleCount ? <span className="guest-message"> You are booking {this.guestCount() + singleCount} visitors to the museum. </span> : ''
+          }
+          <button className="submit-button" onClick={this.handleSubmit}> Book now </button>
+        </div>
+      </div>
+    )
+  };
+
+  renderForm = () => {
     return(
       <div>
-
-      <div className="booking-form-cta">
-        <div className="book-form-header">
-          <button onClick={this.showForm} className="cta-button">
-            <span className="cta-button-text">tours</span>
-          </button>
-        </div>
-        <div className="booking-form-container hidden" >
-          <div className="booking-form">
-            <div className="cta-header" onClick={this.stopProp}>
-              <p className="header-title"> Spring 2019: <br /> Collected Works </p>
-              <p className="sub-header"> Through June 15, 2019 </p>
-            </div>
-            <div className="form-body" onClick={this.stopProp}>
-              <h2 className="form-header"> Your booking details </h2>
-              <div className="date-time-select">
-                <Select
-                  className="date-select"
-                  placeholder="Date"
-                  value={this.state.selectedDate}
-                  onChange={this.selectDate}
-                  options={this.state.dateOptions}
-                />
-                <Select
-                  className="time-select"
-                  placeholder={this.state.fullyBooked ? "Fully Booked" : "Time"}
-                  value={this.state.selectedTime}
-                  onChange={this.selectTime}
-                  options={this.state.timeOptions}
-                  isDisabled={!this.state.selectedDate || this.state.fullyBooked}
-                  noResultsText={'Fully Booked'}
-                />
-                {
-                  this.state.selectedEvent.id ? <div className="availability"> {this.state.selectedEvent.numberOfAttendees - this.state.eventCount - singleCount - this.guestCount()}/{this.state.selectedEvent.numberOfAttendees} Available </div> : <div className="availability-holder"></div>
-                }
-              </div>
-              <div className="attendee-info">
-                <input
-                  className="attendee-name-input"
-                  placeholder="Your Name*"
-                  name="name"
-                  value={this.state.name}
-                  onChange={this.handleAttendeeInfo}
-                />
-                <input
-                  className="attendee-email-input"
-                  placeholder="Your Email*"
-                  name="email"
-                  value={this.state.email}
-                  onChange={this.handleAttendeeInfo}
-                />
-              </div>
-              <div className="designation-container">
-                <Select
-                  placeholder="Please select a designation:"
-                  className="designation-select"
-                  options={this.state.designationOptions}
-                  value={this.state.designation}
-                  onChange={this.selectDesignation}
-                />
-              </div>
-              <div className="subscribe-container">
-                <input
-                  name="subscribe"
-                  type="checkbox"
-                  value={this.state.subscribe}
-                  onChange={this.mailSubscribe}
-                />
-                <label className="subscribe-label" htmlFor="subscribe"> I want to receive the rennie museum newsletter </label>
-              </div>
+        <div className="booking-form-cta">
+          <div className="book-form-header">
+            <button onClick={this.showForm} className="cta-button">
+              <span className="cta-button-text">tours</span>
+            </button>
+          </div>
+          <div className="booking-form-container hidden">
+            <div className="booking-form">
+              <FormHeader stopProp={this.stopProp} line1='' line2='' />
               {
-                !this.state.disableAddGuest ?
-                  <div className="guests-container">
-                    {
-                      this.state.guests.map( (guest,index) => this.guestInput(guest,index) )
-                    }
-                    <div className="add-guest" onClick={this.addGuest}>
-                      <i
-                        className="fas fa-plus"
-                      />
-                      <span> Add Guest </span>
-                    </div>
-                  </div>
-                  :
-                  ''
+                this.props.toursOpen && this.props.toursOpen.value ? this.renderBookingModule() : <ToursClosedNotice toursClosedMessage={this.props.toursClosedMessage} />
               }
-              {
-                this.state.message ? <div className="message-container"> {this.state.message} </div> : ''
-              }
-              <div className="submit-prompt-container">
-                {
-                  this.guestCount() + singleCount ? <span className="guest-message"> You are booking {this.guestCount() + singleCount} visitors to the museum. </span> : ''
-                }
-                <button className="submit-button" onClick={this.handleSubmit}> Book now </button>
-              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div className="backdrop hidden" onClick={this.showForm} />
+        <div className="backdrop hidden" onClick={this.showForm} />
       </div>
     )
   }

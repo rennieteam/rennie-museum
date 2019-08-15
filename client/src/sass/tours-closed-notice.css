@@ -1,0 +1,11 @@
+.closed-notice {
+  padding: 30px; }
+  .closed-notice p {
+    font-weight: normal; }
+  .closed-notice a {
+    color: #DA291C;
+    font-style: italic; }
+  .closed-notice span {
+    font-weight: 600; }
+  .closed-notice-message {
+    margin-top: 30px; }

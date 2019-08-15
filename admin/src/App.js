@@ -21,7 +21,7 @@ class App extends Component {
       archived: [],
       toggleActive: true,
       designations: [],
-      eventTypes: []
+      settings: []
     };
   };
 
@@ -38,16 +38,18 @@ class App extends Component {
           events: result.data.active,
           active: result.data.active,
           archived: result.data.archived,
-          designations: result.data.designations,
-          eventTypes: result.data.eventTypes
+          designations: result.data.designations
         });
       })
       .catch((error) => {
       })
-  };
 
-  updateEventTypes = (eventTypes) => {
-    this.setState({ eventTypes });
+    axios.get(`${url}/api/settings`)
+      .then((results) => {
+        this.setState({ settings: results.data })
+      })
+      .catch((error) => {
+      })
   };
 
   activeSwitch = () => {
@@ -131,12 +133,13 @@ class App extends Component {
                     events={this.state.events} /> } />);
     } else if('settings' in hash){
       return (<Route 
-        path="/" 
-        render={(props) => 
-          <Settings 
-            {...props}
-            updateEventTypes={this.updateEventTypes}
-            eventTypes={this.state.eventTypes} /> } />);
+                path="/" 
+                render={(props) => 
+                  <Settings 
+                    {...props}
+                    settings={this.state.settings}
+                    
+                  /> } />);
     }
   };
 
