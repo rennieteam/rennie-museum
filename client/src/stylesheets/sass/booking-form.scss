@@ -85,9 +85,9 @@
       flex-direction: column;
 
       .cta-header {
-        height: 120px;
+        height: 60px;
         padding: $pad 0 0 $pad;
-        width: calc(100% - 120px);
+        width: calc(100% - 60px);
 
         .header-title {
           color: black;
@@ -261,7 +261,7 @@
           height: $pad;
           margin-bottom: 10px;
           display: flex;
-    
+
           .css-10nd86i {
             width: calc(100%/2 - 5px);
 
