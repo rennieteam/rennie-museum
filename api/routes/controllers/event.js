@@ -107,7 +107,7 @@ const eventRouter = function (app) {
   app.put('/api/event/:eventId', async (req, res) => {
     let options = {};
     if(req.body.date){
-      options = req.body.date;
+      options.date = req.body.date;
     };
     
     if(req.body.numberOfAttendees){
