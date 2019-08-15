@@ -41,7 +41,7 @@
 	margin: 0 10px;
 	max-width: 1380px;
 	display: flex;
-	align-items: flex-end;
+	align-items: center;
 	justify-content: space-between;
 
 	@include media(desktop) {
@@ -101,7 +101,7 @@
 	display: block;
 	width: 100%;
 	max-width: 200px;
-	margin: 0 0 30px;
+	margin: 0;
 	color: $color__text-main;
 
 	a {
@@ -137,6 +137,16 @@
 	&:not(:empty) + .site-description:not(:empty):before {
 		content: "\2014";
 		margin: 0 .2em;
+	}
+
+	@media only screen and (max-width: $tablet_width) {
+		width: initial;
+
+		a {
+			.mobile-only {
+				max-height: 60px;
+			}
+		}
 	}
 }
 

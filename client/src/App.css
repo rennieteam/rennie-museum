@@ -175,7 +175,7 @@
   padding: 0;
   margin-left: auto;
   width: max-content;
-  height: 120px;
+  height: 60px;
   width: 120px;
   display: flex;
   align-items: center;
@@ -185,11 +185,15 @@
   position: relative;
   z-index: 1000;
   background: #000000;
-  border-radius: 0; }
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
   .booking-form-cta .cta-button-text,
   .cancel-edit-container .cta-button-text {
     color: #FFFFFF;
-    margin-bottom: 30px; }
+  }
 
 .booking-form-cta .booking-form-container,
 .cancel-edit-container .booking-form-container {
@@ -219,9 +223,9 @@
   .booking-form-cta .cancel-edit-modal .booking-form .cta-header,
   .cancel-edit-container .booking-form-container .booking-form .cta-header,
   .cancel-edit-container .cancel-edit-modal .booking-form .cta-header {
-    height: 120px;
+    height: 60px;
     padding: 30px 0 0 30px;
-    width: calc(100% - 120px); }
+    width: calc(100% - 60px); }
     .booking-form-cta .booking-form-container .booking-form .cta-header .header-title,
     .booking-form-cta .cancel-edit-modal .booking-form .cta-header .header-title,
     .cancel-edit-container .booking-form-container .booking-form .cta-header .header-title,
@@ -244,7 +248,7 @@
   .cancel-edit-container .booking-form-container .booking-form .form-body,
   .cancel-edit-container .cancel-edit-modal .booking-form .form-body {
     width: 100%;
-    height: calc(100% - 120px);
+    height: calc(100% - 60px);
     padding: 30px; }
     .booking-form-cta .booking-form-container .booking-form .form-body .form-header,
     .booking-form-cta .cancel-edit-modal .booking-form .form-body .form-header,
