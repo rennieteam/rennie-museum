@@ -6,8 +6,7 @@ jQuery(document).ready(function ($) {
           title: function () {
               if (parseInt(advgb.imageCaption)) {
                   var imgCap = $(this).find('figcaption').html() || $(this).find('img').attr('alt');
-                  console.log(imgCap);
-                  return imgCap;
+                  return imgCap.replace(/<br[^>]*>/g, ' ');
               }
 
               return null;

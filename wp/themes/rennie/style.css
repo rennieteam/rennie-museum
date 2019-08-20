@@ -4610,7 +4610,7 @@ body.page .main-navigation {
 }
 
 .page-template-page-exhibitions .exhibitions .entry-content {
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ccc !important;
   padding: 0 0 20px;
   margin: 0 auto 60px;
 }
@@ -4625,6 +4625,13 @@ body.page .main-navigation {
 
 .exhibitions .entry-title:before {
   display: none;
+}
+
+#colorbox.advgb_lightbox #cboxTitle {
+  bottom: initial !important;
+  text-overflow: initial !important;
+  white-space: initial !important;
+  overflow: initial !important;
 }
 
 /* Media */
