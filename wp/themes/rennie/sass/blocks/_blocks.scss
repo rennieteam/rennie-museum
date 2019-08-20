@@ -566,6 +566,11 @@
 		}
 	}
 
+	.wp-block-image figcaption,
+	.wp-block-image figcaption * {
+		color: #555d66;
+	}
+
 	//! Captions
 	.wp-block-gallery .blocks-gallery-image ,
 	.wp-block-gallery .blocks-gallery-item  {
