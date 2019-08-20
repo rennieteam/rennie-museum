@@ -4609,6 +4609,12 @@ body.page .main-navigation {
   color: #FFF;
 }
 
+.page-template-page-exhibitions .exhibitions .entry-content {
+  border-bottom: 1px solid #ccc;
+  padding: 0 0 20px;
+  margin: 0 auto 60px;
+}
+
 .exhibitions .post-thumbnail {
   margin-bottom: 15px;
 }
