@@ -300,7 +300,7 @@ function create_exhibitions() {
 		'label'                 => __( 'Exhibitions', 'text_domain' ),
 		'description'           => __( 'Rennie Museum Exhibitions', 'text_domain' ),
 		'labels'                => $labels,
-		'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes'),
+		'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes', 'excerpt'),
 		'hierarchical'          => true,
 		'public'                => true,
 		'show_ui'               => true,
@@ -323,6 +323,73 @@ function create_exhibitions() {
 
 }
 add_action( 'init', 'create_exhibitions', 0 );
+
+// Add Meta boxes to Exhibitions
+function register_date_meta_boxes() {
+	add_meta_box( 'meta-box-id', __( 'Run Date', 'textdomain' ), 'date_meta_boxes_callback', 'exhibitions', 'side', 'high' );
+}
+add_action( 'add_meta_boxes', 'register_date_meta_boxes' );
+
+function date_meta_boxes_callback( $post ) {
+	wp_nonce_field( 'start_date_meta', 'start_date_meta_nonce' );
+	$stat_date = get_post_meta( $post->ID, '_start_date_meta_key', true );
+	echo '<label for="start_date_field">Start Date</label> ';
+	echo '<input type="text" id="start-date-id" class="start-date-id date_picker" name="start_date_field" value="' . esc_attr( $stat_date ) . '" size="25" />';
+	echo "<script>document.addEventListener('DOMContentLoaded', function(event) { var start = new Pikaday({ field: document.getElementById('start-date-id'), format: 'DD/MM/YY' });});</script>";
+
+	echo '<br/>';
+	wp_nonce_field( 'end_date_meta', 'end_date_meta_nonce' );
+	$end_date = get_post_meta( $post->ID, '_end_date_meta_key', true );
+	echo '<label for="end_date_field">End Date</label> ';
+	echo '<input type="text" id="end-date-id" class="end-date-id date_picker" name="end_date_field" value="' . esc_attr( $end_date ) . '" size="25" />';
+	echo "<script>document.addEventListener('DOMContentLoaded', function(event) { var end = new Pikaday({ field: document.getElementById('end-date-id'), format: 'DD/MM/YY' });});</script>";
+};
+
+function save_date_meta_box( $post_id ) {
+
+	if ( ! isset( $_POST['start_date_meta_nonce'] ) || ! isset( $_POST['end_date_meta_nonce'] ) ) {
+		return;
+	}
+
+	if ( ! wp_verify_nonce( $_POST['start_date_meta_nonce'], 'start_date_meta' ) ||  ! wp_verify_nonce( $_POST['end_date_meta_nonce'], 'end_date_meta' ) ) {
+		return;
+	}
+
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+	} else {
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
+	if ( ! isset( $_POST['start_date_field'] ) || ! isset( $_POST['end_date_field'] ) ) {
+		return;
+	}
+
+	// Sanitize user input.
+	$start_date = sanitize_text_field( $_POST['start_date_field'] );
+	update_post_meta( $post_id, '_start_date_meta_key', $start_date );
+
+	$end_date = sanitize_text_field( $_POST['end_date_field'] );
+	update_post_meta( $post_id, '_end_date_meta_key', $end_date );
+}
+
+add_action( 'save_post', 'save_date_meta_box' );
+
+function enqueue_datepicker() {
+	wp_enqueue_script('pika', 'https://cdn.jsdelivr.net/npm/pikaday/pikaday.js');
+	wp_enqueue_style('pika-style', 'https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css');
+}
+
+add_action('admin_enqueue_scripts', 'enqueue_datepicker');
 
 /**
  * SVG Icons class.
@@ -353,3 +420,12 @@ require get_template_directory() . '/inc/template-tags.php';
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';
+
+
+add_action('wp_enqueue_scripts', 'mytheme_scripts');
+
+function mytheme_scripts() {
+  wp_dequeue_script( 'gallery_lightbox_js' );
+  wp_deregister_script( 'gallery_lightbox_js' );
+	wp_enqueue_script( 'gallery_lightbox_js', get_theme_file_uri( '/js/gallery.colorbox.init.js' ), array(), '1.1', true );
+}

@@ -1,3 +1,14 @@
+.page-template-page-exhibitions {
+  .exhibitions {
+    .entry-content {
+      border-bottom: 1px solid #ccc !important;
+      padding: 0 0 20px;
+      margin: 0 auto 60px;
+    }
+  }
+}
+
+
 .exhibitions {
   .post-thumbnail {
     margin-bottom: 15px;
@@ -12,4 +23,11 @@
       display: none;
     }
   }
+}
+
+#colorbox.advgb_lightbox #cboxTitle {
+  bottom: initial !important;
+  text-overflow: initial !important;
+  white-space: initial !important;
+  overflow: initial !important;
 }

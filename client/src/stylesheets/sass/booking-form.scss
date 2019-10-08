@@ -38,11 +38,11 @@
     padding: 0;
     margin-left: auto;
     width: max-content;
-    height: $gutter * 1.5;
+    height: $gutter * .75;
     width: $gutter * 1.5;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
     flex-direction: column;
     font-size: $large;
     position: relative;
@@ -52,7 +52,6 @@
 
     &-text {
       color: $white;
-      margin-bottom: 30px;
     }
   }
 
@@ -107,7 +106,7 @@
 
       .form-body {
         width: 100%;
-        height: calc(100% - 120px);
+        height: calc(100% - 60px);
         padding: $pad;
 
         .form-header {
