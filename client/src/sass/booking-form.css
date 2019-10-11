@@ -38,7 +38,7 @@
   margin-left: auto;
   width: max-content;
   height: 60px;
-  width: 60px;
+  width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,8 +50,7 @@
   border-radius: 0; }
   .booking-form-cta .cta-button-text,
   .cancel-edit-container .cta-button-text {
-    color: #FFFFFF;
-  }
+    color: #FFFFFF; }
 
 .booking-form-cta .booking-form-container,
 .cancel-edit-container .booking-form-container {
