@@ -53,6 +53,10 @@
 .wp-block-advgb-images-slider {
 	margin-bottom: 40px;
 
+	.slick-dots {
+		position: initial;
+	}
+
 	.advgb-image-slider-item {
 		height: 100%;
 		max-height: 540px;
