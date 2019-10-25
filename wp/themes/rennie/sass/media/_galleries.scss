@@ -60,6 +60,8 @@
 	.advgb-image-slider-item {
 		height: 100%;
 		max-height: 540px;
+		min-height: 540px;
+		display: flex !important;
 	
 		.advgb-image-slider-img {
 			width: auto !important;

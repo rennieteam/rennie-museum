@@ -4758,6 +4758,8 @@ svg {
 .wp-block-advgb-images-slider .advgb-image-slider-item {
   height: 100%;
   max-height: 540px;
+  min-height: 540px;
+  display: flex !important;
 }
 
 .wp-block-advgb-images-slider .advgb-image-slider-item .advgb-image-slider-img {
