@@ -29,7 +29,9 @@ class BookingForm extends Component {
       disableAddMoreGuests: false,
       fullyBooked: false,
       designation: null,
-      designationOptions: []
+      designationOptions: [],
+      termsRead: false,
+      termsChecked: false
     };
   };
 
@@ -125,6 +127,21 @@ class BookingForm extends Component {
     this.setState({ subscribe });
   };
 
+  checkTerms = (event) => {
+    const target = { event };
+    const termsChecked = target.type === 'checkbox' ? target.checked : target.vale;
+    this.setState({ termsChecked });
+  };
+
+  promptRead = () => {
+    this.setMessage('Please read the terms and conditions.');
+  };
+
+  readConditions = () => {
+    this.clearMessage();
+    this.setState({ termsRead: true });
+  };
+
   guestInput = (guest, index) => {
     const params = [{value: 'name', req: true}, {value: 'email', req: false}];
     return(
@@ -183,6 +200,10 @@ class BookingForm extends Component {
     this.setState({ message });
   };
 
+  clearMessage = () => {
+    this.setMessage('');
+  };
+
   handleSubmit = () => {
     let body = {};
     let bodyParams = ['name', 'email', 'subscribe', 'EventId'];
@@ -192,7 +213,9 @@ class BookingForm extends Component {
     });
     const checkGuests = guest => guest.name;
     body.guests = guests;
-    if(!this.state.EventId) {
+    if(!this.state.termsRead){
+      this.setMessage('Please confirm you have read the terms and conditions.');
+    } else if(!this.state.EventId) {
       this.setMessage('Please select a date and time.');
     } else if(!this.state.name) {
       this.setMessage('Name is required.');
@@ -319,6 +342,19 @@ class BookingForm extends Component {
             :
             ''
         }
+        <div className="terms-container">
+          {
+            !this.state.termsRead ? <div className="terms-click-layer" onClick={this.promptRead}></div> : ''
+          }
+          <input
+            name="terms"
+            type="checkbox"
+            value={this.state.termsChecked}
+            onChange={this.checkTerms}
+            disabled={!this.state.termsRead}
+          />
+          <label className="terms-label" htmlFor="terms"> I have read the {<a onClick={this.readConditions} target='blank'href='https://rennie-museum.s3.ca-central-1.amazonaws.com/public/Waiver+of+Claims+and+Release+of+Liability.pdf'>terms and conditions</a>}. </label>
+        </div>
         {
           this.state.message ? <div className="message-container"> {this.state.message} </div> : ''
         }
