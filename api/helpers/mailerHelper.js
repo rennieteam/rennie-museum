@@ -86,20 +86,10 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
      <p ${style}> ${showName} <br> ${data.eventDate} <br> ${guests} <br> <a ${anchorStyle} href="https://goo.gl/maps/GWSE5v7k7MP2">Click here for directions to the museum.</a> </p>
      <p ${style}> All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
      <p ${style}> If you need to edit or cancel your booking, please <i>click <a ${anchorStyle} href="${config.cancelLink + data.hash}">here</a>. </i> </p>
+     <p ${style}> Visitors to the Museum, by participating in a Museum tour or by entering the Museum, will be deemed to have agreed to comply with our <a ${anchorStyle} href="https://rennie-museum.s3.ca-central-1.amazonaws.com/public/Waiver+of+Claims+and+Release+of+Liability.pdf" target="blank">terms and conditions</a>. </p>
      <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</a> </p>
      <p ${style}> We look forward to welcoming you! </p>
      <p ${style}> <strong>rennie museum</strong> </p>
-     <p ${style}> <strong>Waiver of Claims and Release of Liability</strong> </p>
-     <p ${style}> Visitors to the Museum will enter and tour the Museum at their own risk. Neither the Museum, its affiliates, directors, or employees shall have any liability for any damages arising or related to your use of the site, content, and/or compilation. The Museum will hold Visitors liable for any damage done to the art or the Museum. Visitors are asked to conduct themselves responsibly and to take care to not damage any art, the Museum and other visitors. </p>
-     <p ${style}> In particular we ask that visitors: </p>
-     <li ${style}> refrain from touching the art works (unless expressly invited to touch particular pieces)</li>
-     <li ${style}> understand the safety risks involved in handling materials pertaining to participatory artworks</li>
-     <li ${style}> comply with all directions and requests of the museum guide and museum personnel </li>
-     <li ${style}> not smoke in the Museum or bring outside food or beverages into the Museum</li>
-     <li ${style}> not bring large bags or back-packs into the Museum</li>
-     <p ${style}> Visitors to the Museum, by participating in a Museum tour or by entering the Museum, will be deemed to have agreed to comply with these terms and conditions. </p>
-     <p ${style}> The Museum reserves the right to refuse entrance to any person. </p>
-     <p ${style}> I have read this Waiver and Release and fully understand its terms and conditions. </p>
      `;
   };
     

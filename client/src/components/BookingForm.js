@@ -128,8 +128,8 @@ class BookingForm extends Component {
   };
 
   checkTerms = (event) => {
-    const target = { event };
-    const termsChecked = target.type === 'checkbox' ? target.checked : target.vale;
+    const target = event.target;
+    const termsChecked = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ termsChecked });
   };
 
@@ -213,7 +213,7 @@ class BookingForm extends Component {
     });
     const checkGuests = guest => guest.name;
     body.guests = guests;
-    if(!this.state.termsRead){
+    if(!this.state.termsChecked){
       this.setMessage('Please confirm you have read the terms and conditions.');
     } else if(!this.state.EventId) {
       this.setMessage('Please select a date and time.');
