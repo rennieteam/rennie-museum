@@ -422,7 +422,7 @@ class EventShow extends Component {
             <p className="header-text"> visitor sign-in </p>
           </div>
           <div className="title-container">
-            <p className="exhibit-name"> Spring 2019: Collected Works </p>
+            <p className="exhibit-name"> Barkley L. Hendricks and Lorna Simpson: Collected Works </p>
             <p className="date"> {moment(this.state.event.date).tz('America/Los_Angeles').format('MMMM Do, YYYY - h:mm a')} </p>
           </div>
           <p className="bold"> Waiver of Claims and Release of Liability </p>
