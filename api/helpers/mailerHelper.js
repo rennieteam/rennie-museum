@@ -26,8 +26,9 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
 
   let style = `style="line-height: 1; color:black; font-size:12px; font-family:serif"`;
   let anchorStyle = `style="color:#DA291C;"`;
+  let showName = 'Barkley L. Hendricks and Lorna Simpson: Collected Works';
 
-  let staffMessage = `<p ${style}> Spring 2019: Collected Works <br> ${data.eventDate} <br> ${guests} </p>
+  let staffMessage = `<p ${style}> ${showName} <br> ${data.eventDate} <br> ${guests} </p>
     <p ${style}> ${data.name} - <a ${anchorStyle} href="mailto:${data.email}">${data.email}</a> </p>
     <p ${style}> To manage this booking, please click <a ${anchorStyle} href="${config.manageBookingUrl + data.EventId}">here.</a> </p>
     <p ${style}> To manage this tour, please click <a ${anchorStyle} href="">here.</a> </p>
@@ -38,7 +39,7 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     staffSubject = 'You have a new cancellation.';
     subject = 'Booking Cancelled';
     message = `<p ${style}> Your <strong>rennie museum</strong> tour has been cancelled for: </p>
-    <p ${style}> Spring 2019: Collected Works <br> ${data.eventDate} <br> ${guests} <br> </p>
+    <p ${style}> ${showName} <br> ${data.eventDate} <br> ${guests} <br> </p>
     <p ${style}> If you need to create a new booking, please <i>click <a ${anchorStyle} href="${config.homeLink}">here</a>. </i> </p>
     <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</a> </p>
     <p ${style}> Thank you, </p>
@@ -53,7 +54,7 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     subject = 'Updated Booking Confirmation';
     message = `<p ${style}> Thank you for updating your tour booking at <strong>rennie museum.</strong> </p>
     <p ${style}> Here are your new booking details: </p>
-    <p ${style}> Spring 2019: Collected Works <br/> ${data.eventDate} <br/> ${guests} <br/> <a ${anchorStyle} href="https://goo.gl/maps/GWSE5v7k7MP2">Click here for directions to the museum.</a> </p>
+    <p ${style}> ${showName} <br/> ${data.eventDate} <br/> ${guests} <br/> <a ${anchorStyle} href="https://goo.gl/maps/GWSE5v7k7MP2">Click here for directions to the museum.</a> </p>
     <p ${style}> All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
     <p ${style}> If you need to edit or cancel your booking, please <i>click <a ${anchorStyle} href="${config.cancelLink + data.hash}">here</a>. </i> </p>
     <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</a> </p>
@@ -82,9 +83,10 @@ module.exports = (data = null, subscribe = false, forCancel = false, forRemove =
     staffSubject = 'You have a new booking.';
     message = `<p ${style}> Thank you for booking a visit to <strong>rennie museum.</strong> </p>
      <p ${style}> Here are your booking details: </p>
-     <p ${style}> Spring 2019: Collected Works <br> ${data.eventDate} <br> ${guests} <br> <a ${anchorStyle} href="https://goo.gl/maps/GWSE5v7k7MP2">Click here for directions to the museum.</a> </p>
+     <p ${style}> ${showName} <br> ${data.eventDate} <br> ${guests} <br> <a ${anchorStyle} href="https://goo.gl/maps/GWSE5v7k7MP2">Click here for directions to the museum.</a> </p>
      <p ${style}> All tours begin promptly at the scheduled time. Please arrive 5 minutes prior to your scheduled appointment so you have time to sign in and get oriented. </p>
      <p ${style}> If you need to edit or cancel your booking, please <i>click <a ${anchorStyle} href="${config.cancelLink + data.hash}">here</a>. </i> </p>
+     <p ${style}> Visitors to the Museum, by participating in a Museum tour or by entering the Museum, will be deemed to have agreed to comply with our <a ${anchorStyle} href="https://rennie-museum.s3.ca-central-1.amazonaws.com/public/Waiver+of+Claims+and+Release+of+Liability.pdf" target="blank">terms and conditions</a>. </p>
      <p ${style}> If you have any other questions please contact us at <a href="mailto:contact@renniemuseum.org" ${anchorStyle}>contact@renniemuseum.org</a> </p>
      <p ${style}> We look forward to welcoming you! </p>
      <p ${style}> <strong>rennie museum</strong> </p>

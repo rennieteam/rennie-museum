@@ -38,7 +38,7 @@
   margin-left: auto;
   width: max-content;
   height: 60px;
-  width: 60px;
+  width: 120px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,8 +50,7 @@
   border-radius: 0; }
   .booking-form-cta .cta-button-text,
   .cancel-edit-container .cta-button-text {
-    color: #FFFFFF;
-  }
+    color: #FFFFFF; }
 
 .booking-form-cta .booking-form-container,
 .cancel-edit-container .booking-form-container {
@@ -583,25 +582,56 @@
         .cancel-edit-container .cancel-edit-modal .booking-form .form-body .designation-container input:focus {
           outline: none; }
     .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container,
+    .booking-form-cta .booking-form-container .booking-form .form-body .terms-container,
     .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container,
+    .booking-form-cta .cancel-edit-modal .booking-form .form-body .terms-container,
     .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container,
-    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container {
+    .cancel-edit-container .booking-form-container .booking-form .form-body .terms-container,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container,
+    .cancel-edit-container .cancel-edit-modal .booking-form .form-body .terms-container {
       display: flex;
       align-items: center;
       margin-bottom: 20px; }
       .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container input,
+      .booking-form-cta .booking-form-container .booking-form .form-body .terms-container input,
       .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container input,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .terms-container input,
       .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container input,
-      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container input {
+      .cancel-edit-container .booking-form-container .booking-form .form-body .terms-container input,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container input,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .terms-container input {
         margin: 0;
         width: 15px;
         height: 15px;
         border-radius: 0;
         margin-right: 5px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container .terms-click-layer,
+      .booking-form-cta .booking-form-container .booking-form .form-body .terms-container .terms-click-layer,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container .terms-click-layer,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .terms-container .terms-click-layer,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container .terms-click-layer,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .terms-container .terms-click-layer,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container .terms-click-layer,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .terms-container .terms-click-layer {
+        width: 15px;
+        height: 15px;
+        position: absolute; }
       .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container .subscribe-label,
+      .booking-form-cta .booking-form-container .booking-form .form-body .subscribe-container .terms-label,
+      .booking-form-cta .booking-form-container .booking-form .form-body .terms-container .subscribe-label,
+      .booking-form-cta .booking-form-container .booking-form .form-body .terms-container .terms-label,
       .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container .subscribe-label,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .subscribe-container .terms-label,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .terms-container .subscribe-label,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .terms-container .terms-label,
       .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container .subscribe-label,
-      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container .subscribe-label {
+      .cancel-edit-container .booking-form-container .booking-form .form-body .subscribe-container .terms-label,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .terms-container .subscribe-label,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .terms-container .terms-label,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container .subscribe-label,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .subscribe-container .terms-label,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .terms-container .subscribe-label,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .terms-container .terms-label {
         font-style: italic;
         font-size: 12px;
         font-family: Antwerp;
