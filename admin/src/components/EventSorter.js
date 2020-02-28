@@ -22,9 +22,14 @@ class EventSorter extends Component {
       selectedDate: null,
       yearOptions: [],
       monthOptions: [],
-      dateOptions: []
+      dateOptions: [],
+      attendeeSearch: ''
     };
   };
+
+  componentDidMount = () => {
+    this.handleFilter();
+  }
 
   componentDidUpdate = (prevProps) => {
     if(this.props.events !== prevProps.events){
@@ -131,22 +136,25 @@ class EventSorter extends Component {
       })
   };
 
-  handleFilter = (selection) => {
+  handleFilter = (selection = null) => {
     let payload = {};
+    payload.attendeeSearch = this.state.attendeeSearch;
     payload.active = this.props.toggleActive;
     payload.Month = this.state.selectedMonth ? this.state.selectedMonth : null;
     payload.Year = this.state.selectedYear ? this.state.selectedYear : null;
     payload.Date = this.state.selectedDate ? this.state.selectedDate : null;
-    payload[selection.for] = selection;
-    let state = {};
-    state[`selected${selection.for}`] = selection;
-    this.setState(state);
+    if(selection){
+      payload[selection.for] = selection;
+      let state = {};
+      state[`selected${selection.for}`] = selection;
+      this.setState(state);
+    };
     this.filterEvents(payload);
   };
 
   clearFilters = () => {
     this.props.sortPublished(null);
-    this.setState({ selectedYear: null, selectedMonth: null, selectedDate: null, sort: 'asc', dateSort: true, capSort: false });
+    this.setState({ attendeeSearch: '', selectedYear: null, selectedMonth: null, selectedDate: null, sort: 'asc', dateSort: true, capSort: false });
     let url;
     if(process.env.REACT_APP_ENV){
       url = config[process.env.REACT_APP_ENV];
@@ -164,6 +172,14 @@ class EventSorter extends Component {
 
   handlePublish = (selection) => {
     this.props.sortPublished(selection);
+  };
+
+  handleAttendeeSearch = async (event) => {
+    const newState = Object.assign({}, this.state);
+    newState[event.target.name] = event.target.value;
+    await this.setState(newState);
+    this.handleFilter();
+    this.props.setAttendeeSearch(this.state.attendeeSearch)
   };
 
   render = () => {
@@ -214,6 +230,13 @@ class EventSorter extends Component {
             options={publishOptions}
             onChange={this.handlePublish} 
             className="publish-filter"
+          />
+          <input
+            className='attendee-search'
+            placeholder='Search Primary Attendees'
+            value={this.state.attendeeSearch}
+            onChange={this.handleAttendeeSearch}
+            name='attendeeSearch'
           />
           <button className="clear-button" onClick={this.clearFilters}> Clear </button>
         </div>
