@@ -24,9 +24,15 @@
 
       .date-filter,
       .clear-button,
-      .publish-filter {
+      .publish-filter,
+      .attendee-search {
         grid-column: span 3;
         width: 100%;
+      }
+
+      .attendee-search {
+        padding-left: 5px;
+        font-size: 15px;
       }
 
       .clear-button {
@@ -109,6 +115,44 @@
     border: 1px $grey solid;
     border-radius: 2px;
     position: relative;
+
+    .peek-container {
+      p {
+        margin: 0;
+        font-size: 12px;
+      }
+
+      background-color: rgba(218, 41, 28, 0.2);
+      border-radius: 2px;
+
+      max-height: 170px;
+      overflow-y: scroll;
+
+      .peek-main {
+        font-weight: bold;
+      }
+
+      .peek-row {
+        margin-bottom: 5px;
+        border-top: 1px solid $primary;
+        padding-left: 5px;
+
+        .highlight {
+          background-color: yellow;
+        }
+      }
+    }
+
+    .event-peek-button,
+    .close-event-peek {
+      position: absolute;
+      right: $pad;
+      top: $pad * 1.5;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
     .published,
     .draft {

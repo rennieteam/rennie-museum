@@ -5,9 +5,10 @@ const Designations = db.Designation;
 const AttendeeDesignation = db.AttendeeDesignation;
 const cors = require('cors');
 const mailerHelper = require('../../helpers/mailerHelper');
-const hdate = require('human-date');
 const countHelper = require('../../helpers/countHelper');
 const moment = require('moment-timezone');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 const config = require('../../config');
 
@@ -51,34 +52,62 @@ const eventRouter = function (app) {
   });
 
   app.post('/api/sort_events', async (req, res) => {
-    let year = req.body.Year !== null ? req.body.Year.value : '';
-    let month = req.body.Month !== null ? req.body.Month.label : '';
-    let date = req.body.Date !== null ? req.body.Date.value : '';
-    let payload = {};
-    
-    let filterFunction = (event) => {
-      let d = moment(event.dataValues.date).tz('America/Los_Angeles');
-      return d.format('MMMM D').includes(month + ' ' + date) && d.format('YYYY').includes(year);
-    };
-  
-    let evts = await Events.findAll({
-      order: [['date', 'ASC']],
-      where: { date: { $gt: new Date() } },
-      include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
-    });
+    try {
+      let year = req.body.Year !== null ? req.body.Year.value : '';
+      let month = req.body.Month !== null ? req.body.Month.label : '';
+      let date = req.body.Date !== null ? req.body.Date.value : '';
+      let payload = {};
+      let attendeeSearch = req.body.attendeeSearch;
 
+      let filterFunction = (event) => {
+        let d = moment(event.dataValues.date).tz('America/Los_Angeles');
+        return d.format('MMMM D').includes(month + ' ' + date) && d.format('YYYY').includes(year);
+      };
 
-    payload.active = await evts.filter(filterFunction);
-  
-    let pastEvents = await Events.findAll({
-      order: [['date', 'ASC']],
-      where: { date: { $lte: new Date() } },
-      include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
-    });
-  
-    payload.archived = await pastEvents.filter(filterFunction);
-  
-    res.json(payload);
+      let atds = [];
+      if(attendeeSearch){
+        atds = await Attendee.findAll({
+          attributes: ['EventId'],
+          where: {
+            [Op.or]: [
+              { name: { [Op.iLike]: `%${attendeeSearch}%` } },
+              { email: { [Op.iLike]: `%${attendeeSearch}%` } }
+            ]
+          }
+        }).map((a) => {
+          return a.EventId;
+        });
+      };
+
+      let activeWhere = { date: { $gt: new Date() } };
+      let archivedWhere = {  date: { $lte: new Date() } };
+
+      if(attendeeSearch){
+        activeWhere.id = { [Op.in]: atds };
+        archivedWhere.id = { [Op.in]: atds };
+      };
+
+      let evts = await Events.findAll({
+        order: [['date', 'ASC']],
+        include: [{ 
+          model: Attendee, as: 'attendees',
+          include: [{ model: Designations }] 
+        }],
+        where: activeWhere
+      });
+      payload.active = await evts.filter(filterFunction);
+
+      let pastEvents = await Events.findAll({
+        order: [['date', 'ASC']],
+        where: archivedWhere,
+        include: [{ model: Attendee, as: 'attendees', include: [{ model: Designations }] }]
+      });
+      payload.archived = await pastEvents.filter(filterFunction);
+
+      res.json(payload);
+    } catch (error) {
+      console.log('error', error)
+    }
   });
 
   app.get('/api/coming_events', async (req, res) => {
