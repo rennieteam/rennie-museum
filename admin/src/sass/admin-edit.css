@@ -165,12 +165,16 @@
           font-size: 14px; }
           .admin-edit-container .edit-form .attendee-container .new-guest-input-container .cancel-add-guest:hover {
             cursor: pointer; }
-      .admin-edit-container .edit-form .attendee-container .add-new-guest {
+      .admin-edit-container .edit-form .attendee-container .edit-attendee {
+        right: 10px; }
+      .admin-edit-container .edit-form .attendee-container .add-new-guest,
+      .admin-edit-container .edit-form .attendee-container .edit-attendee {
         position: absolute;
         bottom: 10px;
         font-size: 12px;
         color: #DA291C; }
-        .admin-edit-container .edit-form .attendee-container .add-new-guest:hover {
+        .admin-edit-container .edit-form .attendee-container .add-new-guest:hover,
+        .admin-edit-container .edit-form .attendee-container .edit-attendee:hover {
           cursor: pointer; }
       .admin-edit-container .edit-form .attendee-container .icon-container {
         margin: 10px 0; }

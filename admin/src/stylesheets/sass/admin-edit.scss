@@ -249,7 +249,12 @@
         }
       }
 
-      .add-new-guest {
+      .edit-attendee {
+        right: 10px;
+      }
+
+      .add-new-guest,
+      .edit-attendee {
         position: absolute;
         bottom: 10px;
         font-size: $smallest;

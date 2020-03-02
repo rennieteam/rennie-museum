@@ -155,6 +155,7 @@ class EventSorter extends Component {
   clearFilters = () => {
     this.props.sortPublished(null);
     this.setState({ attendeeSearch: '', selectedYear: null, selectedMonth: null, selectedDate: null, sort: 'asc', dateSort: true, capSort: false });
+    this.props.clearAttendeeSearch();
     let url;
     if(process.env.REACT_APP_ENV){
       url = config[process.env.REACT_APP_ENV];

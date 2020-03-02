@@ -3,8 +3,6 @@ const Event = db.Event;
 const Attendee = db.Attendee;
 const AttendeeDesignation = db.AttendeeDesignation;
 const Designations = db.Designation;
-const nodemailer = require("nodemailer");
-const mandrillTransport = require('nodemailer-mandrill-transport');
 const config = require('../../config');
 const Mailchimp = require('mailchimp-api-v3');
 const crypto = require('crypto');
@@ -25,6 +23,16 @@ const corsOptions = {
 };
 
 const attendeeRouter = function (app) {
+
+  app.post('/api/attendee/edit/:id', (req, res) => {
+    Attendee.update(req.body, { returning: true, where: { id: parseInt(req.params['id']) }})
+      .then((r) => {
+        res.json(r[1][0].dataValues);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
 
   app.post('/api/attendee/register', (req, res) => {
     const mailChimp = new Mailchimp(config.mailchimp.key);

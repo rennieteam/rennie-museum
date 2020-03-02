@@ -1,0 +1,54 @@
+@import 'vars.scss';
+
+.admin-edit-container {
+  .edit-attendee-modal {
+    background: white;
+    width: 50vw;
+    height: 300px;
+    position: fixed;
+    top: 40%;
+    z-index: 1;
+    left: 25vw;
+    box-shadow: 0 0 36px rgba(0,0,0,0.04);
+    padding: $pad;
+
+    .close-modal {
+      position: absolute;
+      right: $pad;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .attendee-info {
+      font-size: 14px;
+      font-style: italic;
+    }
+
+    .modal-message {
+      color: $primary;
+    }
+
+    &-inputs {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 10px;
+
+      p,
+      button {
+        grid-column: span 1;
+      }
+
+      button {
+        height: $pad;
+      }
+      
+      input {
+        grid-column: span 1;
+        height: $pad;
+        padding-left: 5px;
+      }
+    }
+  }
+}
