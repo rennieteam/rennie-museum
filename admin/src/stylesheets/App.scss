@@ -21,6 +21,10 @@ button {
 @import 'sass/nav.scss';
 @import 'sass/edit-attendee-modal.scss';
 
+#wpfooter {
+  display: none;
+}
+
 
 .hidden {
   display: none;
