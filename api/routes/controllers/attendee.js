@@ -3,9 +3,8 @@ const Event = db.Event;
 const Attendee = db.Attendee;
 const AttendeeDesignation = db.AttendeeDesignation;
 const Designations = db.Designation;
-const nodemailer = require("nodemailer");
-const mandrillTransport = require('nodemailer-mandrill-transport');
 const config = require('../../config');
+const bookingConfig = require('../../config/booking');
 const Mailchimp = require('mailchimp-api-v3');
 const crypto = require('crypto');
 const secret = 'abc';
@@ -77,7 +76,11 @@ const attendeeRouter = function (app) {
       include: [{ model: Attendee, as: 'attendees' }]
     });
 
-    if(existingAttendee){
+    if(req.body.guests.length > bookingConfig.maxGuests){
+      payload.success = false;
+      payload.pastGuestLimit = true;
+      res.json(payload);
+    } else if(existingAttendee){
       payload.success = false;
       payload.emailUsed = true;
       res.json(payload);
