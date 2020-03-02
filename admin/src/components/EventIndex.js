@@ -28,7 +28,11 @@ class EventIndex extends Component {
 
   setAttendeeSearch = (attendeeSearch) => {
     this.setState({ attendeeSearch })
-  }
+  };
+
+  clearAttendeeSearch = () => {
+    this.setState({ attendeeSearch: '' });
+  };
 
   sortEvents = (state) => {
     this.setState({ events: state });
@@ -73,6 +77,7 @@ class EventIndex extends Component {
           sortPublished={this.sortPublished}
           published={this.state.published}
           setAttendeeSearch={this.setAttendeeSearch}
+          clearAttendeeSearch={this.clearAttendeeSearch}
         />
         {
           events.map((event) => {
@@ -126,7 +131,7 @@ class EventIndex extends Component {
                           }
                         }
                         return (
-                          <div className='peek-row'>
+                          <div className='peek-row' key={a.id}>
                             <p className={`peek-main ${highlight}`}> {a.name} - {a.guests.length} Guests </p>
                             <p className={highlight}> {a.email} </p>
                           </div>

@@ -25,6 +25,16 @@ const corsOptions = {
 
 const attendeeRouter = function (app) {
 
+  app.post('/api/attendee/edit/:id', (req, res) => {
+    Attendee.update(req.body, { returning: true, where: { id: parseInt(req.params['id']) }})
+      .then((r) => {
+        res.json(r[1][0].dataValues);
+      })
+      .catch((err) => {
+        res.json(err);
+      });
+  });
+
   app.post('/api/attendee/register', (req, res) => {
     const mailChimp = new Mailchimp(config.mailchimp.key);
     mailChimp.post(`lists/${config.mailchimp.listId}`, {

@@ -362,12 +362,16 @@ button:focus {
           font-size: 14px; }
           .admin-edit-container .edit-form .attendee-container .new-guest-input-container .cancel-add-guest:hover {
             cursor: pointer; }
-      .admin-edit-container .edit-form .attendee-container .add-new-guest {
+      .admin-edit-container .edit-form .attendee-container .edit-attendee {
+        right: 10px; }
+      .admin-edit-container .edit-form .attendee-container .add-new-guest,
+      .admin-edit-container .edit-form .attendee-container .edit-attendee {
         position: absolute;
         bottom: 10px;
         font-size: 12px;
         color: #DA291C; }
-        .admin-edit-container .edit-form .attendee-container .add-new-guest:hover {
+        .admin-edit-container .edit-form .attendee-container .add-new-guest:hover,
+        .admin-edit-container .edit-form .attendee-container .edit-attendee:hover {
           cursor: pointer; }
       .admin-edit-container .edit-form .attendee-container .icon-container {
         margin: 10px 0; }
@@ -685,6 +689,43 @@ button:focus {
     margin: 10px;
     font-size: 24px;
     color: #000000; }
+
+.admin-edit-container .edit-attendee-modal {
+  background: white;
+  width: 50vw;
+  height: 300px;
+  position: fixed;
+  top: 40%;
+  z-index: 1;
+  left: 25vw;
+  box-shadow: 0 0 36px rgba(0, 0, 0, 0.04);
+  padding: 30px; }
+  .admin-edit-container .edit-attendee-modal .close-modal {
+    position: absolute;
+    right: 30px; }
+    .admin-edit-container .edit-attendee-modal .close-modal:hover {
+      cursor: pointer; }
+  .admin-edit-container .edit-attendee-modal .attendee-info {
+    font-size: 14px;
+    font-style: italic; }
+  .admin-edit-container .edit-attendee-modal .modal-message {
+    color: #DA291C; }
+  .admin-edit-container .edit-attendee-modal-inputs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px; }
+    .admin-edit-container .edit-attendee-modal-inputs p,
+    .admin-edit-container .edit-attendee-modal-inputs button {
+      grid-column: span 1; }
+    .admin-edit-container .edit-attendee-modal-inputs button {
+      height: 30px; }
+    .admin-edit-container .edit-attendee-modal-inputs input {
+      grid-column: span 1;
+      height: 30px;
+      padding-left: 5px; }
+
+#wpfooter {
+  display: none; }
 
 .hidden {
   display: none; }
