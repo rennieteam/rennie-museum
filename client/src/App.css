@@ -847,7 +847,8 @@
       .booking-form-cta .cancel-edit-modal .booking-form .form-body .message-container a,
       .cancel-edit-container .booking-form-container .booking-form .form-body .message-container a,
       .cancel-edit-container .cancel-edit-modal .booking-form .form-body .message-container a {
-        color: #DA291C; }
+        color: #DA291C;
+        text-decoration: underline; }
     .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container,
     .booking-form-cta .cancel-edit-modal .booking-form .form-body .submit-prompt-container,
     .cancel-edit-container .booking-form-container .booking-form .form-body .submit-prompt-container,
