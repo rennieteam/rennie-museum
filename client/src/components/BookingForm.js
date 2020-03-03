@@ -172,7 +172,7 @@ class BookingForm extends Component {
       if(this.state.selectedEvent.numberOfAttendees - this.state.eventCount - this.state.guests.length - 1 > 0){
         let guests = Object.assign([], this.state.guests);
         if(guests.length === bookingConfig.maxGuests){
-          this.setMessage('Please <a href="https://renniemuseum.org/visit-the-rennie-museum/"> contact us </a> directly to arrange a private tour for parties of 8 or more.')
+          this.setMessage('Please <a target="blank" href="https://renniemuseum.org/visit-the-rennie-museum/"> contact us </a> directly to arrange a private tour for parties of 8 or more.')
         } else {
           guests.push({name: '', email: ''});
           this.setState({ guests });
