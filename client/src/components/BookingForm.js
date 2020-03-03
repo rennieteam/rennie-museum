@@ -193,6 +193,7 @@ class BookingForm extends Component {
       guests.splice(index, 1);
       this.setState({ guests });
     };
+    this.setMessage('');
   };
 
   guestCount = () => {
