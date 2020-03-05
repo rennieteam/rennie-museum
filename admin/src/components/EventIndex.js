@@ -10,7 +10,9 @@ class EventIndex extends Component {
       sort: 'asc',
       dateSort: true,
       capSort: false,
-      published: null
+      published: null,
+      highlightedEvents: {},
+      attendeeSearch: ''
     };
   };
 
@@ -24,12 +26,30 @@ class EventIndex extends Component {
     };
   };
 
+  setAttendeeSearch = (attendeeSearch) => {
+    this.setState({ attendeeSearch })
+  };
+
+  clearAttendeeSearch = () => {
+    this.setState({ attendeeSearch: '' });
+  };
+
   sortEvents = (state) => {
     this.setState({ events: state });
   };
 
   sortPublished = (state) => {
     this.setState({ published: state });
+  };
+
+  togglePeek = (id) => {
+    const highlightedEvents = Object.assign({}, this.state.highlightedEvents);
+    if(highlightedEvents[id]){
+      delete highlightedEvents[id];
+    } else {
+      highlightedEvents[id] = true;
+    };
+    this.setState({ highlightedEvents});
   };
 
   render() {
@@ -42,7 +62,7 @@ class EventIndex extends Component {
           return event.published;
         } else {
           return !event.published;
-        };
+        }
       });
     };
     return (
@@ -56,6 +76,8 @@ class EventIndex extends Component {
           calculateCount={this.props.calculateCount}
           sortPublished={this.sortPublished}
           published={this.state.published}
+          setAttendeeSearch={this.setAttendeeSearch}
+          clearAttendeeSearch={this.clearAttendeeSearch}
         />
         {
           events.map((event) => {
@@ -73,25 +95,54 @@ class EventIndex extends Component {
                 return attendee;
               };
             });
-            return(
-              <div className="admin-event" key={event.id}>
-                <p className="event-date"> {formattedDate.format('MMMM Do, YYYY')} </p>
-                <p className="event-time"> {formattedDate.format('h:mm a')} </p>
-                <p className="event-info"> Capacity: {count}/{max} </p>
-                <p className="event-info"> Primary Attendees: {regularAttendees.length} </p>
-                <p className="event-info"> Guests: {count - regularAttendees.length} </p>
-                <p className="event-info"> Primary Overrides: {overrideAttendees.length} </p>
-                <p className="event-info"> Guest Overrides: {ovGuest} </p>
-                <p className="event-info"> Total: {ovGuest + count + overrideAttendees.length} </p>
-                <a className="event-edit" href={`#edit=${event.id}`}> Edit </a>
-                {
-                  count >= max ? <div className="full-label"> Full </div> : '' 
-                }
-                {
-                  <div className={status}> { status } </div>
-                }
-              </div>
-            )
+            if(!this.state.highlightedEvents[event.id]){
+              return(
+                <div className="admin-event" key={event.id}>
+                  <i className="fas fa-eye event-peek-button" onClick={() => this.togglePeek(event.id)}/>
+                  <p className="event-date"> {formattedDate.format('MMMM Do, YYYY')} </p>
+                  <p className="event-time"> {formattedDate.format('h:mm a')} </p>
+                  <p className="event-info"> Capacity: {count}/{max} </p>
+                  <p className="event-info"> Primary Attendees: {regularAttendees.length} </p>
+                  <p className="event-info"> Guests: {count - regularAttendees.length} </p>
+                  <p className="event-info"> Primary Overrides: {overrideAttendees.length} </p>
+                  <p className="event-info"> Guest Overrides: {ovGuest} </p>
+                  <p className="event-info"> Total: {ovGuest + count + overrideAttendees.length} </p>
+                  <a className="event-edit" href={`#edit=${event.id}`}> Edit </a>
+                  {
+                    count >= max ? <div className="full-label"> Full </div> : '' 
+                  }
+                  {
+                    <div className={status}> { status } </div>
+                  }
+                </div>
+              )
+            } else {
+              return(
+                <div className='admin-event peek-event' key={event.id}>
+                  <i className="fas fa-eye-slash close-event-peek" onClick={() => this.togglePeek(event.id)} />
+                  <p > Attendees: </p>
+                  <div className='peek-container'>
+                    {
+                      event.attendees.map((a) => {
+                        let highlight = '';
+                        if(this.state.attendeeSearch.length){
+                          if(a.name.toLowerCase().match(this.state.attendeeSearch) || a.email.toLowerCase().match(this.state.attendeeSearch)){
+                            highlight = 'highlight'
+                          }
+                        }
+                        return (
+                          <div className='peek-row' key={a.id}>
+                            <p className={`peek-main ${highlight}`}> {a.name} - {a.guests.length} Guests </p>
+                            <p className={highlight}> {a.email} </p>
+                          </div>
+                        )
+                      })
+                    }
+                  </div>
+                  <a className="event-edit" href={`#edit=${event.id}`}> Edit </a>
+                </div>
+              )
+            }
           })
         }
       </div>

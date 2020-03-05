@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "email-validator": "^2.0.4",
     "human-date": "^1.4.0",
     "moment-timezone": "^0.5.23",
     "query-string": "^6.2.0",

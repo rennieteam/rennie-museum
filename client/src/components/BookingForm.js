@@ -6,6 +6,8 @@ import config from '../config.js';
 import moment from 'moment-timezone';
 import ToursClosedNotice from './ToursClosedNotice';
 import FormHeader from './FormHeader';
+import ReactHtmlParser from 'react-html-parser';
+import bookingConfig from '../config/booking';
 
 class BookingForm extends Component {
   constructor(props){
@@ -169,8 +171,12 @@ class BookingForm extends Component {
     if(this.state.EventId){
       if(this.state.selectedEvent.numberOfAttendees - this.state.eventCount - this.state.guests.length - 1 > 0){
         let guests = Object.assign([], this.state.guests);
-        guests.push({name: '', email: ''});
-        this.setState({ guests });
+        if(guests.length === bookingConfig.maxGuests){
+          this.setMessage('Please <a target="blank" href="https://renniemuseum.org/visit-the-rennie-museum/"> contact us </a> directly to arrange a private tour for parties of 8 or more.')
+        } else {
+          guests.push({name: '', email: ''});
+          this.setState({ guests });
+        };
       } else {
         this.setMessage('Not enough spots.');
       };
@@ -187,6 +193,7 @@ class BookingForm extends Component {
       guests.splice(index, 1);
       this.setState({ guests });
     };
+    this.setMessage('');
   };
 
   guestCount = () => {
@@ -258,7 +265,9 @@ class BookingForm extends Component {
             this.setMessage('This email has already been registered with this tour.');
           } else if(result.data.publishError){
             this.setMessage('An error has occurred, please refresh and try again.');
-          };
+          } else if(result.data.pastGuestLimit){
+            this.setMessage('Please <a href="https://renniemuseum.org/visit-the-rennie-museum/"> contact us </a> directly to arrange a private tour for parties of 8 or more.');
+          }
         })
         .catch((error) => {
           this.setMessage('Sorry, could not book at this moment.');
@@ -356,7 +365,7 @@ class BookingForm extends Component {
           <label className="terms-label" htmlFor="terms"> I have read the {<a onClick={this.readConditions} target='blank'href='https://rennie-museum.s3.ca-central-1.amazonaws.com/public/Waiver+of+Claims+and+Release+of+Liability.pdf'>terms and conditions</a>}. </label>
         </div>
         {
-          this.state.message ? <div className="message-container"> {this.state.message} </div> : ''
+          this.state.message ? <div className="message-container"> {ReactHtmlParser(this.state.message)} </div> : ''
         }
         <div className="submit-prompt-container">
           {

@@ -46,7 +46,7 @@
   font-size: 24px;
   position: relative;
   z-index: 1000;
-  background: #000000;
+  background: #DA291C;
   border-radius: 0; }
   .booking-form-cta .cta-button-text,
   .cancel-edit-container .cta-button-text {
@@ -705,6 +705,12 @@
       color: #DA291C;
       font-size: 14px;
       margin-bottom: 10px; }
+      .booking-form-cta .booking-form-container .booking-form .form-body .message-container a,
+      .booking-form-cta .cancel-edit-modal .booking-form .form-body .message-container a,
+      .cancel-edit-container .booking-form-container .booking-form .form-body .message-container a,
+      .cancel-edit-container .cancel-edit-modal .booking-form .form-body .message-container a {
+        color: #DA291C;
+        text-decoration: underline; }
     .booking-form-cta .booking-form-container .booking-form .form-body .submit-prompt-container,
     .booking-form-cta .cancel-edit-modal .booking-form .form-body .submit-prompt-container,
     .cancel-edit-container .booking-form-container .booking-form .form-body .submit-prompt-container,

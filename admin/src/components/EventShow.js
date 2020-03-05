@@ -3,6 +3,7 @@ import axios from 'axios';
 import config from './../config';
 import qs from 'query-string';
 import DateTimePicker from 'react-datetime-picker';
+import EditAttendeeModal from './EditAttendeeModal';
 import AddGuestForm from './AddGuestForm';
 import { Ghost } from 'react-kawaii';
 import moment from 'moment-timezone';
@@ -30,7 +31,8 @@ class EventShow extends Component {
       published: null,
       guestsRemoval: {},
       guestsAddition: {},
-      overrideTracker: {}
+      overrideTracker: {},
+      editAttendee: null
     };
   };
 
@@ -226,6 +228,10 @@ class EventShow extends Component {
     this.setState({ guestsAddition, overrideTracker });
   };
 
+  editAttendeePrompt = (attendee) => {
+    this.setState({ editAttendee: attendee });
+  };
+
   renderAttendee = (attendee, index) => {
     let attendeeId = attendee.id;
     let designation = attendee.Designation ? attendee.Designation.name : 'n/a';
@@ -283,6 +289,7 @@ class EventShow extends Component {
           ''
         }
         <span className="add-new-guest" onClick={() => this.addNewGuest(attendee.id, attendee.overrideCount) }> Add Guest </span>
+        <span className="edit-attendee" onClick={ () => this.editAttendeePrompt(attendee) }> Edit Attendee </span>
       </div>
     )
   };
@@ -350,6 +357,7 @@ class EventShow extends Component {
           <p className="event-info remaining-spots"> Remaining Spots: {this.state.event.numberOfAttendees - this.state.eventCount} </p>
           <p className="event-info designations-header"> Designations: </p>
           {this.renderDesignationInfo()}
+          { this.renderEditAttendeeModal() }
           <p className="event-info attendees-header"> Attendees: </p>
           {
             this.state.attendees.map((attendee, index) => {
@@ -507,6 +515,8 @@ class EventShow extends Component {
   };
 
   deleteBooking = () => {
+    let confirm = window.confirm('Are you sure you want to delete this booking?');
+    if(!confirm) return;
     let url;
     if(process.env.REACT_APP_ENV){
       url = config[process.env.REACT_APP_ENV];
@@ -614,6 +624,33 @@ class EventShow extends Component {
       </div>
     )
   };
+
+  cancelEditAttendee = () => {
+    this.setState({ editAttendee: null })
+  };
+
+  refreshUpdatedAttendee = (attendee) => {
+    const { id, name, email } = attendee.data;
+    const attendees = Object.assign([], this.state.attendees);
+    for(let a of attendees){
+      if(a.id !== id) continue;
+      a.name = name;
+      a.email = email;
+    }
+    this.setState({ attendees });
+  }
+
+  renderEditAttendeeModal = () => {
+    if(this.state.editAttendee){
+      return (
+        <EditAttendeeModal
+          attendee={this.state.editAttendee}
+          cancelEditAttendee={this.cancelEditAttendee}
+          refreshUpdatedAttendee={this.refreshUpdatedAttendee}
+        />
+      )
+    }
+  }
 
   renderFound = () => {
     return(
